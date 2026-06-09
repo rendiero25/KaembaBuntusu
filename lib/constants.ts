@@ -12,12 +12,25 @@ export const DURATION = {
   xslow: 1.4,
 } as const;
 
+export const Z_INDEX = {
+  base: 0,
+  nav: 40,
+  menu: 50,
+  floatingWa: 45,
+  preloader: 100,
+} as const;
+
 export const WA_NUMBER =
   process.env.NEXT_PUBLIC_WA_NUMBER ?? "6282292250444";
+
+export const WA_DISPLAY = "+62 822 9225 0444";
 
 export const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
   "Hello, I'm interested in your products.",
 )}`;
+
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kaembaexport.com";
 
 export const NAV_LINKS = [
   { label: "Products", href: "#products" },

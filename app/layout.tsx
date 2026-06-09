@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const clashDisplay = localFont({
   src: [
     {
-      path: "../public/fonts/SpaceGrotesk-SemiBold.woff2",
+      path: "../public/fonts/ClashDisplay-Bold.woff2",
       weight: "700",
       style: "normal",
     },
@@ -60,10 +61,41 @@ const dmMono = localFont({
   display: "swap",
 });
 
+const siteTitle =
+  "CV. Kaemba Buntusu Indonesia — Agricultural Commodity Exporter";
+const siteDescription =
+  "Premium agricultural commodity exports from South Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper. Fully licensed, export-grade, direct sourcing.";
+
 export const metadata: Metadata = {
-  title: "CV. Kaemba Buntusu Indonesia — Agricultural Commodity Exporter",
-  description:
-    "Premium agricultural commodity exports from South Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper.",
+  metadataBase: new URL(SITE_URL),
+  title: siteTitle,
+  description: siteDescription,
+  keywords: [
+    "indonesian commodity exporter",
+    "copra exporter",
+    "cloves exporter",
+    "coconut exporter",
+    "pepper exporter",
+    "makassar export",
+    "south sulawesi agriculture",
+  ],
+  openGraph: {
+    title: "CV. Kaemba Buntusu Indonesia",
+    description:
+      "Agricultural commodity exports from South Sulawesi. Direct sourcing, export-grade quality.",
+    url: SITE_URL,
+    siteName: "CV. Kaemba Buntusu Indonesia",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CV. Kaemba Buntusu Indonesia",
+    description:
+      "Agricultural commodity exports from South Sulawesi. Direct sourcing, export-grade quality.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
@@ -76,7 +108,7 @@ export default function RootLayout({
       lang="en"
       className={`${clashDisplay.variable} ${spaceGrotesk.variable} ${plusJakartaSans.variable} ${dmMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg text-ivory font-body">
+      <body className="flex min-h-dvh flex-col bg-bg text-ivory font-body">
         {children}
       </body>
     </html>

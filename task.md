@@ -22,30 +22,30 @@
 
 ## Phase 01 — Project Setup
 
-- [ ] Init Next.js 15 project: `pnpm create next-app@latest kaemba-web --typescript --tailwind --app --src-dir no`
-- [ ] Configure TypeScript strict mode in `tsconfig.json`
-- [ ] Install core dependencies:
+- [x] Init Next.js 15 project: `pnpm create next-app@latest kaemba-web --typescript --tailwind --app --src-dir no`
+- [x] Configure TypeScript strict mode in `tsconfig.json`
+- [x] Install core dependencies:
   ```bash
   pnpm add gsap @studio-freight/lenis three @types/three
   pnpm add resend zod react-hook-form @hookform/resolvers
   pnpm add -D @types/node
   ```
-- [ ] Configure Tailwind CSS v4 (`@import "tailwindcss"` in globals.css)
-- [ ] Add CSS custom properties (color tokens) to `globals.css`
-- [ ] Self-host fonts via `next/font/local` in `app/layout.tsx`:
+- [x] Configure Tailwind CSS v4 (`@import "tailwindcss"` in globals.css)
+- [x] Add CSS custom properties (color tokens) to `globals.css`
+- [x] Self-host fonts via `next/font/local` in `app/layout.tsx`:
   - Clash Display (700)
   - Space Grotesk (400, 600)
   - Plus Jakarta Sans (400, 500)
   - DM Mono (400)
-- [ ] Set up font CSS variables: `--font-display`, `--font-heading`, `--font-body`, `--font-mono`
-- [ ] Create `.env.local` from `.env.example`
-- [ ] Create `lib/gsap.ts` (plugin registration barrel)
-- [ ] Create `lib/lenis.ts` (Lenis init + ScrollTrigger bridge)
-- [ ] Create `lib/constants.ts` (EASE, DURATION, product data, nav links, WA link)
-- [ ] Create `lib/actions.ts` (Server Action placeholder)
-- [ ] Init shadcn/ui: `pnpm dlx shadcn@latest init` (minimal, forms only)
-- [ ] Add shadcn components: `form`, `input`, `textarea`, `select`, `button`
-- [ ] Set up Git repo: `main` (prod) + `dev` (preview) branches
+- [x] Set up font CSS variables: `--font-display`, `--font-heading`, `--font-body`, `--font-mono`
+- [x] Create `.env.local` from `.env.example`
+- [x] Create `lib/gsap.ts` (plugin registration barrel)
+- [x] Create `lib/lenis.ts` (Lenis init + ScrollTrigger bridge)
+- [x] Create `lib/constants.ts` (EASE, DURATION, product data, nav links, WA link)
+- [x] Create `lib/actions.ts` (Server Action placeholder)
+- [x] Init shadcn/ui: `pnpm dlx shadcn@latest init` (minimal, forms only)
+- [x] Add shadcn components: `form`, `input`, `textarea`, `select`, `button`
+- [x] Set up Git repo: `main` (prod) + `dev` (preview) branches
 - [ ] Connect Vercel project: `main` → production, `dev` → preview URL
 - [ ] Verify first deploy (empty page) works on Vercel
 
@@ -53,37 +53,37 @@
 
 ## Phase 02 — Global Layout & Navigation
 
-- [ ] `app/layout.tsx`: font variables, metadata (title, description, OG), body class
-- [ ] `app/globals.css`: Tailwind import, CSS custom properties, base resets
-- [ ] Create `components/ui/NavBar.tsx`:
+- [x] `app/layout.tsx`: font variables, metadata (title, description, OG), body class
+- [x] `app/globals.css`: Tailwind import, CSS custom properties, base resets
+- [x] Create `components/ui/NavBar.tsx`:
   - Logo left, nav links center/right
   - Transparent over hero, solid bg on scroll (ScrollTrigger)
   - Mobile: hamburger → fullscreen menu
   - Links: Products, About, Process, Legality, Contact
-- [ ] Create `components/ui/Footer.tsx`:
+- [x] Create `components/ui/Footer.tsx`:
   - Company name + tagline
   - Nav links
   - Contact info (WA number)
   - Copyright bar
-- [ ] Create `components/ui/FloatingWA.tsx`:
+- [x] Create `components/ui/FloatingWA.tsx`:
   - Fixed bottom-right
   - WA icon + "Chat with us" label
   - GSAP pulse animation (infinite, 2s)
   - Opens `https://wa.me/{NEXT_PUBLIC_WA_NUMBER}` in new tab
-- [ ] Apply layout to `app/page.tsx` (all sections imported, Preloader wrapped)
+- [x] Apply layout to `app/page.tsx` (all sections imported, Preloader wrapped)
 
 ---
 
 ## Phase 03 — Preloader
 
-- [ ] Create `components/gsap/Preloader.tsx`
-- [ ] Counter animation: `000` → `100` (DM Mono, gold, centered)
-- [ ] Brand name reveal: `K · A · E · M · B · A` (SplitText char stagger, y: 100→0)
-- [ ] Curtain exit animation: full-screen div wipes off top, `expo.inOut`
-- [ ] Gate with `useState` — hide all page content until preloader exits
-- [ ] Reduced motion: skip animation, show content immediately
-- [ ] Fire `onComplete` callback to trigger hero animation start
-- [ ] Test: preloader shows on every hard refresh, not on client nav
+- [x] Create `components/gsap/Preloader.tsx`
+- [x] Counter animation: `000` → `100` (DM Mono, gold, centered)
+- [x] Brand name reveal: `K · A · E · M · B · A` (SplitText char stagger, y: 100→0)
+- [x] Curtain exit animation: full-screen div wipes off top, `expo.inOut`
+- [x] Gate with `useState` — hide all page content until preloader exits
+- [x] Reduced motion: skip animation, show content immediately
+- [x] Fire `onComplete` callback to trigger hero animation start
+- [x] Test: preloader shows on every hard refresh, not on client nav
 
 ---
 
