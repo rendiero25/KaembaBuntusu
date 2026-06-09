@@ -1,22 +1,38 @@
 "use server";
 
-import { z } from "zod";
+import { Resend } from "resend";
+import { INQUIRY_PRODUCT_OPTIONS } from "@/lib/constants";
+import {
+  inquirySchema,
+  type InquiryFormData,
+} from "@/lib/inquirySchema";
 
-export const inquirySchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  company: z.string().optional(),
-  country: z.string().min(1, "Country is required"),
-  products: z
-    .array(z.enum(["coconut", "copra", "cloves", "pepper"]))
-    .min(1, "Select at least one product"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-export type InquiryFormData = z.infer<typeof inquirySchema>;
+export type { InquiryFormData } from "@/lib/inquirySchema";
 
 export type InquiryActionResult =
   | { success: true }
   | { success: false; error: string };
+
+function formatProducts(products: InquiryFormData["products"]): string {
+  const labels = new Map(
+    INQUIRY_PRODUCT_OPTIONS.map((option) => [option.value, option.label]),
+  );
+
+  return products.map((slug) => labels.get(slug) ?? slug).join(", ");
+}
+
+function buildInquiryEmailHtml(data: InquiryFormData): string {
+  const company = data.company?.trim() ? data.company : "Not provided";
+
+  return `
+    <h2>New inquiry from ${data.name}</h2>
+    <p><strong>Company:</strong> ${company}</p>
+    <p><strong>Country:</strong> ${data.country}</p>
+    <p><strong>Products:</strong> ${formatProducts(data.products)}</p>
+    <p><strong>Message:</strong></p>
+    <p>${data.message.replace(/\n/g, "<br />")}</p>
+  `;
+}
 
 export async function sendInquiryAction(
   data: InquiryFormData,
@@ -44,8 +60,36 @@ export async function sendInquiryAction(
     };
   }
 
-  // Resend integration will be wired in Phase 12.
-  void parsed.data;
+  const from =
+    process.env.CONTACT_EMAIL_FROM ??
+    "CV. Kaemba Buntusu Indonesia <onboarding@resend.dev>";
 
-  return { success: true };
+  try {
+    const resend = new Resend(apiKey);
+
+    const { error } = await resend.emails.send({
+      from,
+      to: [to],
+      subject: `Inquiry from ${parsed.data.name} (${parsed.data.country})`,
+      html: buildInquiryEmailHtml(parsed.data),
+    });
+
+    if (error) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("Resend error:", error.message);
+      }
+
+      return {
+        success: false,
+        error: "Unable to send your inquiry. Please try WhatsApp instead.",
+      };
+    }
+
+    return { success: true };
+  } catch {
+    return {
+      success: false,
+      error: "Unable to send your inquiry. Please try WhatsApp instead.",
+    };
+  }
 }

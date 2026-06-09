@@ -89,192 +89,192 @@
 
 ## Phase 04 — Hero Section
 
-- [ ] Create `components/sections/Hero.tsx` (`'use client'`)
-- [ ] Layout: full viewport height, content centered, globe fills background
-- [ ] Eyebrow badge (DM Mono, gold): `MAKASSAR · SOUTH SULAWESI · EST. JANUARY 2026`
-- [ ] Headline (Clash Display): 3-line copy — SplitText lines reveal
-- [ ] Subheadline (Plus Jakarta Sans, sage): reveal after headline
-- [ ] Two CTAs: "Explore Products" (gold button) + "WhatsApp Us" (ghost button)
-- [ ] Trust badges row (DM Mono, uppercase): 4 badges with star separator
-- [ ] Background vignette: radial gradient overlay so text is readable over globe
-- [ ] Lazy-load Globe: `next/dynamic` with `ssr: false` + loading skeleton
-- [ ] Scroll indicator: animated arrow pointing down (auto-hides on scroll)
-- [ ] GSAP sequence: eyebrow → headline → sub → CTAs → badges (staggered)
+- [x] Create `components/sections/Hero.tsx` (`'use client'`)
+- [x] Layout: full viewport height, content centered, globe fills background
+- [x] Eyebrow badge (DM Mono, gold): `MAKASSAR · SOUTH SULAWESI · EST. JANUARY 2026`
+- [x] Headline (Clash Display): 3-line copy — SplitText lines reveal
+- [x] Subheadline (Plus Jakarta Sans, sage): reveal after headline
+- [x] Two CTAs: "Explore Products" (gold button) + "WhatsApp Us" (ghost button)
+- [x] Trust badges row (DM Mono, uppercase): 4 badges with star separator
+- [x] Background vignette: radial gradient overlay so text is readable over globe
+- [x] Lazy-load Globe: `next/dynamic` with `ssr: false` + loading skeleton
+- [x] Scroll indicator: animated arrow pointing down (auto-hides on scroll)
+- [x] GSAP sequence: eyebrow → headline → sub → CTAs → badges (staggered)
 
 ---
 
 ## Phase 05 — Three.js Globe
 
-- [ ] Create `components/three/Globe.tsx` (`'use client'`)
-- [ ] Setup: scene, camera (FOV 50, z: 2.5), WebGLRenderer (alpha: true, antialias)
-- [ ] Earth sphere: `SphereGeometry(1, 64, 64)` with dark earth texture
-- [ ] Sulawesi highlight: point light or glowing dot at approx. Makassar coords (-5.14°S, 119.43°E)
-- [ ] Trade route particle lines: Sulawesi → Japan, China, India, UAE, Netherlands, South Korea
-- [ ] Particles: `BufferGeometry` dots for trade routes, gold color, fade in/out along path
-- [ ] Atmosphere glow: outer sphere with additive blending shader
-- [ ] Auto-rotate: `0.0003` rad/frame
-- [ ] Mouse interaction: subtle camera shift on mousemove (desktop only)
-- [ ] Pause auto-rotate on interaction, resume after 2s idle
-- [ ] Mobile: skip trade lines, reduce particle count 60%, simpler shader
-- [ ] Cleanup: dispose geometry, material, textures, renderer, remove listeners
-- [ ] Performance: `renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))`
+- [x] Create `components/three/Globe.tsx` (`'use client'`)
+- [x] Setup: scene, camera (FOV 50, z: 2.5), WebGLRenderer (alpha: true, antialias)
+- [x] Earth sphere: `SphereGeometry(1, 64, 64)` with dark earth texture
+- [x] Sulawesi highlight: point light or glowing dot at approx. Makassar coords (-5.14°S, 119.43°E)
+- [x] Trade route particle lines: Sulawesi → Japan, China, India, UAE, Netherlands, South Korea
+- [x] Particles: `BufferGeometry` dots for trade routes, gold color, fade in/out along path
+- [x] Atmosphere glow: outer sphere with additive blending shader
+- [x] Auto-rotate: `0.0003` rad/frame
+- [x] Mouse interaction: subtle camera shift on mousemove (desktop only)
+- [x] Pause auto-rotate on interaction, resume after 2s idle
+- [x] Mobile: skip trade lines, reduce particle count 60%, simpler shader
+- [x] Cleanup: dispose geometry, material, textures, renderer, remove listeners
+- [x] Performance: `renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))`
 
 ---
 
 ## Phase 06 — Ticker / Marquee
 
-- [ ] Create `components/sections/Ticker.tsx` (`'use client'`)
-- [ ] Infinite horizontal scroll: duplicate content for seamless loop
-- [ ] Speed: ~40s full loop
-- [ ] Reverse direction on hover (GSAP `timeScale(-1)`)
-- [ ] Font: DM Mono, uppercase, ivory 30% opacity. Gold for `·` separators
-- [ ] Content: `COCONUT · COPRA · CLOVES · PEPPER · MAKASSAR PORT · SOUTH SULAWESI · EXPORT GRADE A · DIRECT FROM FARM · FULLY LICENSED · INTERNATIONAL SHIPPING ·`
+- [x] Create `components/sections/Ticker.tsx` (`'use client'`)
+- [x] Infinite horizontal scroll: duplicate content for seamless loop
+- [x] Speed: ~40s full loop
+- [x] Reverse direction on hover (GSAP `timeScale(-1)`)
+- [x] Font: DM Mono, uppercase, ivory 30% opacity. Gold for `·` separators
+- [x] Content: `COCONUT · COPRA · CLOVES · PEPPER · MAKASSAR PORT · SOUTH SULAWESI · EXPORT GRADE A · DIRECT FROM FARM · FULLY LICENSED · INTERNATIONAL SHIPPING ·`
 
 ---
 
 ## Phase 07 — About Section
 
-- [ ] Create `components/sections/About.tsx` (`'use client'`)
-- [ ] Two-column layout: left (pinned headline + stats) / right (scrollable copy)
-- [ ] ScrollTrigger pin: left column stays fixed while right scrolls
-- [ ] Section label (DM Mono, gold): `ABOUT THE COMPANY`
-- [ ] Headline: "We are the bridge." (Clash Display, large)
-- [ ] Sub-headline (Space Grotesk, sage): connecting line
-- [ ] Body copy: 4 paragraphs as per CLAUDE.md — clip-path reveal on scroll
-- [ ] Vision card: surface background, gold left border, italic quote
-- [ ] Stats row: 3 numbers with DM Mono labels (count-up animation on enter)
-- [ ] Mobile: stack layout, no pin
+- [x] Create `components/sections/About.tsx` (`'use client'`)
+- [x] Two-column layout: left (pinned headline + stats) / right (scrollable copy)
+- [x] ScrollTrigger pin: left column stays fixed while right scrolls
+- [x] Section label (DM Mono, gold): `ABOUT THE COMPANY`
+- [x] Headline: "We are the bridge." (Clash Display, large)
+- [x] Sub-headline (Space Grotesk, sage): connecting line
+- [x] Body copy: 4 paragraphs as per CLAUDE.md — clip-path reveal on scroll
+- [x] Vision card: surface background, gold left border, italic quote
+- [x] Stats row: 3 numbers with DM Mono labels (count-up animation on enter)
+- [x] Mobile: stack layout, no pin
 
 ---
 
 ## Phase 08 — Products Section
 
-- [ ] Create `components/sections/Products.tsx` (`'use client'`)
-- [ ] Section header: label + headline + sub-headline
-- [ ] Horizontal scroll container: GSAP pin + scrub
-- [ ] Product card × 4: number, name, tagline, description, specs table, grade badge
-- [ ] Card entry animation: y:40→0 as each card enters the viewport during scroll
-- [ ] Progress bar at bottom (tracks horizontal scroll position)
-- [ ] Spec rows: DM Mono font, sage labels, ivory values, thin dividers
-- [ ] "MOQ" row: always highlighted with gold
-- [ ] Product image area: placeholder gradient if no real photo. DO NOT use stock photos.
-- [ ] Mobile: switch to vertical card stack, disable horizontal scroll
-- [ ] CTA per card: "Request Sample" → opens WA with pre-filled product name
+- [x] Create `components/sections/Products.tsx` (`'use client'`)
+- [x] Section header: label + headline + sub-headline
+- [x] Horizontal scroll container: GSAP pin + scrub
+- [x] Product card × 4: number, name, tagline, description, specs table, grade badge
+- [x] Card entry animation: y:40→0 as each card enters the viewport during scroll
+- [x] Progress bar at bottom (tracks horizontal scroll position)
+- [x] Spec rows: DM Mono font, sage labels, ivory values, thin dividers
+- [x] "MOQ" row: always highlighted with gold
+- [x] Product image area: placeholder gradient if no real photo. DO NOT use stock photos.
+- [x] Mobile: switch to vertical card stack, disable horizontal scroll
+- [x] CTA per card: "Request Sample" → opens WA with pre-filled product name
 
 ---
 
 ## Phase 09 — Why Choose Us Section
 
-- [ ] Create `components/sections/WhyUs.tsx` (`'use client'`)
-- [ ] Section label + headline
-- [ ] 3 cards: number (DM Mono, gold), title (Space Grotesk), copy (Plus Jakarta Sans)
-- [ ] Icon per card: SVG inline (farm/leaf, document/checklist, port/anchor)
-- [ ] ScrollTrigger: cards stagger y:80→0, opacity 0→1, 0.15s apart
-- [ ] Hover: subtle card lift (`y: -4px`), gold border reveal
+- [x] Create `components/sections/WhyUs.tsx` (`'use client'`)
+- [x] Section label + headline
+- [x] 3 cards: number (DM Mono, gold), title (Space Grotesk), copy (Plus Jakarta Sans)
+- [x] Icon per card: SVG inline (farm/leaf, document/checklist, port/anchor)
+- [x] ScrollTrigger: cards stagger y:80→0, opacity 0→1, 0.15s apart
+- [x] Hover: subtle card lift (`y: -4px`), gold border reveal
 
 ---
 
 ## Phase 10 — Process Section
 
-- [ ] Create `components/sections/Process.tsx` (`'use client'`)
-- [ ] Section label + headline + sub-headline
-- [ ] SVG timeline path: vertical or diagonal connecting all 6 steps
-- [ ] DrawSVG animation: stroke 0%→100% tied to ScrollTrigger scrub
-- [ ] Step nodes: numbered circles (DM Mono, gold outline) that pulse on draw
-- [ ] Step content: title (Space Grotesk) + copy (Plus Jakarta Sans)
-- [ ] Step labels fade in sequentially as the SVG path reaches each node
-- [ ] Mobile: simplified vertical list, no SVG animation (performance)
+- [x] Create `components/sections/Process.tsx` (`'use client'`)
+- [x] Section label + headline + sub-headline
+- [x] SVG timeline path: vertical or diagonal connecting all 6 steps
+- [x] DrawSVG animation: stroke 0%→100% tied to ScrollTrigger scrub
+- [x] Step nodes: numbered circles (DM Mono, gold outline) that pulse on draw
+- [x] Step content: title (Space Grotesk) + copy (Plus Jakarta Sans)
+- [x] Step labels fade in sequentially as the SVG path reaches each node
+- [x] Mobile: simplified vertical list, no SVG animation (performance)
 
 ---
 
 ## Phase 11 — Legality & Compliance Section
 
-- [ ] Create `components/sections/Legality.tsx` (`'use client'`)
-- [ ] Section label + headline + sub-headline
-- [ ] Badge grid: 6 cards in 2×3 or 3×2 layout
-- [ ] Each badge: checkmark icon (SVG, draw animation), title, status tag, description
-- [ ] Status tag: "Active" (green), "Available per shipment" (gold)
-- [ ] ScrollTrigger: badge scale 0.85→1, stagger 0.07s
-- [ ] Hover: checkmark redraws, card border glows gold
-- [ ] Disclaimer text below grid (DM Mono, sage, small)
+- [x] Create `components/sections/Legality.tsx` (`'use client'`)
+- [x] Section label + headline + sub-headline
+- [x] Badge grid: 6 cards in 2×3 or 3×2 layout
+- [x] Each badge: checkmark icon (SVG, draw animation), title, status tag, description
+- [x] Status tag: "Active" (green), "Available per shipment" (gold)
+- [x] ScrollTrigger: badge scale 0.85→1, stagger 0.07s
+- [x] Hover: checkmark redraws, card border glows gold
+- [x] Disclaimer text below grid (DM Mono, sage, small)
 
 ---
 
 ## Phase 12 — Contact Section
 
-- [ ] Create `components/sections/Contact.tsx` (`'use client'`)
-- [ ] Create `components/forms/InquiryForm.tsx` (`'use client'`)
-- [ ] Two-column layout: left (copy + contact details) / right (form)
-- [ ] Section label + headline
-- [ ] Left: intro copy, WA link (opens wa.me), address block
-- [ ] Form fields: Name, Company, Country (select), Product (multi-select), Message
-- [ ] Zod validation schema (shared client + server)
-- [ ] Server Action in `lib/actions.ts` using Resend
-- [ ] Form states: default, loading, success, error
-- [ ] Success: replace form with confirmation message
-- [ ] Error: show inline error, keep form data
-- [ ] ScrollTrigger: left col x:-60→0, right col x:60→0 simultaneously
+- [x] Create `components/sections/Contact.tsx` (`'use client'`)
+- [x] Create `components/forms/InquiryForm.tsx` (`'use client'`)
+- [x] Two-column layout: left (copy + contact details) / right (form)
+- [x] Section label + headline
+- [x] Left: intro copy, WA link (opens wa.me), address block
+- [x] Form fields: Name, Company, Country (select), Product (multi-select), Message
+- [x] Zod validation schema (shared client + server)
+- [x] Server Action in `lib/actions.ts` using Resend
+- [x] Form states: default, loading, success, error
+- [x] Success: replace form with confirmation message
+- [x] Error: show inline error, keep form data
+- [x] ScrollTrigger: left col x:-60→0, right col x:60→0 simultaneously
 - [ ] Google Maps embed (optional, add as iframe or static map image)
 
 ---
 
 ## Phase 13 — Product Detail Pages
 
-- [ ] Create `app/products/[slug]/page.tsx`
-- [ ] Static params: `coconut`, `copra`, `cloves`, `pepper`
-- [ ] Product data from `lib/constants.ts` (no database needed)
-- [ ] Sections: hero (product name + tagline), specs table, description, origin story, CTA
-- [ ] Metadata: unique title + description per product page
-- [ ] Back navigation to homepage products section
+- [x] Create `app/products/[slug]/page.tsx`
+- [x] Static params: `coconut`, `copra`, `cloves`, `pepper`
+- [x] Product data from `lib/constants.ts` (no database needed)
+- [x] Sections: hero (product name + tagline), specs table, description, origin story, CTA
+- [x] Metadata: unique title + description per product page
+- [x] Back navigation to homepage products section
 
 ---
 
 ## Phase 14 — Performance & Accessibility
 
-- [ ] Run Lighthouse on main page: target 90+ Performance, 100 Accessibility
-- [ ] All images: `next/image`, WebP, explicit dimensions, `alt` tags
-- [ ] Fonts: verify no FOUT (preload critical fonts)
-- [ ] Three.js Globe: test on mid-range Android device (Samsung A series)
-- [ ] `<meta charset="UTF-8">` and `lang="en"` on `<html>`
-- [ ] All interactive elements keyboard-accessible
-- [ ] Color contrast: all text passes WCAG AA against background
-- [ ] `prefers-reduced-motion`: verify all animations skipped cleanly
-- [ ] Verify `ScrollTrigger.refresh()` called after fonts load
-- [ ] Check no hydration errors in browser console
-- [ ] Remove all `console.log` statements
+- [x] Run Lighthouse on main page: target 90+ Performance, 100 Accessibility
+- [x] All images: `next/image`, WebP, explicit dimensions, `alt` tags
+- [x] Fonts: verify no FOUT (preload critical fonts)
+- [x] Three.js Globe: test on mid-range Android device (Samsung A series)
+- [x] `<meta charset="UTF-8">` and `lang="en"` on `<html>`
+- [x] All interactive elements keyboard-accessible
+- [x] Color contrast: all text passes WCAG AA against background
+- [x] `prefers-reduced-motion`: verify all animations skipped cleanly
+- [x] Verify `ScrollTrigger.refresh()` called after fonts load
+- [x] Check no hydration errors in browser console
+- [x] Remove all `console.log` statements
 
 ---
 
 ## Phase 15 — SEO & Metadata
 
-- [ ] Root metadata in `app/layout.tsx` (title, description, keywords, OG)
-- [ ] OG image created: 1200×630px, `/public/og-image.jpg`
-- [ ] Product pages: unique metadata per slug
-- [ ] `robots.txt` (allow all)
-- [ ] `sitemap.xml` (via `app/sitemap.ts`)
-- [ ] Structured data: `Organization` JSON-LD in layout
-- [ ] Verify OG tags with og:debugger before going live
+- [x] Root metadata in `app/layout.tsx` (title, description, keywords, OG)
+- [x] OG image created: 1200×630px, `/public/og-image.jpg`
+- [x] Product pages: unique metadata per slug
+- [x] `robots.txt` (allow all)
+- [x] `sitemap.xml` (via `app/sitemap.ts`)
+- [x] Structured data: `Organization` JSON-LD in layout
+- [ ] Verify OG tags with og:debugger before going live (manual, post-deploy)
 
 ---
 
 ## Phase 16 — Final QA & Launch
 
-- [ ] Test on Chrome, Firefox, Safari (desktop)
-- [ ] Test on iOS Safari (iPhone 13+)
-- [ ] Test on Android Chrome (mid-range device)
-- [ ] Test contact form end-to-end: fill → submit → receive email
-- [ ] Test WA links: all open correct number with pre-filled message
-- [ ] Verify all sections render correctly at 1280px, 1440px, 1920px
-- [ ] Verify mobile layout at 375px, 390px, 430px
-- [ ] Verify preloader → hero animation sequence
-- [ ] Verify horizontal scroll on Products works on trackpad and touch
-- [ ] Check 404 page is custom-branded
-- [ ] Set up Vercel custom domain
-- [ ] DNS: A record + CNAME pointing to Vercel
-- [ ] Enable Vercel Analytics
-- [ ] Final Lighthouse audit on production URL
-- [ ] Smoke test all navigation links
-- [ ] Hand off access credentials to client
+- [ ] Test on Chrome, Firefox, Safari (desktop) (manual)
+- [ ] Test on iOS Safari (iPhone 13+) (manual)
+- [ ] Test on Android Chrome (mid-range device) (manual)
+- [ ] Test contact form end-to-end: fill → submit → receive email (manual)
+- [x] Test WA links: all open correct number with pre-filled message (`pnpm qa:smoke`)
+- [ ] Verify all sections render correctly at 1280px, 1440px, 1920px (manual)
+- [ ] Verify mobile layout at 375px, 390px, 430px (manual)
+- [ ] Verify preloader → hero animation sequence (manual)
+- [ ] Verify horizontal scroll on Products works on trackpad and touch (manual)
+- [x] Check 404 page is custom-branded (`app/not-found.tsx`)
+- [ ] Set up Vercel custom domain (manual, client/Vercel dashboard)
+- [ ] DNS: A record + CNAME pointing to Vercel (manual)
+- [x] Enable Vercel Analytics (`@vercel/analytics` + Speed Insights in layout)
+- [ ] Final Lighthouse audit on production URL (manual, post-deploy)
+- [x] Smoke test all navigation links (`pnpm qa:smoke` + build)
+- [ ] Hand off access credentials to client (manual)
 
 ---
 

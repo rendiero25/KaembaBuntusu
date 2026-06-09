@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
+import {
+  getOrganizationJsonLd,
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_TITLE,
+} from "@/lib/seo";
 import "./globals.css";
 
 const clashDisplay = localFont({
@@ -13,6 +24,7 @@ const clashDisplay = localFont({
   ],
   variable: "--font-display-fallback",
   display: "swap",
+  preload: true,
 });
 
 const spaceGrotesk = localFont({
@@ -61,40 +73,44 @@ const dmMono = localFont({
   display: "swap",
 });
 
-const siteTitle =
-  "CV. Kaemba Buntusu Indonesia — Agricultural Commodity Exporter";
-const siteDescription =
-  "Premium agricultural commodity exports from South Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper. Fully licensed, export-grade, direct sourcing.";
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: siteTitle,
-  description: siteDescription,
-  keywords: [
-    "indonesian commodity exporter",
-    "copra exporter",
-    "cloves exporter",
-    "coconut exporter",
-    "pepper exporter",
-    "makassar export",
-    "south sulawesi agriculture",
-  ],
+  title: {
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
+  applicationName: SITE_NAME,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
-    title: "CV. Kaemba Buntusu Indonesia",
+    title: SITE_NAME,
     description:
       "Agricultural commodity exports from South Sulawesi. Direct sourcing, export-grade quality.",
     url: SITE_URL,
-    siteName: "CV. Kaemba Buntusu Indonesia",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    siteName: SITE_NAME,
+    images: [OG_IMAGE],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CV. Kaemba Buntusu Indonesia",
+    title: SITE_NAME,
     description:
       "Agricultural commodity exports from South Sulawesi. Direct sourcing, export-grade quality.",
-    images: ["/og-image.jpg"],
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -108,8 +124,19 @@ export default function RootLayout({
       lang="en"
       className={`${clashDisplay.variable} ${spaceGrotesk.variable} ${plusJakartaSans.variable} ${dmMono.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          rel="preload"
+          href="/textures/earth-dark.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+      </head>
       <body className="flex min-h-dvh flex-col bg-bg text-ivory font-body">
+        <JsonLd data={getOrganizationJsonLd()} />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

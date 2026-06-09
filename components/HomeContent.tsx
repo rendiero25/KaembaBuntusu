@@ -10,6 +10,7 @@ import { Process } from "@/components/sections/Process";
 import { Products } from "@/components/sections/Products";
 import { Ticker } from "@/components/sections/Ticker";
 import { WhyUs } from "@/components/sections/WhyUs";
+import { GsapInit } from "@/components/providers/GsapInit";
 import { FloatingWA } from "@/components/ui/FloatingWA";
 import { Footer } from "@/components/ui/Footer";
 import { NavBar } from "@/components/ui/NavBar";
@@ -22,6 +23,7 @@ export function HomeContent() {
 
   return (
     <Preloader onComplete={handlePreloaderComplete}>
+      <GsapInit />
       <a
         href="#hero"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-sm focus:border focus:border-gold focus:bg-surface focus:px-4 focus:py-2 focus:text-ivory"
