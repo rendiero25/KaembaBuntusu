@@ -1,0 +1,195 @@
+# .cursorrules — CV. Kaemba Buntusu Indonesia
+
+## Project Context
+
+You are working on a company profile website for CV. Kaemba Buntusu Indonesia — an agricultural commodity exporter based in Makassar, South Sulawesi. The site targets international buyers (B2B) and must convey trust, product quality, and export compliance.
+
+Stack: Next.js 15 (App Router), TypeScript 5 strict, Tailwind CSS v4, GSAP 3 + ScrollTrigger/SplitText/DrawSVG, Three.js r160, Lenis 1.x, Resend, Vercel.
+
+Read CLAUDE.md for full context before making architectural or design decisions.
+
+---
+
+## Code Conventions
+
+### TypeScript
+- Always use strict TypeScript. No `any`, no `@ts-ignore` without a comment explaining why.
+- Export types/interfaces from the file that defines them. No centralized `types.ts` dump.
+- Prefer `type` over `interface` for object shapes. Use `interface` only when extending or declaration merging is needed.
+- All Server Actions must be typed end-to-end with Zod validation.
+
+### React / Next.js
+- Default to Server Components. Add `'use client'` only when the component needs browser APIs, event listeners, or GSAP/Three.js.
+- Every Client Component that uses GSAP must have a cleanup function in `useEffect` return: `return () => { ctx.revert() }`.
+- Never put `gsap.registerPlugin()` inside a component. It belongs in `lib/gsap.ts`, called once.
+- Use `next/dynamic` with `ssr: false` for Three.js Globe and any component that touches `window` at module level.
+- Use `next/image` for all product images. Always provide `width`, `height`, `alt`, and `priority` on above-the-fold images.
+- Data fetching: Server Components fetch directly, no SWR or React Query unless real-time data is needed.
+
+### File Naming
+- Components: PascalCase (`HeroSection.tsx`)
+- Utilities: camelCase (`formatProductSlug.ts`)
+- Server actions: camelCase, suffix with `Action` (`sendInquiryAction.ts`)
+- All files under `components/sections/` correspond 1:1 to a homepage section
+
+### Styling
+- Tailwind utility classes first. CSS custom properties (`var(--color-gold)`) for brand tokens.
+- No inline styles except for GSAP-controlled values.
+- Don't mix Tailwind with arbitrary CSS for the same property on the same element.
+- Section padding convention: `py-24 md:py-32 lg:py-40`
+- Max content width: `max-w-7xl mx-auto px-6 md:px-12`
+
+---
+
+## Design Rules
+
+### Colors — use CSS variables, never hardcode hex in components
+```
+--color-bg:       #050D07   Background
+--color-surface:  #0D1B0F   Cards, elevated surfaces
+--color-gold:     #C8973E   Primary accent, CTAs
+--color-ivory:    #EDE8DF   Primary text, headlines
+--color-red:      #D4542E   Secondary accent only
+--color-sage:     #607662   Secondary text, metadata
+```
+
+### Typography
+```
+Display:   Clash Display, 700 — hero headlines, section main titles
+Heading:   Space Grotesk, 600 — card titles, sub-section headings
+Body:      Plus Jakarta Sans, 400/500 — all paragraph text
+Mono:      DM Mono, 400 — specs, labels, badges, numbers
+```
+
+### Visual Rules
+- No border-radius above 4px (rounded-sm). Zero pill-shaped buttons.
+- Borders use `var(--color-border)` — `rgba(237, 232, 223, 0.08)`. Never solid white/black borders.
+- Box shadows: use sparingly, prefer `0 0 0 1px var(--color-border)` over drop shadows.
+- Gold is used at most once per viewport. It's a highlight, not a background.
+- No gradients except on the Three.js globe and the hero vignette overlay.
+
+---
+
+## Animation Rules (GSAP)
+
+### Always
+- Import from `@/lib/gsap` (the registered plugin barrel), never directly from `gsap`.
+- Use `gsap.context()` scoped to the component ref. Revert in `useEffect` cleanup.
+- Every ScrollTrigger animation needs a `start` and `end`, and explicit `scrub` or `toggleActions`.
+- Wrap all GSAP animation init in a reduced-motion check:
+  ```ts
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (!prefersReduced) { /* animate */ }
+  ```
+
+### Never
+- Never call `gsap.registerPlugin()` inside a component file.
+- Never animate `left`, `top`, `right`, `bottom` — use `x`, `y`, `xPercent`, `yPercent`.
+- Never use `opacity: 0` in Tailwind CSS on elements that GSAP will animate — GSAP sets initial state.
+- Never create ScrollTriggers without storing the instance for cleanup.
+
+### Patterns
+
+**SplitText headline reveal:**
+```ts
+const split = SplitText.create(headlineRef.current, { type: 'lines,words' })
+gsap.from(split.words, {
+  y: 80,
+  opacity: 0,
+  duration: 0.9,
+  ease: 'expo.out',
+  stagger: 0.04,
+  delay: 0.1,
+})
+// cleanup:
+return () => { split.revert(); ctx.revert() }
+```
+
+**ScrollTrigger reveal:**
+```ts
+gsap.from(elements, {
+  y: 60,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power2.out',
+  stagger: 0.12,
+  scrollTrigger: {
+    trigger: sectionRef.current,
+    start: 'top 75%',
+    toggleActions: 'play none none none',
+  },
+})
+```
+
+**Horizontal scroll (Products):**
+```ts
+const totalWidth = containerRef.current.scrollWidth - window.innerWidth
+gsap.to(containerRef.current, {
+  x: -totalWidth,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: pinRef.current,
+    start: 'top top',
+    end: () => `+=${totalWidth}`,
+    pin: true,
+    scrub: 1,
+    anticipatePin: 1,
+  },
+})
+```
+
+**Lenis + ScrollTrigger bridge (call once in root layout):**
+```ts
+const lenis = new Lenis()
+lenis.on('scroll', ScrollTrigger.update)
+gsap.ticker.add((time) => lenis.raf(time * 1000))
+gsap.ticker.lagSmoothing(0)
+```
+
+---
+
+## Three.js Globe Rules
+
+- Component lives at `components/three/Globe.tsx` — always `'use client'`
+- Imported via `next/dynamic` with `ssr: false` in `sections/Hero.tsx`
+- Cleanup: dispose geometry, material, renderer, and remove event listeners in `useEffect` return
+- Mobile: reduce particle count by 60%, skip trade route lines, simplify shader
+- Camera position: `z: 2.5`, FOV: 50
+- Earth texture from `/public/textures/earth-dark.jpg` (dark style, matches dark site bg)
+- Sulawesi highlight: gold point light at approximate Makassar coords
+- Auto-rotate speed: `0.0003` rad/frame. Pause on user interaction, resume after 2s idle.
+
+---
+
+## Forms & Server Actions
+
+- Use `react-hook-form` + `@hookform/resolvers/zod` for client-side form state
+- Validate with Zod schema shared between client and server
+- Server Action lives in `lib/actions.ts`
+- On submit: disable button, show loading state, handle success/error explicitly
+- Never expose `RESEND_API_KEY` to client bundle
+- Contact email: defined in `process.env.CONTACT_EMAIL_TO`
+
+---
+
+## Performance Rules
+
+- Three.js Globe: lazy-load, show after preloader exit
+- Fonts: self-hosted via `next/font/local`. No external font CDN.
+- Images: all via `next/image`, WebP format, explicit dimensions
+- GSAP plugins (SplitText, DrawSVG): only import in files that use them
+- `ScrollTrigger.refresh()` called after fonts loaded and layout settled
+- Never import entire lodash — use specific functions if needed
+
+---
+
+## What Not to Do
+
+- Don't use Framer Motion — GSAP is the animation layer, they conflict
+- Don't add shadcn/ui components beyond forms — this site doesn't need a design system library
+- Don't use stock photos from Unsplash for product images — use client-provided photos or gradients
+- Don't add page transitions unless the client specifically requests them — they slow perceived performance
+- Don't use `console.log` in production code — use `if (process.env.NODE_ENV === 'development')` guard
+- Don't hardcode the WA number — always read from `process.env.NEXT_PUBLIC_WA_NUMBER`
+- Don't add unnecessary abstractions — one component per section, not a generic "AnimatedSection" wrapper for everything
+- Don't use `useLayoutEffect` on SSR code paths — gate with `typeof window !== 'undefined'`

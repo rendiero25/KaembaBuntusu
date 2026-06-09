@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #050d07;
+  --color-surface: #0d1b0f;
+  --color-gold: #c8973e;
+  --color-ivory: #ede8df;
+  --color-red: #d4542e;
+  --color-sage: #607662;
+  --color-border: rgba(237, 232, 223, 0.08);
+
+  --font-display: var(--font-display-fallback), sans-serif;
+  --font-heading: var(--font-heading-fallback), sans-serif;
+  --font-body: var(--font-body-fallback), sans-serif;
+  --font-mono: var(--font-mono-fallback), monospace;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-gold: var(--color-gold);
+  --color-ivory: var(--color-ivory);
+  --color-red: var(--color-red);
+  --color-sage: var(--color-sage);
+  --color-border: var(--color-border);
+
+  --font-display: var(--font-display);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
