@@ -6,13 +6,13 @@ import { TICKER_ITEMS, TICKER_LOOP_DURATION } from "@/lib/constants";
 
 function TickerStrip() {
   return (
-    <div className="flex shrink-0 items-center gap-6 px-6 md:gap-8 md:px-8">
+    <div className="flex shrink-0 items-center gap-8 px-8 md:gap-10 md:px-10">
       {TICKER_ITEMS.map((item) => (
-        <span key={item} className="inline-flex items-center gap-6 md:gap-8">
+        <span key={item} className="inline-flex items-center gap-8 md:gap-10">
           <span className="text-gold" aria-hidden="true">
             ·
           </span>
-          <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.08em] text-ivory/30">
+          <span className="whitespace-nowrap font-bold text-sm uppercase text-ivory md:text-base">
             {item}
           </span>
         </span>
@@ -53,14 +53,6 @@ export function Ticker() {
       });
     };
 
-    const handleEnter = () => {
-      tween?.timeScale(-1);
-    };
-
-    const handleLeave = () => {
-      tween?.timeScale(1);
-    };
-
     const handleResize = () => {
       startTween();
     };
@@ -69,13 +61,9 @@ export function Ticker() {
       startTween();
     }, sectionRef);
 
-    section.addEventListener("mouseenter", handleEnter);
-    section.addEventListener("mouseleave", handleLeave);
     window.addEventListener("resize", handleResize);
 
     return () => {
-      section.removeEventListener("mouseenter", handleEnter);
-      section.removeEventListener("mouseleave", handleLeave);
       window.removeEventListener("resize", handleResize);
       tween?.kill();
       ctx.revert();
@@ -87,7 +75,7 @@ export function Ticker() {
       ref={sectionRef}
       id="ticker"
       aria-label="Commodity highlights"
-      className="overflow-hidden border-y border-border py-4 md:py-5"
+      className="ticker-band overflow-hidden border-y border-border py-5 md:py-6"
     >
       <div className="relative">
         <div ref={trackRef} className="flex w-max will-change-transform">

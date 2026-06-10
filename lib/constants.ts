@@ -20,6 +20,8 @@ export const Z_INDEX = {
   preloader: 100,
 } as const;
 
+export const HERO_IMAGE = "/images/hero.jpg";
+
 export const WA_NUMBER =
   process.env.NEXT_PUBLIC_WA_NUMBER ?? "6282292250444";
 
@@ -39,11 +41,11 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://kaembaexport.com";
 
 export const NAV_LINKS = [
-  { label: "Products", href: "/#products" },
-  { label: "About", href: "/#about" },
-  { label: "Process", href: "/#process" },
-  { label: "Legality", href: "/#legality" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Products", href: "/products" },
+  { label: "About", href: "/about" },
+  { label: "Process", href: "/process" },
+  { label: "Legality", href: "/legality" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const TICKER_ITEMS = [
@@ -100,6 +102,36 @@ export const PRODUCT_GRADIENTS: Record<ProductSlug, string> = {
   copra: "bg-[linear-gradient(135deg,#2a2418_0%,#0d1b0f_45%,#3d3020_100%)]",
   cloves: "bg-[linear-gradient(135deg,#2a1818_0%,#0d1b0f_45%,#3d2520_100%)]",
   pepper: "bg-[linear-gradient(135deg,#1f2a1a_0%,#0d1b0f_45%,#2e3520_100%)]",
+};
+
+export const PRODUCT_IMAGES: Record<
+  ProductSlug,
+  { src: string; alt: string; width: number; height: number }
+> = {
+  coconut: {
+    src: "/images/products/coconut.jpg",
+    alt: "Export-grade fresh coconuts from South Sulawesi",
+    width: 1200,
+    height: 800,
+  },
+  copra: {
+    src: "/images/products/copra.jpg",
+    alt: "Sun-dried copra ready for international export",
+    width: 1200,
+    height: 800,
+  },
+  cloves: {
+    src: "/images/products/cloves.jpg",
+    alt: "Premium hand-picked cloves from Sulawesi highlands",
+    width: 1200,
+    height: 800,
+  },
+  pepper: {
+    src: "/images/products/pepper.jpg",
+    alt: "Sorted black and white peppercorns for export",
+    width: 1200,
+    height: 800,
+  },
 };
 
 export const PRODUCT_SLUGS: ProductSlug[] = [

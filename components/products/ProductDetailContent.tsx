@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { PageMotion } from "@/components/gsap/PageMotion";
+import { ProductImage } from "@/components/ui/ProductImage";
 import {
   getProductSampleLink,
-  PRODUCT_GRADIENTS,
   type Product,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -29,7 +32,7 @@ function SpecCard({
     >
       <p
         className={cn(
-          "font-mono text-[11px] uppercase tracking-[0.08em] text-sage",
+          "font-mono text-xs uppercase text-sage md:text-sm",
           highlight && "text-gold",
         )}
       >
@@ -37,7 +40,7 @@ function SpecCard({
       </p>
       <p
         className={cn(
-          "font-heading text-lg font-semibold tracking-tight text-ivory md:text-xl",
+          "font-heading text-xl font-semibold text-ivory md:text-2xl",
           highlight && "text-gold",
         )}
       >
@@ -52,12 +55,12 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
   const standardSpecs = product.specs.filter((spec) => !spec.highlight);
 
   return (
-    <article>
+    <PageMotion>
       <div className="mx-auto max-w-7xl px-6 pt-24 pb-12 md:px-12 md:pt-28">
         <Link
-          href="/#products"
+          href="/products"
           className={cn(
-            "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-sage",
+            "inline-flex items-center gap-2 font-mono text-[11px] uppercase text-ivory",
             "transition-colors hover:text-gold",
           )}
         >
@@ -66,44 +69,40 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
         </Link>
       </div>
 
-      <header className="mx-auto max-w-7xl px-6 md:px-12">
+      <header data-reveal className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-end lg:gap-16">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+            <p className="font-mono text-[11px] uppercase text-gold">
               {product.number} · Export commodity
             </p>
-            <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ivory">
+            <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.05] text-ivory">
               {product.name}
             </h1>
             <p className="mt-4 max-w-xl font-heading text-lg text-sage md:text-xl">
               {product.tagline}
             </p>
-            <p className="mt-6 inline-flex rounded-sm border border-gold/30 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+            <p className="mt-6 inline-flex rounded-sm border border-gold/30 px-3 py-1.5 font-mono text-[11px] uppercase text-gold">
               {product.grade}
             </p>
           </div>
 
-          <div
-            className={cn(
-              "relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border",
-              PRODUCT_GRADIENTS[product.slug],
-            )}
-            role="img"
-            aria-label={`${product.name} product visual placeholder`}
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(200,151,62,0.14),transparent_55%)]" />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg/80 to-transparent" />
-          </div>
+          <ProductImage
+            slug={product.slug}
+            className="aspect-[4/3] w-full rounded-sm border border-border"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+          />
         </div>
       </header>
 
       <section
+        data-reveal
         className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-28"
         aria-labelledby="specs-heading"
       >
         <h2
           id="specs-heading"
-          className="font-display text-3xl font-bold tracking-tight text-ivory md:text-4xl"
+          className="font-display text-3xl font-bold text-ivory md:text-4xl"
         >
           Export specifications
         </h2>
@@ -126,31 +125,31 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
         </div>
       </section>
 
-      <section className="border-y border-border bg-surface">
+      <section data-reveal className="border-y border-border bg-surface">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:px-12 md:py-28 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-ivory md:text-4xl">
+            <h2 className="font-display text-3xl font-bold text-ivory md:text-4xl">
               Product overview
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-ivory/80 md:text-lg">
+            <p className="mt-6 text-base leading-relaxed text-sage md:text-lg">
               {product.description}
             </p>
           </div>
 
           <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-ivory md:text-4xl">
+            <h2 className="font-display text-3xl font-bold text-ivory md:text-4xl">
               Origin & sourcing
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-ivory/80 md:text-lg">
+            <p className="mt-6 text-base leading-relaxed text-sage md:text-lg">
               {product.originStory}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-28">
+      <section data-reveal className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-28">
         <div className="rounded-sm border border-border bg-surface p-8 md:p-12">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-ivory md:text-4xl">
+          <h2 className="font-display text-3xl font-bold text-ivory md:text-4xl">
             Ready to source {product.name.toLowerCase()}?
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-sage">
@@ -164,14 +163,14 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
               rel="noopener noreferrer"
               className={cn(
                 "inline-flex h-11 items-center justify-center rounded-sm px-6",
-                "bg-gold font-body text-sm font-medium text-bg transition-transform active:scale-[0.98]",
+                "bg-gold font-body text-sm font-medium text-on-gold transition-transform active:scale-[0.98]",
                 "hover:bg-gold/90",
               )}
             >
               Request Sample
             </a>
             <Link
-              href="/#contact"
+              href="/contact"
               className={cn(
                 "inline-flex h-11 items-center justify-center rounded-sm border border-border px-6",
                 "font-body text-sm font-medium text-ivory transition-colors active:scale-[0.98]",
@@ -183,6 +182,6 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
           </div>
         </div>
       </section>
-    </article>
+    </PageMotion>
   );
 }

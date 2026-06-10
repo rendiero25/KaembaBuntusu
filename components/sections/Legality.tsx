@@ -12,14 +12,8 @@ import { cn } from "@/lib/utils";
 
 const CHECK_PATH = "M 5 13 L 10 18 L 19 7";
 
-function statusTagClass(status: ComplianceStatus): string {
-  switch (status) {
-    case "active":
-    case "registered":
-      return "border-[#7a9e7e]/30 bg-[#7a9e7e]/10 text-[#7a9e7e]";
-    case "per-shipment":
-      return "border-gold/30 bg-gold/10 text-gold";
-  }
+function statusTagClass(_status: ComplianceStatus): string {
+  return "border-gold/30 bg-gold/10 text-gold";
 }
 
 export function Legality() {
@@ -113,10 +107,10 @@ export function Legality() {
       className="border-t border-border py-24 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+        <p className="font-mono text-[11px] uppercase text-gold">
           Legal standing
         </p>
-        <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ivory">
+        <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
           Fully licensed.
           <br />
           Export-ready.
@@ -150,7 +144,7 @@ export function Legality() {
                     data-check-path
                     d={CHECK_PATH}
                     fill="none"
-                    stroke="#7a9e7e"
+                    stroke="var(--color-success)"
                     strokeWidth="1.75"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -158,7 +152,7 @@ export function Legality() {
                 </svg>
                 <span
                   className={cn(
-                    "rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em]",
+                    "rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase",
                     statusTagClass(badge.status),
                   )}
                 >
@@ -166,13 +160,13 @@ export function Legality() {
                 </span>
               </div>
 
-              <h3 className="font-heading text-lg font-semibold tracking-tight text-ivory">
+              <h3 className="font-heading text-lg font-semibold text-ivory">
                 {badge.title}
               </h3>
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.06em] text-sage">
+              <p className="mt-1 font-mono text-[11px] uppercase text-sage">
                 {badge.subtitle}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-ivory/75">
+              <p className="mt-4 text-sm leading-relaxed text-sage">
                 {badge.description}
               </p>
             </article>

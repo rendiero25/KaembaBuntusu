@@ -105,6 +105,7 @@ export function About() {
         pin: left,
         pinSpacing: true,
         anticipatePin: 1,
+        fastScrollEnd: true,
         invalidateOnRefresh: true,
       });
     });
@@ -125,11 +126,11 @@ export function About() {
     >
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 xl:gap-24">
         <div ref={leftRef} className="lg:min-h-[50vh] lg:pt-8">
-          <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+          <p className="font-mono text-[11px] uppercase text-gold">
             About the company
           </p>
 
-          <h2 className="mt-4 font-display text-[clamp(2.25rem,5vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ivory">
+          <h2 className="mt-4 font-display text-[clamp(2.25rem,5vw,4rem)] font-bold leading-[1.05] text-ivory">
             We are the bridge.
           </h2>
 
@@ -149,10 +150,10 @@ export function About() {
                 >
                   0{stat.suffix}
                 </span>
-                <span className="mt-2 block font-mono text-[11px] uppercase tracking-[0.08em] text-sage">
+                <span className="mt-2 block font-mono text-[11px] uppercase text-sage">
                   {stat.label}
                 </span>
-                <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-[0.08em] text-ivory/50">
+                <span className="mt-0.5 block font-mono text-[11px] uppercase text-sage">
                   {stat.sublabel}
                 </span>
               </div>
@@ -166,7 +167,7 @@ export function About() {
               key={paragraph.slice(0, 32)}
               data-about-paragraph
               className={cn(
-                "text-base leading-relaxed text-ivory/80 md:text-[17px]",
+                "text-base leading-relaxed text-sage md:text-[17px]",
                 paragraph === "We exist to change that." &&
                   "font-medium text-ivory",
               )}
@@ -179,10 +180,10 @@ export function About() {
             data-about-vision
             className="mt-4 border-l-2 border-gold bg-surface px-6 py-6 md:px-8 md:py-8"
           >
-            <p className="font-body text-base italic leading-relaxed text-ivory/90 md:text-[17px]">
+            <p className="font-body text-base italic leading-relaxed text-ivory md:text-[17px]">
               &ldquo;{VISION_QUOTE}&rdquo;
             </p>
-            <footer className="mt-4 font-mono text-[11px] uppercase tracking-[0.08em] text-sage">
+            <footer className="mt-4 font-mono text-[11px] uppercase text-sage">
               Our founding vision
             </footer>
           </blockquote>

@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
-import { destroyLenis, initLenis } from "@/lib/lenis";
+import { destroyLenis, initLenis, refreshScroll } from "@/lib/lenis";
 
 export function GsapInit() {
   useEffect(() => {
     const lenis = initLenis();
 
     const refreshScrollTriggers = () => {
-      ScrollTrigger.refresh();
+      refreshScroll();
     };
 
     if (document.fonts?.ready) {
@@ -17,10 +17,23 @@ export function GsapInit() {
     }
 
     window.addEventListener("load", refreshScrollTriggers);
+    window.addEventListener("resize", refreshScrollTriggers);
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            refreshScrollTriggers();
+          })
+        : null;
+
+    resizeObserver?.observe(document.body);
 
     return () => {
       window.removeEventListener("load", refreshScrollTriggers);
+      window.removeEventListener("resize", refreshScrollTriggers);
+      resizeObserver?.disconnect();
       destroyLenis(lenis);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 

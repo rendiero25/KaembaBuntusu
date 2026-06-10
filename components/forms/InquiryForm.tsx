@@ -69,7 +69,7 @@ export function InquiryForm() {
         <p className="font-heading text-xl font-semibold text-ivory">
           Thanks. We&apos;ve received your inquiry.
         </p>
-        <p className="mt-3 text-sm leading-relaxed text-ivory/80 md:text-base">
+        <p className="mt-3 text-sm leading-relaxed text-sage md:text-base">
           We&apos;ll be in touch within 24 hours.
         </p>
       </div>
@@ -181,7 +181,7 @@ export function InquiryForm() {
                           "rounded-sm border px-3 py-2 font-body text-sm transition-colors",
                           selected
                             ? "border-gold bg-gold/10 text-gold"
-                            : "border-border bg-bg text-ivory/80 hover:border-gold/30",
+                            : "border-border bg-bg text-sage hover:border-gold/30",
                         )}
                       >
                         {option.label}
@@ -224,7 +224,7 @@ export function InquiryForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="h-11 w-full rounded-sm bg-gold font-body text-sm font-medium text-bg hover:bg-gold/90 disabled:opacity-60"
+          className="h-11 w-full cursor-pointer rounded-sm bg-gold font-body text-sm font-medium text-on-gold hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Sending..." : "Send Inquiry"}
         </Button>

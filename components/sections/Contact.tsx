@@ -59,16 +59,16 @@ export function Contact() {
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <div ref={leftRef}>
-            <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+            <p className="font-mono text-[11px] uppercase text-gold">
               Get in touch
             </p>
-            <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ivory">
+            <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
               Ready to source
               <br />
               from Sulawesi?
             </h2>
 
-            <div className="mt-8 space-y-4 text-sm leading-relaxed text-ivory/80 md:text-base">
+            <div className="mt-8 space-y-4 text-sm leading-relaxed text-sage md:text-base">
               <p>
                 Whether you&apos;re requesting a product sample, placing your
                 first container order, or exploring a long-term supply
@@ -87,7 +87,7 @@ export function Contact() {
 
             <dl className="mt-10 space-y-6 border-t border-border pt-8">
               <div>
-                <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-sage">
+                <dt className="font-mono text-[11px] uppercase text-sage">
                   WhatsApp
                 </dt>
                 <dd className="mt-2">
@@ -102,10 +102,10 @@ export function Contact() {
                 </dd>
               </div>
               <div>
-                <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-sage">
+                <dt className="font-mono text-[11px] uppercase text-sage">
                   Address
                 </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-ivory/80 md:text-base">
+                <dd className="mt-2 text-sm leading-relaxed text-sage md:text-base">
                   {COMPANY_ADDRESS.line1}
                   <br />
                   {COMPANY_ADDRESS.line2}

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { lockScroll, unlockScroll } from "@/lib/lenis";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { NAV_LINKS, Z_INDEX } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -27,9 +29,14 @@ export function NavBar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    if (menuOpen) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
     return () => {
-      document.body.style.overflow = "";
+      unlockScroll();
     };
   }, [menuOpen]);
 
@@ -63,37 +70,40 @@ export function NavBar() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-[72px] md:px-12">
           <Link
             href="/"
-            className="font-display text-lg font-bold tracking-tight text-ivory transition-colors hover:text-gold md:text-xl"
+            className="font-display text-lg font-bold text-ivory transition-colors hover:text-gold md:text-xl"
             onClick={closeMenu}
           >
             KAEMBA
           </Link>
 
-          <nav
-            className="hidden items-center gap-8 lg:flex"
-            aria-label="Primary"
-          >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-mono text-[11px] uppercase tracking-[0.08em] text-ivory/80 transition-colors hover:text-gold"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden items-center gap-6 lg:flex">
+            <nav className="flex items-center gap-8" aria-label="Primary">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="font-body text-sm font-medium text-ivory transition-colors hover:text-gold"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <ThemeToggle />
+          </div>
 
-          <button
-            type="button"
-            className="inline-flex size-10 items-center justify-center rounded-sm border border-border text-ivory transition-colors hover:border-gold/40 hover:text-gold lg:hidden"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+          <div className="flex items-center gap-3 lg:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="inline-flex size-10 items-center justify-center rounded-sm border border-border text-ivory transition-colors hover:border-gold/40 hover:text-gold"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -103,6 +113,7 @@ export function NavBar() {
         aria-modal="true"
         aria-hidden={!menuOpen}
         style={{ zIndex: Z_INDEX.menu }}
+        data-lenis-prevent
         className={cn(
           "fixed inset-0 flex flex-col bg-bg transition-opacity duration-300 lg:hidden",
           menuOpen
@@ -129,7 +140,7 @@ export function NavBar() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-display text-3xl font-bold tracking-tight text-ivory transition-colors hover:text-gold"
+              className="font-display text-3xl font-bold text-ivory transition-colors hover:text-gold"
               onClick={closeMenu}
             >
               {link.label}

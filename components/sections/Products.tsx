@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { ProductImage } from "@/components/ui/ProductImage";
 import {
   getProductSampleLink,
-  PRODUCT_GRADIENTS,
   PRODUCTS,
   type Product,
 } from "@/lib/constants";
@@ -28,26 +28,22 @@ function ProductCard({
         ? { "data-product-card": "" }
         : { "data-mobile-product-card": "" })}
       className={cn(
-        "flex w-[min(88vw,520px)] shrink-0 flex-col border border-border bg-surface",
+        "group flex w-[min(88vw,520px)] shrink-0 flex-col border border-border bg-surface",
         className,
       )}
     >
-      <div
-        className={cn(
-          "relative h-44 w-full rounded-sm sm:h-52",
-          PRODUCT_GRADIENTS[product.slug],
-        )}
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(200,151,62,0.12),transparent_55%)]" />
-      </div>
+      <ProductImage
+        slug={product.slug}
+        className="h-44 w-full rounded-sm sm:h-52"
+        sizes="(max-width: 768px) 88vw, 520px"
+      />
 
       <div className="flex flex-1 flex-col p-6 md:p-8">
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+        <p className="font-mono text-[11px] uppercase text-gold">
           {product.number}
         </p>
 
-        <h3 className="mt-3 font-heading text-2xl font-semibold tracking-tight text-ivory md:text-3xl">
+        <h3 className="mt-3 font-heading text-2xl font-semibold text-ivory md:text-3xl">
           <Link
             href={`/products/${product.slug}`}
             className="transition-colors hover:text-gold"
@@ -56,11 +52,11 @@ function ProductCard({
           </Link>
         </h3>
 
-        <p className="mt-2 font-heading text-sm text-sage md:text-base">
+        <p className="mt-2 font-heading text-sm text-ivory md:text-base">
           {product.tagline}
         </p>
 
-        <p className="mt-4 text-sm leading-relaxed text-ivory/80 md:text-base">
+        <p className="mt-4 text-sm leading-relaxed text-ivory md:text-base">
           {product.description}
         </p>
 
@@ -75,7 +71,7 @@ function ProductCard({
             >
               <dt
                 className={cn(
-                  "font-mono text-[11px] uppercase tracking-[0.08em] text-sage",
+                  "font-mono text-xs uppercase text-sage md:text-sm",
                   spec.highlight && "text-gold",
                 )}
               >
@@ -83,7 +79,7 @@ function ProductCard({
               </dt>
               <dd
                 className={cn(
-                  "text-right font-mono text-xs text-ivory md:text-sm",
+                  "text-right font-mono text-sm text-ivory md:text-base",
                   spec.highlight && "text-gold",
                 )}
               >
@@ -94,7 +90,7 @@ function ProductCard({
         </dl>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
-          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+          <span className="font-mono text-[11px] uppercase text-gold">
             {product.grade}
           </span>
           <div className="flex flex-wrap items-center gap-3">
@@ -187,8 +183,9 @@ export function Products() {
             start: "top top",
             end: () => `+=${getScrollDistance()}`,
             pin: true,
-            scrub: 1,
+            scrub: true,
             anticipatePin: 1,
+            fastScrollEnd: true,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               gsap.set(progressFill, {
@@ -230,10 +227,10 @@ export function Products() {
       className="py-24 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+        <p className="font-mono text-[11px] uppercase text-gold">
           What we export
         </p>
-        <h2 className="mt-4 max-w-4xl font-display text-[clamp(2rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ivory">
+        <h2 className="mt-4 max-w-4xl font-display text-[clamp(2rem,5vw,4.5rem)] font-bold leading-[1.05] text-ivory">
           Export-grade commodities,
           <br />
           sourced directly from

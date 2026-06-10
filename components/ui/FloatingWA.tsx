@@ -52,17 +52,14 @@ export function FloatingWA() {
       rel="noopener noreferrer"
       style={{ zIndex: Z_INDEX.floatingWa }}
       className={cn(
-        "fixed right-6 bottom-6 inline-flex items-center gap-2 rounded-sm",
-        "border border-gold/30 bg-surface px-4 py-3",
-        "text-sm font-medium text-ivory shadow-[0_0_0_1px_var(--color-border)]",
-        "transition-[border-color,background-color] duration-300",
-        "hover:border-gold hover:bg-surface/90",
+        "floating-wa-btn fixed right-6 bottom-6 inline-flex items-center gap-2 rounded-sm px-4 py-3",
+        "text-sm font-semibold transition-[filter,transform] duration-300",
         "active:scale-[0.98]",
         "md:right-8 md:bottom-8",
       )}
       aria-label="Chat with us on WhatsApp"
     >
-      <WhatsAppIcon className="size-5 shrink-0 text-gold" />
+      <WhatsAppIcon className="floating-wa-icon size-5 shrink-0" />
       <span className="hidden sm:inline">Chat with us</span>
     </a>
   );

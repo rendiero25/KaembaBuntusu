@@ -1,11 +1,21 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "lenis/dist/lenis.css";
 
 :root {
+  /* static tokens — not theme-dependent */
+  --color-gold: #ad7a2a;
+  --color-red: #d4542e;
+  --color-sage: #607662;
+  --color-success: #7a9e7e;
+  --color-on-gold: #050d07;
+  --color-footer-muted: rgba(5, 13, 7, 0.55);
+
+  /* semantic mappings */
   --background: var(--color-bg);
   --foreground: var(--color-ivory);
   --primary: var(--color-gold);
-  --primary-foreground: var(--color-bg);
+  --primary-foreground: var(--color-on-gold);
   --secondary: var(--color-surface);
   --secondary-foreground: var(--color-ivory);
   --muted: var(--color-surface);
@@ -15,18 +25,49 @@
   --ring: var(--color-gold);
   --destructive: var(--color-red);
   --radius: 0.25rem;
+
+  --font-display: var(--font-outfit), sans-serif;
+  --font-heading: var(--font-heading-fallback), sans-serif;
+  --font-body: var(--font-outfit), sans-serif;
+  --font-mono: var(--font-outfit), sans-serif;
+}
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #ede8df;
+  --color-surface: #e4ddd2;
+  --color-ivory: #050d07;
+  --color-border: rgba(5, 13, 7, 0.12);
+  --color-hero-vignette: rgba(237, 232, 223, 0.92);
+  --color-wash-gold: rgba(200, 151, 62, 0.28);
+  --color-wash-sage: rgba(96, 118, 98, 0.24);
+  --color-wash-forest: rgba(13, 27, 15, 0.16);
+  --color-wash-warm: rgba(212, 84, 46, 0.20);
+  --color-card-hover: rgba(200, 151, 62, 0.40);
+  --color-card-shadow: rgba(5, 13, 7, 0.07);
+  --color-sage: #4a5e4c;
+  --color-footer-muted: rgba(5, 13, 7, 0.62);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
   --color-bg: #050d07;
   --color-surface: #0d1b0f;
-  --color-gold: #c8973e;
   --color-ivory: #ede8df;
-  --color-red: #d4542e;
-  --color-sage: #607662;
   --color-border: rgba(237, 232, 223, 0.08);
-
-  --font-display: var(--font-display-fallback), sans-serif;
-  --font-heading: var(--font-heading-fallback), sans-serif;
-  --font-body: var(--font-body-fallback), sans-serif;
-  --font-mono: var(--font-mono-fallback), monospace;
+  --color-hero-vignette: rgba(5, 13, 7, 0.9);
+  --color-wash-gold: rgba(200, 151, 62, 0.07);
+  --color-wash-sage: rgba(96, 118, 98, 0.08);
+  --color-wash-forest: rgba(13, 27, 15, 0.45);
+  --color-wash-warm: rgba(212, 84, 46, 0.06);
+  --color-card-hover: rgba(200, 151, 62, 0.18);
+  --color-card-shadow: transparent;
+  --color-sage: #9aad9c;
+  --color-gold: #d4a24a;
+  --color-footer-muted: rgba(237, 232, 223, 0.72);
 }
 
 @theme inline {
@@ -50,7 +91,10 @@
   --color-ivory: var(--color-ivory);
   --color-red: var(--color-red);
   --color-sage: var(--color-sage);
-  --color-border: var(--color-border);
+  --color-success: var(--color-success);
+  --color-on-gold: var(--color-on-gold);
+  --color-footer-muted: var(--color-footer-muted);
+  --color-hero-vignette: var(--color-hero-vignette);
 
   --font-display: var(--font-display);
   --font-heading: var(--font-heading);
@@ -65,7 +109,15 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+html.lenis body {
+  overflow-x: clip;
 }
 
 body {
@@ -76,6 +128,51 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+a[href],
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+.text-footer-muted {
+  color: var(--color-footer-muted);
+}
+
+.font-mono {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.text-gold {
+  font-weight: 600;
+}
+
+.floating-wa-btn {
+  border: 1px solid var(--color-gold);
+  background-color: var(--color-gold);
+  color: var(--color-on-gold);
+  box-shadow:
+    0 0 0 1px rgba(5, 13, 7, 0.08),
+    0 8px 24px rgba(173, 122, 42, 0.35);
+}
+
+[data-theme="dark"] .floating-wa-btn {
+  box-shadow:
+    0 0 0 1px rgba(237, 232, 223, 0.12),
+    0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+.floating-wa-btn:hover {
+  filter: brightness(1.06);
+}
+
+.floating-wa-btn .floating-wa-icon {
+  color: var(--color-on-gold);
 }
 
 :focus-visible {
@@ -96,3 +193,189 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Section tone backgrounds ─── */
+
+.home-tone-gold {
+  background: linear-gradient(
+    165deg,
+    var(--color-wash-gold) 0%,
+    transparent 62%
+  );
+}
+
+.home-tone-forest {
+  background: linear-gradient(
+    180deg,
+    var(--color-wash-forest) 0%,
+    transparent 70%
+  );
+}
+
+.home-tone-sage {
+  background: linear-gradient(
+    145deg,
+    var(--color-wash-sage) 0%,
+    transparent 65%
+  );
+}
+
+.home-tone-warm {
+  background: linear-gradient(
+    160deg,
+    var(--color-wash-warm) 0%,
+    transparent 58%
+  );
+}
+
+/* ─── Section tone ambient orbs ─── */
+
+.home-tone-orbs {
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .home-tone-orbs {
+  opacity: 1;
+}
+
+.home-tone-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  pointer-events: none;
+}
+
+.home-tone-gold .home-tone-orb-a {
+  top: -4rem;
+  right: 8%;
+  width: 22rem;
+  height: 22rem;
+  background: var(--color-wash-gold);
+}
+
+.home-tone-gold .home-tone-orb-b {
+  bottom: -2rem;
+  left: 4%;
+  width: 18rem;
+  height: 18rem;
+  background: var(--color-wash-sage);
+}
+
+.home-tone-forest .home-tone-orb-a {
+  top: 15%;
+  left: -5%;
+  width: 24rem;
+  height: 24rem;
+  background: var(--color-wash-forest);
+}
+
+.home-tone-sage .home-tone-orb-a {
+  top: -2rem;
+  right: 12%;
+  width: 20rem;
+  height: 20rem;
+  background: var(--color-wash-sage);
+}
+
+.home-tone-sage .home-tone-orb-b {
+  bottom: -1rem;
+  left: 8%;
+  width: 14rem;
+  height: 14rem;
+  background: var(--color-wash-forest);
+}
+
+.home-tone-warm .home-tone-orb-a {
+  bottom: -3rem;
+  right: 6%;
+  width: 18rem;
+  height: 18rem;
+  background: var(--color-wash-warm);
+}
+
+.home-tone-warm .home-tone-orb-b {
+  top: 10%;
+  left: -3%;
+  width: 16rem;
+  height: 16rem;
+  background: var(--color-wash-gold);
+}
+
+/* ─── Interactive cards ─── */
+
+.home-interactive-card {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  box-shadow: 0 1px 2px var(--color-card-shadow);
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease,
+    box-shadow 0.35s ease;
+}
+
+.home-interactive-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 1px var(--color-gold), 0 8px 28px var(--color-card-shadow);
+}
+
+[data-theme="light"] .home-interactive-card:hover {
+  box-shadow: 0 0 0 1px var(--color-gold), 0 8px 28px rgba(200, 151, 62, 0.18);
+}
+
+.home-interactive-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+/* ─── Hero ambient orbs ─── */
+
+.hero-ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ─── Ticker band ─── */
+
+.ticker-band {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-wash-gold) 40%,
+    var(--color-wash-gold) 60%,
+    transparent 100%
+  );
+}
+
+[data-theme="light"] .ticker-band {
+  background: rgba(200, 151, 62, 0.10);
+  border-color: rgba(200, 151, 62, 0.22);
+}
+
+/* ─── Ticker text per-theme opacity ─── */
+
+.ticker-item-text {
+  opacity: 0.32;
+}
+
+[data-theme="light"] .ticker-item-text {
+  opacity: 0.55;
+}
+
+/* ─── Contact CTA card — light mode boost ─── */
+
+[data-theme="light"] #contact .contact-cta-card {
+  border-color: rgba(200, 151, 62, 0.38);
+  background: linear-gradient(
+    135deg,
+    rgba(200, 151, 62, 0.06) 0%,
+    var(--color-surface) 55%
+  );
+  box-shadow:
+    0 0 0 1px rgba(200, 151, 62, 0.18),
+    0 4px 16px rgba(200, 151, 62, 0.10);
+}
+

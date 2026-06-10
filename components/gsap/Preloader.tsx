@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap, SplitText } from "@/lib/gsap";
+import { lockScroll, refreshScroll, unlockScroll } from "@/lib/lenis";
 import { EASE, Z_INDEX } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +41,7 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
       return () => cancelAnimationFrame(frame);
     }
 
-    document.body.style.overflow = "hidden";
+    lockScroll();
 
     let split: SplitText | null = null;
 
@@ -55,7 +56,8 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
       const tl = gsap.timeline({
         onComplete: () => {
           sessionStorage.setItem("kaemba-preloader-complete", "1");
-          document.body.style.overflow = "";
+          unlockScroll();
+          refreshScroll();
           setReady(true);
         },
       });
@@ -100,7 +102,7 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
     return () => {
       split?.revert();
       ctx.revert();
-      document.body.style.overflow = "";
+      unlockScroll();
     };
   }, []);
 
@@ -123,18 +125,18 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
           <div className="flex flex-col items-center">
             <span
               ref={counterRef}
-              className="font-mono text-5xl font-normal tracking-tight text-gold tabular-nums md:text-6xl"
+              className="font-mono text-5xl font-normal text-gold tabular-nums md:text-6xl"
             >
               000
             </span>
-            <span className="mt-3 font-mono text-[11px] uppercase tracking-[0.08em] text-sage">
+            <span className="mt-3 font-mono text-[11px] uppercase text-sage">
               Loading
             </span>
           </div>
 
           <h2
             ref={brandRef}
-            className="pointer-events-none absolute font-display text-4xl font-bold tracking-[0.12em] text-ivory md:text-6xl"
+            className="pointer-events-none absolute font-display text-4xl font-bold text-ivory md:text-6xl"
             aria-hidden="true"
           >
             K · A · E · M · B · A

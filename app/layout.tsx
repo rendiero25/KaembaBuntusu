@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Outfit } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SiteProviders } from "@/components/providers/SiteProviders";
+import { ThemeScript } from "@/components/theme/ThemeScript";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
 import {
@@ -13,19 +16,6 @@ import {
   SITE_TITLE,
 } from "@/lib/seo";
 import "./globals.css";
-
-const clashDisplay = localFont({
-  src: [
-    {
-      path: "../public/fonts/ClashDisplay-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-display-fallback",
-  display: "swap",
-  preload: true,
-});
 
 const spaceGrotesk = localFont({
   src: [
@@ -44,32 +34,10 @@ const spaceGrotesk = localFont({
   display: "swap",
 });
 
-const plusJakartaSans = localFont({
-  src: [
-    {
-      path: "../public/fonts/PlusJakartaSans-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/PlusJakartaSans-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-  ],
-  variable: "--font-body-fallback",
-  display: "swap",
-});
-
-const dmMono = localFont({
-  src: [
-    {
-      path: "../public/fonts/DMMono-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-mono-fallback",
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -122,19 +90,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${clashDisplay.variable} ${spaceGrotesk.variable} ${plusJakartaSans.variable} ${dmMono.variable} h-full antialiased`}
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${outfit.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <head>
+        <ThemeScript />
         <link
           rel="preload"
-          href="/textures/earth-dark.jpg"
+          href="/images/hero.jpg"
           as="image"
           type="image/jpeg"
         />
       </head>
       <body className="flex min-h-dvh flex-col bg-bg text-ivory font-body">
         <JsonLd data={getOrganizationJsonLd()} />
-        {children}
+        <SiteProviders>{children}</SiteProviders>
         <Analytics />
         <SpeedInsights />
       </body>

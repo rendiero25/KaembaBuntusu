@@ -36,10 +36,10 @@ function ProcessStepContent({
       data-process-step
       className={cn(align === "right" && "lg:text-right")}
     >
-      <h3 className="font-heading text-lg font-semibold tracking-tight text-ivory md:text-xl">
+      <h3 className="font-heading text-lg font-semibold text-ivory md:text-xl">
         {step.title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-ivory/80 md:text-base">
+      <p className="mt-2 text-sm leading-relaxed text-sage md:text-base">
         {step.copy}
       </p>
     </div>
@@ -88,7 +88,7 @@ export function Process() {
             trigger: timeline,
             start: "top 75%",
             end: "bottom 25%",
-            scrub: 1,
+            scrub: true,
           },
         });
 
@@ -150,10 +150,10 @@ export function Process() {
       className="border-t border-border py-24 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+        <p className="font-mono text-[11px] uppercase text-gold">
           How we work
         </p>
-        <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em] text-ivory">
+        <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
           Every shipment follows
           <br />
           one uncompromising path.
