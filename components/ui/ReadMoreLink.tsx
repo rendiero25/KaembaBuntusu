@@ -13,7 +13,7 @@ export function ReadMoreLink({ href, children, className }: ReadMoreLinkProps) {
     <Link
       href={href}
       className={cn(
-        "group inline-flex items-center gap-2 font-mono text-[11px] uppercase text-gold transition-colors hover:text-ivory",
+        "group inline-flex items-center gap-2 text-label text-gold transition-colors hover:text-ivory",
         className,
       )}
     >

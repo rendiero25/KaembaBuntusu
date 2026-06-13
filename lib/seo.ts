@@ -11,7 +11,7 @@ export const SITE_TITLE =
   "CV. Kaemba Buntusu Indonesia | Agricultural Commodity Exporter";
 
 export const SITE_DESCRIPTION =
-  "Premium agricultural commodity exports from South Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper. Fully licensed, export-grade, direct sourcing.";
+  "Premium agricultural commodity exports from Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper. Fully licensed, export-grade, direct sourcing.";
 
 export const SITE_KEYWORDS = [
   "indonesian commodity exporter",
@@ -20,14 +20,14 @@ export const SITE_KEYWORDS = [
   "coconut exporter",
   "pepper exporter",
   "makassar export",
-  "south sulawesi agriculture",
+  "sulawesi agriculture",
 ] as const;
 
 export const OG_IMAGE = {
   url: "/og-image.jpg",
   width: 1200,
   height: 630,
-  alt: "CV. Kaemba Buntusu Indonesia - Agricultural commodity exporter from South Sulawesi",
+  alt: "CV. Kaemba Buntusu Indonesia - Agricultural commodity exporter from Sulawesi",
 } as const;
 
 export function getOrganizationJsonLd() {
@@ -43,7 +43,7 @@ export function getOrganizationJsonLd() {
       "@type": "PostalAddress",
       streetAddress: COMPANY_ADDRESS.line1,
       addressLocality: COMPANY_ADDRESS.line2,
-      addressRegion: "South Sulawesi",
+      addressRegion: "Sulawesi",
       addressCountry: "ID",
     },
     contactPoint: {

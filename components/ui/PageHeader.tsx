@@ -24,7 +24,7 @@ export function PageHeader({
         {label ? (
           <p
             data-reveal
-            className="font-mono text-[11px] uppercase text-gold"
+            className="text-label text-gold"
           >
             {label}
           </p>
@@ -32,7 +32,7 @@ export function PageHeader({
         <h1
           data-reveal
           className={cn(
-            "font-display text-[clamp(2.25rem,5.5vw,4.5rem)] font-bold leading-[1.05] text-ivory",
+            "font-display text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] text-ivory",
             label && "mt-4",
           )}
         >
@@ -41,7 +41,7 @@ export function PageHeader({
         {description ? (
           <p
             data-reveal
-            className="mt-6 max-w-3xl text-base leading-relaxed text-sage md:text-lg"
+            className="mt-6 max-w-3xl text-body leading-relaxed text-sage"
           >
             {description}
           </p>

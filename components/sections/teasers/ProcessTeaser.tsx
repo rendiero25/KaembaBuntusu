@@ -23,7 +23,7 @@ export function ProcessTeaser() {
           <h2 className="max-w-2xl font-display text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] text-ivory">
             One path. No shortcuts.
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-sage">
+          <p className="mt-4 max-w-xl text-body leading-relaxed text-sage">
             {HOME_TEASERS.process}
           </p>
         </div>
@@ -40,15 +40,15 @@ export function ProcessTeaser() {
               className="home-interactive-card relative rounded-sm p-6 md:p-7"
             >
               <span
-                className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-sm border border-gold/30 bg-gold/10 font-mono text-[11px] text-gold"
+                className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-sm border border-gold/30 bg-gold/10 text-label text-gold"
                 aria-hidden
               >
                 {step.number}
               </span>
-              <h3 className="font-heading text-lg font-semibold text-ivory md:text-xl">
+              <h3 className="font-heading text-2xl font-semibold text-ivory md:text-xl">
                 {step.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-sage">
+              <p className="mt-2 text-body leading-relaxed text-sage">
                 {step.copy}
               </p>
             </li>

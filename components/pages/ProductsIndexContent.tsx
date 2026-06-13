@@ -2,25 +2,26 @@
 
 import Link from "next/link";
 import { PageMotion } from "@/components/gsap/PageMotion";
+import { PageHero } from "@/components/ui/PageHero";
 import {
   getProductSampleLink,
   PRODUCTS,
 } from "@/lib/constants";
 import { PRODUCTS_OVERVIEW } from "@/lib/content";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { PRODUCTS_IMAGES } from "@/lib/pageImages";
 import { ProductImage } from "@/components/ui/ProductImage";
-import { cn } from "@/lib/utils";
 
 export function ProductsIndexContent() {
   return (
     <PageMotion>
-      <PageHeader
+      <PageHero
         label="What we export"
         title="Export-grade commodities, sourced directly from Sulawesi's soil."
         description={PRODUCTS_OVERVIEW.intro}
+        image={PRODUCTS_IMAGES.hero}
       />
 
-      <div className="mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-24">
+      <div className="page-section-after-hero mx-auto max-w-7xl px-6 pb-16 md:px-12 md:pb-24">
         <div className="grid gap-8 md:grid-cols-2">
           {PRODUCTS.map((product) => (
             <article
@@ -35,7 +36,7 @@ export function ProductsIndexContent() {
               />
 
               <div className="flex flex-1 flex-col p-6 md:p-8">
-                <p className="font-mono text-[11px] uppercase text-gold">
+                <p className="text-label text-gold">
                   {product.number}
                 </p>
                 <h2 className="mt-3 font-heading text-2xl font-semibold text-ivory md:text-3xl">
@@ -46,10 +47,10 @@ export function ProductsIndexContent() {
                     {product.name}
                   </Link>
                 </h2>
-                <p className="mt-2 font-heading text-sm text-ivory md:text-base">
+                <p className="mt-2 font-heading text-body-responsive text-ivory">
                   {product.tagline}
                 </p>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-ivory md:text-base">
+                <p className="mt-4 flex-1 text-body-responsive leading-relaxed text-ivory">
                   {product.description}
                 </p>
 
@@ -59,10 +60,10 @@ export function ProductsIndexContent() {
                       key={spec.label}
                       className="flex justify-between gap-4"
                     >
-                      <dt className="font-mono text-xs uppercase text-sage md:text-sm">
+                      <dt className="text-label-sm text-sage md:text-label">
                         {spec.label}
                       </dt>
-                      <dd className="text-right font-mono text-sm text-ivory md:text-base">
+                      <dd className="text-right font-mono text-body-responsive text-ivory">
                         {spec.value}
                       </dd>
                     </div>
@@ -72,7 +73,7 @@ export function ProductsIndexContent() {
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href={`/products/${product.slug}`}
-                    className="inline-flex h-10 items-center justify-center rounded-sm bg-gold px-4 text-sm font-medium text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]"
+                    className="inline-flex h-10 items-center justify-center rounded-sm bg-gold px-4 text-base font-semibold text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]"
                   >
                     Full specs
                   </Link>
@@ -80,7 +81,7 @@ export function ProductsIndexContent() {
                     href={getProductSampleLink(product.name)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-10 items-center justify-center rounded-sm border border-border px-4 text-sm font-medium text-ivory transition-colors hover:border-gold/40 hover:text-gold active:scale-[0.98]"
+                    className="inline-flex h-10 items-center justify-center rounded-sm border border-border px-4 text-base font-semibold text-ivory transition-colors hover:border-gold/40 hover:text-gold active:scale-[0.98]"
                   >
                     Request Sample
                   </a>
@@ -103,7 +104,7 @@ export function ProductsIndexContent() {
           </h2>
           <p
             data-reveal
-            className="mt-4 max-w-2xl text-base leading-relaxed text-sage md:text-lg"
+            className="mt-4 max-w-2xl text-body leading-relaxed text-sage"
           >
             {PRODUCTS_OVERVIEW.qualityCopy}
           </p>
@@ -115,13 +116,13 @@ export function ProductsIndexContent() {
                 data-reveal
                 className="home-interactive-card rounded-sm p-6"
               >
-                <h3 className="font-heading text-lg font-semibold text-ivory">
+                <h3 className="font-heading text-2xl font-semibold text-ivory">
                   {region.commodity}
                 </h3>
-                <p className="mt-2 font-mono text-[11px] uppercase text-gold">
+                <p className="mt-2 text-label text-gold">
                   {region.region}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-sage">
+                <p className="mt-3 text-body-responsive leading-relaxed text-sage">
                   {region.note}
                 </p>
               </div>

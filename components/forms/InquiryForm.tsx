@@ -34,6 +34,7 @@ const defaultValues: InquiryFormData = {
   name: "",
   company: "",
   country: "",
+  phone: "",
   products: [],
   message: "",
 };
@@ -66,10 +67,10 @@ export function InquiryForm() {
   if (isSuccess) {
     return (
       <div className="border border-border bg-surface p-8 md:p-10">
-        <p className="font-heading text-xl font-semibold text-ivory">
+        <p className="font-heading text-2xl font-semibold text-ivory">
           Thanks. We&apos;ve received your inquiry.
         </p>
-        <p className="mt-3 text-sm leading-relaxed text-sage md:text-base">
+        <p className="mt-3 text-body-sm leading-relaxed text-sage md:text-body">
           We&apos;ll be in touch within 24 hours.
         </p>
       </div>
@@ -88,7 +89,7 @@ export function InquiryForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-body text-sm text-ivory">
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
                 Name <span className="text-gold">*</span>
               </FormLabel>
               <FormControl>
@@ -108,7 +109,7 @@ export function InquiryForm() {
           name="company"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-body text-sm text-ivory">
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
                 Company
               </FormLabel>
               <FormControl>
@@ -125,10 +126,32 @@ export function InquiryForm() {
 
         <FormField
           control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
+                WhatsApp / Phone
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="tel"
+                  autoComplete="tel"
+                  placeholder="+62 812 3456 7890"
+                  className="h-10 w-full rounded-sm border-border bg-bg text-ivory"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="country"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-body text-sm text-ivory">
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
                 Country <span className="text-gold">*</span>
               </FormLabel>
               <Select
@@ -158,7 +181,7 @@ export function InquiryForm() {
           name="products"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-body text-sm text-ivory">
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
                 Product <span className="text-gold">*</span>
               </FormLabel>
               <FormControl>
@@ -178,7 +201,7 @@ export function InquiryForm() {
                           field.onChange(next);
                         }}
                         className={cn(
-                          "rounded-sm border px-3 py-2 font-body text-sm transition-colors",
+                          "rounded-sm border px-3 py-2.5 font-body text-base font-medium transition-colors",
                           selected
                             ? "border-gold bg-gold/10 text-gold"
                             : "border-border bg-bg text-sage hover:border-gold/30",
@@ -200,7 +223,7 @@ export function InquiryForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-body text-sm text-ivory">
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
                 Message <span className="text-gold">*</span>
               </FormLabel>
               <FormControl>
@@ -216,7 +239,7 @@ export function InquiryForm() {
         />
 
         {submitError ? (
-          <p className="text-sm text-red" role="alert">
+          <p className="text-base font-medium text-red" role="alert">
             {submitError}
           </p>
         ) : null}
@@ -224,12 +247,12 @@ export function InquiryForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="h-11 w-full cursor-pointer rounded-sm bg-gold font-body text-sm font-medium text-on-gold hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
+          className="h-11 w-full cursor-pointer rounded-sm bg-gold font-body text-base font-semibold text-on-gold hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Sending..." : "Send Inquiry"}
         </Button>
 
-        <p className="text-center text-sm text-sage">
+        <p className="text-center text-body-responsive text-sage">
           Prefer a faster response?{" "}
           <a
             href={WA_LINK}

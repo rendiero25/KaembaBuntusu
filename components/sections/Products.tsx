@@ -39,7 +39,7 @@ function ProductCard({
       />
 
       <div className="flex flex-1 flex-col p-6 md:p-8">
-        <p className="font-mono text-[11px] uppercase text-gold">
+        <p className="text-label text-gold">
           {product.number}
         </p>
 
@@ -52,11 +52,11 @@ function ProductCard({
           </Link>
         </h3>
 
-        <p className="mt-2 font-heading text-sm text-ivory md:text-base">
+        <p className="mt-2 font-heading text-body-responsive text-ivory">
           {product.tagline}
         </p>
 
-        <p className="mt-4 text-sm leading-relaxed text-ivory md:text-base">
+        <p className="mt-4 text-body-responsive leading-relaxed text-ivory">
           {product.description}
         </p>
 
@@ -71,7 +71,7 @@ function ProductCard({
             >
               <dt
                 className={cn(
-                  "font-mono text-xs uppercase text-sage md:text-sm",
+                  "text-label-sm text-sage md:text-label",
                   spec.highlight && "text-gold",
                 )}
               >
@@ -79,7 +79,7 @@ function ProductCard({
               </dt>
               <dd
                 className={cn(
-                  "text-right font-mono text-sm text-ivory md:text-base",
+                  "text-right font-mono text-body-responsive text-ivory",
                   spec.highlight && "text-gold",
                 )}
               >
@@ -90,7 +90,7 @@ function ProductCard({
         </dl>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
-          <span className="font-mono text-[11px] uppercase text-gold">
+          <span className="text-label text-gold">
             {product.grade}
           </span>
           <div className="flex flex-wrap items-center gap-3">
@@ -98,7 +98,7 @@ function ProductCard({
               href={`/products/${product.slug}`}
               className={cn(
                 "inline-flex h-10 shrink-0 items-center justify-center rounded-sm px-4",
-                "font-body text-sm font-medium text-sage transition-colors",
+                "font-body text-base font-semibold text-sage transition-colors",
                 "hover:text-gold active:scale-[0.98]",
               )}
             >
@@ -110,7 +110,7 @@ function ProductCard({
               rel="noopener noreferrer"
               className={cn(
                 "inline-flex h-10 shrink-0 items-center justify-center rounded-sm border border-border px-4",
-                "font-body text-sm font-medium text-ivory transition-colors",
+                "font-body text-base font-semibold text-ivory transition-colors",
                 "hover:border-gold/40 hover:text-gold active:scale-[0.98]",
               )}
             >
@@ -227,7 +227,7 @@ export function Products() {
       className="py-24 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <p className="font-mono text-[11px] uppercase text-gold">
+        <p className="text-label text-gold">
           What we export
         </p>
         <h2 className="mt-4 max-w-4xl font-display text-[clamp(2rem,5vw,4.5rem)] font-bold leading-[1.05] text-ivory">
@@ -237,7 +237,7 @@ export function Products() {
           <br />
           Sulawesi&apos;s soil.
         </h2>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-sage md:text-lg">
+        <p className="mt-6 max-w-2xl text-body leading-relaxed text-sage">
           Every product we export passes through our quality check before a
           single kilogram leaves the warehouse.
         </p>

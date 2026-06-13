@@ -59,7 +59,7 @@ export function Contact() {
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <div ref={leftRef}>
-            <p className="font-mono text-[11px] uppercase text-gold">
+            <p className="text-label text-gold">
               Get in touch
             </p>
             <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
@@ -68,7 +68,7 @@ export function Contact() {
               from Sulawesi?
             </h2>
 
-            <div className="mt-8 space-y-4 text-sm leading-relaxed text-sage md:text-base">
+            <div className="mt-8 space-y-4 text-body-responsive leading-relaxed text-sage">
               <p>
                 Whether you&apos;re requesting a product sample, placing your
                 first container order, or exploring a long-term supply
@@ -87,7 +87,7 @@ export function Contact() {
 
             <dl className="mt-10 space-y-6 border-t border-border pt-8">
               <div>
-                <dt className="font-mono text-[11px] uppercase text-sage">
+                <dt className="text-label text-sage">
                   WhatsApp
                 </dt>
                 <dd className="mt-2">
@@ -95,17 +95,17 @@ export function Contact() {
                     href={WA_LINK}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-heading text-lg text-ivory transition-colors hover:text-gold"
+                    className="font-heading text-2xl font-semibold text-ivory transition-colors hover:text-gold"
                   >
                     {WA_DISPLAY}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt className="font-mono text-[11px] uppercase text-sage">
+                <dt className="text-label text-sage">
                   Address
                 </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-sage md:text-base">
+                <dd className="mt-2 text-body-responsive leading-relaxed text-sage">
                   {COMPANY_ADDRESS.line1}
                   <br />
                   {COMPANY_ADDRESS.line2}

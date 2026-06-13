@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { PageMotion } from "@/components/gsap/PageMotion";
-import { ProductImage } from "@/components/ui/ProductImage";
+import { ProductImageCarousel } from "@/components/ui/ProductImageCarousel";
 import {
+  getProductCarouselImages,
   getProductSampleLink,
   type Product,
+  type ProductSlug,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +34,7 @@ function SpecCard({
     >
       <p
         className={cn(
-          "font-mono text-xs uppercase text-sage md:text-sm",
+          "text-label-sm text-sage md:text-label",
           highlight && "text-gold",
         )}
       >
@@ -40,7 +42,7 @@ function SpecCard({
       </p>
       <p
         className={cn(
-          "font-heading text-xl font-semibold text-ivory md:text-2xl",
+          "font-heading text-2xl font-semibold text-ivory md:text-2xl",
           highlight && "text-gold",
         )}
       >
@@ -53,6 +55,7 @@ function SpecCard({
 export function ProductDetailContent({ product }: ProductDetailContentProps) {
   const highlightedSpecs = product.specs.filter((spec) => spec.highlight);
   const standardSpecs = product.specs.filter((spec) => !spec.highlight);
+  const carouselImages = getProductCarouselImages(product.slug as ProductSlug);
 
   return (
     <PageMotion>
@@ -60,7 +63,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
         <Link
           href="/products"
           className={cn(
-            "inline-flex items-center gap-2 font-mono text-[11px] uppercase text-ivory",
+            "inline-flex items-center gap-2 text-label text-ivory",
             "transition-colors hover:text-gold",
           )}
         >
@@ -69,10 +72,10 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
         </Link>
       </div>
 
-      <header data-reveal className="mx-auto max-w-7xl px-6 md:px-12">
+      <header className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-end lg:gap-16">
-          <div>
-            <p className="font-mono text-[11px] uppercase text-gold">
+          <div data-reveal>
+            <p className="text-label text-gold">
               {product.number} · Export commodity
             </p>
             <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.05] text-ivory">
@@ -81,14 +84,14 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
             <p className="mt-4 max-w-xl font-heading text-lg text-sage md:text-xl">
               {product.tagline}
             </p>
-            <p className="mt-6 inline-flex rounded-sm border border-gold/30 px-3 py-1.5 font-mono text-[11px] uppercase text-gold">
+            <p className="mt-6 inline-flex rounded-sm border border-gold/30 px-3 py-1.5 text-label text-gold">
               {product.grade}
             </p>
           </div>
 
-          <ProductImage
-            slug={product.slug}
-            className="aspect-[4/3] w-full rounded-sm border border-border"
+          <ProductImageCarousel
+            images={carouselImages}
+            className="aspect-[4/3] w-full"
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority
           />
@@ -106,7 +109,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
         >
           Export specifications
         </h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-sage">
+        <p className="mt-4 max-w-2xl text-body leading-relaxed text-sage">
           Key parameters verified before every shipment leaves our facility.
         </p>
 
@@ -131,7 +134,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
             <h2 className="font-display text-3xl font-bold text-ivory md:text-4xl">
               Product overview
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-sage md:text-lg">
+            <p className="mt-6 text-body leading-relaxed text-sage">
               {product.description}
             </p>
           </div>
@@ -140,7 +143,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
             <h2 className="font-display text-3xl font-bold text-ivory md:text-4xl">
               Origin & sourcing
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-sage md:text-lg">
+            <p className="mt-6 text-body leading-relaxed text-sage">
               {product.originStory}
             </p>
           </div>
@@ -152,7 +155,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
           <h2 className="font-display text-3xl font-bold text-ivory md:text-4xl">
             Ready to source {product.name.toLowerCase()}?
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-sage">
+          <p className="mt-4 max-w-2xl text-body leading-relaxed text-sage">
             Request a sample or send a formal inquiry. We respond within 24 hours
             with availability, pricing, and documentation details.
           </p>
@@ -163,7 +166,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
               rel="noopener noreferrer"
               className={cn(
                 "inline-flex h-11 items-center justify-center rounded-sm px-6",
-                "bg-gold font-body text-sm font-medium text-on-gold transition-transform active:scale-[0.98]",
+                "bg-gold font-body text-base font-semibold text-on-gold transition-transform active:scale-[0.98]",
                 "hover:bg-gold/90",
               )}
             >
@@ -173,7 +176,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
               href="/contact"
               className={cn(
                 "inline-flex h-11 items-center justify-center rounded-sm border border-border px-6",
-                "font-body text-sm font-medium text-ivory transition-colors active:scale-[0.98]",
+                "font-body text-base font-semibold text-ivory transition-colors active:scale-[0.98]",
                 "hover:border-gold/40 hover:text-gold",
               )}
             >

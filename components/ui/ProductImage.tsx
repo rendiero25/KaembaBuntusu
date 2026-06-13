@@ -20,7 +20,7 @@ export function ProductImage({
   const image = PRODUCT_IMAGES[slug];
 
   return (
-    <div className={cn("relative overflow-hidden bg-surface", className)}>
+    <div className={cn("editorial-photo relative overflow-hidden bg-surface", className)}>
       <Image
         src={image.src}
         alt={image.alt}

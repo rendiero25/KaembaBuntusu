@@ -8,6 +8,7 @@ import {
   sampleGreatCircle,
   TRADE_DESTINATIONS,
 } from "@/lib/globeCoords";
+import { cn } from "@/lib/utils";
 
 const AUTO_ROTATE_SPEED = 0.0003;
 const IDLE_RESUME_MS = 2000;
@@ -64,7 +65,12 @@ function createProceduralEarthTexture(): THREE.CanvasTexture {
   return texture;
 }
 
-function createAtmosphereMaterial(simple: boolean): THREE.ShaderMaterial {
+function createAtmosphereMaterial(
+  simple: boolean,
+  isLightTheme: boolean,
+): THREE.ShaderMaterial {
+  const intensity = isLightTheme ? (simple ? 0.38 : 0.42) : simple ? 0.22 : 0.28;
+
   if (simple) {
     return new THREE.ShaderMaterial({
       transparent: true,
@@ -72,7 +78,7 @@ function createAtmosphereMaterial(simple: boolean): THREE.ShaderMaterial {
       blending: THREE.AdditiveBlending,
       uniforms: {
         uColor: { value: new THREE.Color(0xc8973e) },
-        uIntensity: { value: 0.18 },
+        uIntensity: { value: intensity },
       },
       vertexShader: `
         varying vec3 vNormal;
@@ -99,7 +105,7 @@ function createAtmosphereMaterial(simple: boolean): THREE.ShaderMaterial {
     blending: THREE.AdditiveBlending,
     uniforms: {
       uColor: { value: new THREE.Color(0xc8973e) },
-      uIntensity: { value: 0.28 },
+      uIntensity: { value: intensity },
     },
     vertexShader: `
       varying vec3 vNormal;
@@ -142,6 +148,7 @@ type TradeRouteSystem = {
 function createTradeRoutes(
   group: THREE.Group,
   mobile: boolean,
+  isLightTheme: boolean,
 ): TradeRouteSystem | null {
   if (mobile) return null;
 
@@ -177,9 +184,9 @@ function createTradeRoutes(
 
   const material = new THREE.PointsMaterial({
     color: 0xc8973e,
-    size: 0.018,
+    size: isLightTheme ? 0.022 : 0.018,
     transparent: true,
-    opacity: 0.85,
+    opacity: isLightTheme ? 0.95 : 0.85,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     sizeAttenuation: true,
@@ -191,7 +198,7 @@ function createTradeRoutes(
   return { geometry, material, points, particles, positionAttr };
 }
 
-export default function Globe() {
+export default function Globe({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -235,10 +242,16 @@ export default function Globe() {
     );
     let earthTexture: THREE.Texture = createProceduralEarthTexture();
 
+    const isLightTheme =
+      document.documentElement.getAttribute("data-theme") !== "dark";
+
     const earthMaterial = new THREE.MeshStandardMaterial({
       map: earthTexture,
-      roughness: 0.92,
-      metalness: 0.08,
+      roughness: isLightTheme ? 0.82 : 0.92,
+      metalness: isLightTheme ? 0.12 : 0.08,
+      color: new THREE.Color(isLightTheme ? 0xe2ebe4 : 0xffffff),
+      emissive: new THREE.Color(isLightTheme ? 0x1e3424 : 0x050d07),
+      emissiveIntensity: isLightTheme ? 0.42 : 0.1,
     });
 
     const textureLoader = new THREE.TextureLoader();
@@ -263,12 +276,14 @@ export default function Globe() {
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     globeGroup.add(earth);
 
+    globeGroup.rotation.y = (-MAKASSAR.lng * Math.PI) / 180 + 0.45;
+
     const atmosphereGeometry = new THREE.SphereGeometry(
       1.04,
       sphereSegments,
       sphereSegments,
     );
-    const atmosphereMaterial = createAtmosphereMaterial(mobile);
+    const atmosphereMaterial = createAtmosphereMaterial(mobile, isLightTheme);
     const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
     globeGroup.add(atmosphere);
 
@@ -291,12 +306,22 @@ export default function Globe() {
     makassarGlow.position.copy(makassarPosition);
     globeGroup.add(makassarGlow);
 
-    scene.add(new THREE.AmbientLight(0x607662, 0.28));
-    const keyLight = new THREE.DirectionalLight(0xede8df, 0.35);
+    scene.add(new THREE.AmbientLight(0x9aad9c, isLightTheme ? 0.85 : 0.28));
+    const keyLight = new THREE.DirectionalLight(
+      0xede8df,
+      isLightTheme ? 1.15 : 0.35,
+    );
     keyLight.position.set(2, 1.5, 3);
     scene.add(keyLight);
 
-    const tradeRoutes = createTradeRoutes(globeGroup, mobile);
+    const fillLight = new THREE.DirectionalLight(
+      0xc8973e,
+      isLightTheme ? 0.35 : 0.12,
+    );
+    fillLight.position.set(-2.5, -0.5, 2);
+    scene.add(fillLight);
+
+    const tradeRoutes = createTradeRoutes(globeGroup, mobile, isLightTheme);
 
     let autoRotate = !prefersReduced;
     let idleTimer: ReturnType<typeof setTimeout> | null = null;
@@ -420,7 +445,7 @@ export default function Globe() {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 touch-none"
+      className={cn("absolute inset-0 touch-none", className)}
       aria-hidden="true"
     />
   );

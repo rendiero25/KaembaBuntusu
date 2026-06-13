@@ -22,7 +22,7 @@ export function NotFoundContent({
     <PageMotion className="flex flex-1 flex-col items-center justify-center px-6 py-32 text-center md:px-12">
       <p
         data-reveal
-        className="font-mono text-[11px] uppercase text-gold"
+        className="text-label text-gold"
       >
         {code}
       </p>
@@ -34,7 +34,7 @@ export function NotFoundContent({
       </h1>
       <p
         data-reveal
-        className="mt-4 max-w-md text-base leading-relaxed text-sage"
+        className="mt-4 max-w-md text-body leading-relaxed text-sage"
       >
         {description}
       </p>
@@ -44,13 +44,13 @@ export function NotFoundContent({
       >
         <Link
           href={primaryHref}
-          className="inline-flex h-11 items-center justify-center rounded-sm bg-gold px-6 text-sm font-medium text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]"
+          className="inline-flex h-11 items-center justify-center rounded-sm bg-gold px-6 text-base font-semibold text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]"
         >
           {primaryLabel}
         </Link>
         <Link
           href="/contact"
-          className="inline-flex h-11 items-center justify-center rounded-sm border border-border px-6 text-sm font-medium text-ivory transition-colors hover:border-gold/40 hover:text-gold active:scale-[0.98]"
+          className="inline-flex h-11 items-center justify-center rounded-sm border border-border px-6 text-base font-semibold text-ivory transition-colors hover:border-gold/40 hover:text-gold active:scale-[0.98]"
         >
           Contact Us
         </Link>

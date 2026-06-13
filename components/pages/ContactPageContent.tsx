@@ -6,6 +6,8 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { CONTACT_FAQ } from "@/lib/content";
 import {
   COMPANY_ADDRESS,
+  INSTAGRAM_URL,
+  LINKEDIN_URL,
   WA_DISPLAY,
   WA_LINK,
 } from "@/lib/constants";
@@ -22,7 +24,7 @@ export function ContactPageContent() {
       <div className="mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-24">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <div data-reveal>
-            <div className="space-y-4 text-base leading-relaxed text-sage">
+            <div className="space-y-4 text-body leading-relaxed text-sage">
               <p>
                 Tell us what you need. We respond within 24 hours with
                 availability, current pricing, and a sample offer where relevant.
@@ -34,7 +36,7 @@ export function ContactPageContent() {
 
             <dl className="mt-10 space-y-8 border-t border-border pt-10">
               <div>
-                <dt className="font-mono text-[11px] uppercase text-sage">
+                <dt className="text-label text-sage">
                   WhatsApp
                 </dt>
                 <dd className="mt-2">
@@ -49,15 +51,39 @@ export function ContactPageContent() {
                 </dd>
               </div>
               <div>
-                <dt className="font-mono text-[11px] uppercase text-sage">
-                  Address
-                </dt>
-                <dd className="mt-2 text-base leading-relaxed text-sage">
+                <dt className="text-label text-sage">Address</dt>
+                <dd className="mt-2 text-lg font-semibold leading-relaxed text-sage">
                   {COMPANY_ADDRESS.line1}
                   <br />
                   {COMPANY_ADDRESS.line2}
                   <br />
                   {COMPANY_ADDRESS.line3}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-label text-sage">LinkedIn</dt>
+                <dd className="mt-2">
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-semibold text-ivory transition-colors hover:text-gold"
+                  >
+                    CV. Kaemba Buntusu
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-label text-sage">Instagram</dt>
+                <dd className="mt-2">
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-semibold text-ivory transition-colors hover:text-gold"
+                  >
+                    @cvkaembabuntusu
+                  </a>
                 </dd>
               </div>
             </dl>
@@ -79,10 +105,10 @@ export function ContactPageContent() {
           <dl className="mt-10 space-y-8">
             {CONTACT_FAQ.map((item) => (
               <div key={item.question} data-reveal>
-                <dt className="font-heading text-lg font-semibold text-ivory">
+                <dt className="font-heading text-2xl font-semibold text-ivory">
                   {item.question}
                 </dt>
-                <dd className="mt-2 max-w-3xl text-base leading-relaxed text-sage">
+                <dd className="mt-2 max-w-3xl text-body leading-relaxed text-sage">
                   {item.answer}
                 </dd>
               </div>

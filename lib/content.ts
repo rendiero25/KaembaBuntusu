@@ -1,7 +1,7 @@
 export const COMPANY_VALUES = [
   {
     title: "Direct sourcing",
-    copy: "Every kilogram we export is traced to vetted farmer networks in South Sulawesi. No brokers, no opaque intermediaries.",
+    copy: "Every kilogram we export is traced to vetted farmer networks in Sulawesi. No brokers, no opaque intermediaries.",
   },
   {
     title: "Export discipline",
@@ -15,12 +15,12 @@ export const COMPANY_VALUES = [
 
 export const ABOUT_EXTENDED = {
   intro:
-    "Kaemba Buntusu Indonesia was founded in Makassar in January 2026 with one conviction: Sulawesi's agricultural wealth deserves a direct, trusted pathway to international markets.",
+    "Kaemba Buntusu Indonesia started in Makassar in January 2026 to give international buyers one accountable supplier for Sulawesi coconut, copra, cloves, and pepper.",
   paragraphs: [
-    "South Sulawesi has supplied the world with coconut, copra, cloves, and pepper for generations. The region's coastal groves, highland spice farms, and pepper fields sit within reach of one of Eastern Indonesia's most strategic export ports.",
-    "Yet the path from farm gate to international buyer is often long and opaque. Middlemen add cost without adding trust. Documentation gets fragmented across agents. Quality varies batch to batch.",
-    "We built Kaemba to close that gap. By sourcing directly from farmers, grading in-house, and preparing export paperwork under one roof, we give international buyers a supplier they can verify, not just believe.",
-    "Our team operates from Buntusu, Tamalanrea, Makassar City. From here we coordinate procurement across South Sulawesi, quality control at our packing facility, and shipment through Soekarno-Hatta International Port.",
+    "Sulawesi supplies these crops through coastal groves, highland spice farms, and pepper fields within trucking distance of Soekarno-Hatta International Port.",
+    "Most export chains still pass through layers of brokers. That adds cost, blurs traceability, and makes batch quality harder to verify.",
+    "We shorten the chain. We buy from named farmer groups, grade at our facility, and handle export paperwork under one roof.",
+    "Our team works from Buntusu, Tamalanrea, Makassar City, coordinating procurement across Sulawesi, QC at packing, and shipment through Makassar port.",
   ],
   vision:
     "To become a leading export house from Eastern Indonesia, recognized globally for transparency, product quality, and community-driven sourcing.",
@@ -48,8 +48,8 @@ export const MARKET_REACH = {
 } as const;
 
 export const PROCESS_EXTENDED_INTRO = {
-  headline: "From farm gate to your warehouse",
-  copy: "Every shipment follows the same path. No shortcuts, no undocumented handoffs. Below is the full operational sequence we run for every export order.",
+  headline: "Four commodities. One export path from Sulawesi.",
+  copy: "Coconut, copra, cloves, and pepper each move through the same six steps — procured direct from farmers, graded to your spec, tested for moisture and purity, documented in-house, and dispatched from Makassar port.",
 } as const;
 
 export type ProcessStepDetail = {
@@ -64,7 +64,7 @@ export const PROCESS_STEP_DETAILS: ProcessStepDetail[] = [
     number: "01",
     title: "Direct Procurement",
     summary:
-      "We purchase directly from our vetted farmer network across South Sulawesi.",
+      "We purchase directly from our vetted farmer network across Sulawesi.",
     details: [
       "Farmer groups are assessed for consistency, volume capacity, and harvest practices.",
       "Purchase terms are agreed before harvest or at farm-gate collection.",
@@ -158,14 +158,14 @@ export const LEGALITY_EXTENDED = {
 
 export const PRODUCTS_OVERVIEW = {
   intro:
-    "We export four core agricultural commodities from South Sulawesi. Each product passes through the same quality and documentation pipeline before a single kilogram leaves Indonesia.",
-  qualityHeadline: "One standard across every commodity",
+    "Four commodities from Sulawesi: coconut, copra, cloves, and pepper. Each lot is graded to buyer spec and cleared for export before dispatch from Makassar.",
+  qualityHeadline: "Same QC standard on every commodity",
   qualityCopy:
-    "Whether you are sourcing a full container of coconut or a 100kg lot of cloves, the same grading discipline, moisture controls, and export documentation process applies.",
+    "A 20ft container of coconut and a 100kg pepper order run through the same moisture checks, grading rules, and document set. The volume changes. The standard does not.",
   sourcingRegions: [
     {
       commodity: "Coconut & Copra",
-      region: "Coastal South Sulawesi",
+      region: "Coastal Sulawesi",
       note: "Vetted groves and sun-drying cooperatives within reach of Makassar.",
     },
     {
@@ -211,11 +211,11 @@ export const CONTACT_FAQ = [
 
 export const HOME_TEASERS = {
   about:
-    "Founded in Makassar, we connect Sulawesi farmers directly to international buyers with export-grade quality and in-house documentation.",
+    "Based in Makassar, we buy from vetted farmer groups, grade in-house, and prepare export documents before anything leaves Sulawesi.",
   process:
-    "Six defined stages from farm-gate procurement through container dispatch. Every lot tested, every document prepared in-house.",
+    "Six fixed stages: procurement, grading, QC, documentation, packing, and port dispatch. Every lot is tested and traceable.",
   legality:
-    "Fully registered Indonesian export business. NIB, SIUP, and legal entity standing active. Export certificates available per shipment.",
+    "Active NIB and SIUP registration. Legal entity filed with Kemenkumham. Phytosanitary and COO issued per shipment.",
   contact:
-    "Tell us what you need. We respond within 24 hours with availability, pricing, and sample options where relevant.",
+    "Share your product, volume, and destination port. We reply within 24 hours with stock, pricing, and sample options.",
 } as const;

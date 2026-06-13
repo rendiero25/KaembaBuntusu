@@ -21,10 +21,10 @@ export function AboutPageContent() {
         image={ABOUT_IMAGES.hero}
       />
 
-      <div className="mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-24">
+      <div className="page-section-after-hero mx-auto max-w-7xl px-6 pb-16 md:px-12 md:pb-24">
         <p
           data-reveal
-          className="max-w-3xl text-lg font-medium leading-relaxed text-ivory md:text-xl"
+          className="max-w-3xl text-xl font-semibold leading-relaxed text-ivory md:text-2xl"
         >
           {ABOUT_EXTENDED.intro}
         </p>
@@ -35,7 +35,7 @@ export function AboutPageContent() {
               <p
                 key={paragraph.slice(0, 40)}
                 data-reveal
-                className="text-base leading-relaxed text-sage md:text-[17px]"
+                className="text-body leading-relaxed text-sage"
               >
                 {paragraph}
               </p>
@@ -55,18 +55,18 @@ export function AboutPageContent() {
           className="mt-16 grid gap-6 border-t border-border pt-16 md:grid-cols-2"
         >
           <blockquote className="border-l-2 border-gold bg-surface px-6 py-8 md:px-8">
-            <p className="font-mono text-[11px] uppercase text-gold">
+            <p className="text-label text-gold">
               Our vision
             </p>
-            <p className="mt-4 text-base italic leading-relaxed text-ivory md:text-lg">
+            <p className="mt-4 text-body italic leading-relaxed text-ivory">
               &ldquo;{ABOUT_EXTENDED.vision}&rdquo;
             </p>
           </blockquote>
           <div className="border border-border bg-surface px-6 py-8 md:px-8">
-            <p className="font-mono text-[11px] uppercase text-gold">
+            <p className="text-label text-gold">
               Our mission
             </p>
-            <p className="mt-4 text-base leading-relaxed text-sage md:text-lg">
+            <p className="mt-4 text-body leading-relaxed text-sage">
               {ABOUT_EXTENDED.mission}
             </p>
           </div>
@@ -82,10 +82,10 @@ export function AboutPageContent() {
                 {stat.value}
                 {stat.suffix}
               </span>
-              <span className="mt-2 block font-mono text-[11px] uppercase text-sage">
+              <span className="mt-2 block text-label text-sage">
                 {stat.label}
               </span>
-              <span className="mt-0.5 block font-mono text-[11px] uppercase text-sage">
+              <span className="mt-0.5 block text-label text-sage">
                 {stat.sublabel}
               </span>
             </div>
@@ -107,10 +107,10 @@ export function AboutPageContent() {
                 data-reveal
                 className="border border-border bg-surface p-6 md:p-8"
               >
-                <h3 className="font-heading text-xl font-semibold text-ivory">
+                <h3 className="font-heading text-2xl font-semibold text-ivory">
                   {value.title}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-sage md:text-base">
+                <p className="mt-4 text-body-responsive leading-relaxed text-sage">
                   {value.copy}
                 </p>
               </div>
@@ -130,7 +130,7 @@ export function AboutPageContent() {
               </h2>
               <p
                 data-reveal
-                className="mt-4 max-w-2xl text-base leading-relaxed text-sage md:text-lg"
+                className="mt-4 max-w-2xl text-body leading-relaxed text-sage"
               >
                 {MARKET_REACH.copy}
               </p>
@@ -150,10 +150,10 @@ export function AboutPageContent() {
                 data-reveal
                 className="border border-border bg-surface p-6"
               >
-                <h3 className="font-heading text-lg font-semibold text-ivory">
+                <h3 className="font-heading text-2xl font-semibold text-ivory">
                   {region.name}
                 </h3>
-                <p className="mt-3 font-mono text-xs text-sage md:text-sm">
+                <p className="mt-3 text-label-sm text-sage md:text-label">
                   {region.markets}
                 </p>
               </div>

@@ -126,7 +126,7 @@ export function About() {
     >
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 xl:gap-24">
         <div ref={leftRef} className="lg:min-h-[50vh] lg:pt-8">
-          <p className="font-mono text-[11px] uppercase text-gold">
+          <p className="text-label text-gold">
             About the company
           </p>
 
@@ -134,7 +134,7 @@ export function About() {
             We are the bridge.
           </h2>
 
-          <p className="mt-4 font-heading text-lg font-semibold leading-snug text-sage md:text-xl">
+          <p className="mt-4 font-heading text-2xl font-semibold leading-snug text-sage md:text-xl">
             Between Sulawesi&apos;s extraordinary land and the world&apos;s
             growing demand.
           </p>
@@ -150,10 +150,10 @@ export function About() {
                 >
                   0{stat.suffix}
                 </span>
-                <span className="mt-2 block font-mono text-[11px] uppercase text-sage">
+                <span className="mt-2 block text-label text-sage">
                   {stat.label}
                 </span>
-                <span className="mt-0.5 block font-mono text-[11px] uppercase text-sage">
+                <span className="mt-0.5 block text-label text-sage">
                   {stat.sublabel}
                 </span>
               </div>
@@ -167,7 +167,7 @@ export function About() {
               key={paragraph.slice(0, 32)}
               data-about-paragraph
               className={cn(
-                "text-base leading-relaxed text-sage md:text-[17px]",
+                "text-body leading-relaxed text-sage",
                 paragraph === "We exist to change that." &&
                   "font-medium text-ivory",
               )}
@@ -180,10 +180,10 @@ export function About() {
             data-about-vision
             className="mt-4 border-l-2 border-gold bg-surface px-6 py-6 md:px-8 md:py-8"
           >
-            <p className="font-body text-base italic leading-relaxed text-ivory md:text-[17px]">
+            <p className="font-body text-body italic leading-relaxed text-ivory">
               &ldquo;{VISION_QUOTE}&rdquo;
             </p>
-            <footer className="mt-4 font-mono text-[11px] uppercase text-sage">
+            <footer className="mt-4 text-label text-sage">
               Our founding vision
             </footer>
           </blockquote>

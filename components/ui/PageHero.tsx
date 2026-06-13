@@ -22,24 +22,33 @@ export function PageHero({
   return (
     <header
       className={cn(
-        "home-tone-gold border-b border-border bg-surface/40 px-6 pt-24 pb-12 md:px-12 md:pt-28 md:pb-16",
+        "page-hero relative flex min-h-[min(72vh,44rem)] w-full items-end overflow-hidden",
         className,
       )}
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-end lg:gap-16">
-        <div>
+      <div className="page-hero__media absolute inset-0" aria-hidden="true">
+        <ContentImage
+          image={image}
+          className="h-full w-full"
+          imageClassName="page-hero__image"
+          sizes="100vw"
+          priority={priorityImage}
+        />
+      </div>
+
+      <div className="page-hero__overlay pointer-events-none absolute inset-0" aria-hidden="true" />
+
+      <div className="relative z-10 w-full px-6 pt-28 pb-16 md:px-12 md:pt-32 md:pb-20">
+        <div className="mx-auto max-w-7xl">
           {label ? (
-            <p
-              data-reveal
-              className="font-mono text-[11px] uppercase text-gold"
-            >
+            <p data-reveal className="text-label text-gold">
               {label}
             </p>
           ) : null}
           <h1
             data-reveal
             className={cn(
-              "font-display text-[clamp(2.25rem,5.5vw,4.5rem)] font-bold leading-[1.05] text-ivory",
+              "max-w-4xl font-display text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] text-ivory",
               label && "mt-4",
             )}
           >
@@ -48,20 +57,11 @@ export function PageHero({
           {description ? (
             <p
               data-reveal
-              className="mt-6 max-w-3xl text-base leading-relaxed text-sage md:text-lg"
+              className="mt-6 max-w-3xl text-body leading-relaxed text-ivory/80"
             >
               {description}
             </p>
           ) : null}
-        </div>
-
-        <div className="aspect-[4/3] w-full overflow-hidden rounded-sm border border-border">
-          <ContentImage
-            image={image}
-            className="h-full w-full"
-            sizes="(max-width: 1024px) 100vw, 45vw"
-            priority={priorityImage}
-          />
         </div>
       </div>
     </header>

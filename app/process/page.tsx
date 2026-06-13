@@ -6,7 +6,7 @@ import { OG_IMAGE } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Export Process",
   description:
-    "From farm-gate procurement to container dispatch: the six-stage export process CV. Kaemba Buntusu Indonesia runs for every shipment from South Sulawesi.",
+    "From farm-gate procurement to container dispatch: the six-stage export process CV. Kaemba Buntusu Indonesia runs for every shipment from Sulawesi.",
   openGraph: {
     title: "Export Process | CV. Kaemba Buntusu Indonesia",
     description:

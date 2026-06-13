@@ -32,22 +32,22 @@ export function LegalityPageContent() {
               className="flex flex-col border border-border bg-surface p-6"
             >
               <div className="mb-4 flex items-start justify-between gap-4">
-                <span className="font-heading text-lg font-semibold text-ivory">
+                <span className="font-heading text-2xl font-semibold text-ivory">
                   {badge.title}
                 </span>
                 <span
                   className={cn(
-                    "shrink-0 rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase",
+                    "shrink-0 rounded-sm border px-2 py-0.5 text-label-sm",
                     statusTagClass(badge.status),
                   )}
                 >
                   {badge.statusLabel}
                 </span>
               </div>
-              <p className="font-mono text-[11px] uppercase text-sage">
+              <p className="text-label text-sage">
                 {badge.subtitle}
               </p>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-sage">
+              <p className="mt-4 flex-1 text-body-responsive leading-relaxed text-sage">
                 {badge.description}
               </p>
             </article>
@@ -65,7 +65,7 @@ export function LegalityPageContent() {
             >
               Buyer verification
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-sage">
+            <p className="mt-4 text-body leading-relaxed text-sage">
               {LEGALITY_EXTENDED.buyerVerification}
             </p>
           </div>
@@ -77,7 +77,7 @@ export function LegalityPageContent() {
               {LEGALITY_EXTENDED.perShipmentDocs.map((doc) => (
                 <li
                   key={doc}
-                  className="flex gap-3 text-sm leading-relaxed text-sage md:text-base"
+                  className="flex gap-3 text-body-responsive leading-relaxed text-sage"
                 >
                   <span className="mt-2 size-1.5 shrink-0 rounded-sm bg-gold" />
                   {doc}
@@ -89,7 +89,7 @@ export function LegalityPageContent() {
 
         <p
           data-reveal
-          className="mt-12 max-w-3xl font-mono text-xs leading-relaxed text-sage"
+          className="mt-12 max-w-3xl text-caption font-medium text-sage"
         >
           {COMPLIANCE_DISCLAIMER}
         </p>

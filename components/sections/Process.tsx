@@ -36,10 +36,10 @@ function ProcessStepContent({
       data-process-step
       className={cn(align === "right" && "lg:text-right")}
     >
-      <h3 className="font-heading text-lg font-semibold text-ivory md:text-xl">
+      <h3 className="font-heading text-2xl font-semibold text-ivory md:text-xl">
         {step.title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-sage md:text-base">
+      <p className="mt-2 text-body-responsive leading-relaxed text-sage">
         {step.copy}
       </p>
     </div>
@@ -150,7 +150,7 @@ export function Process() {
       className="border-t border-border py-24 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <p className="font-mono text-[11px] uppercase text-gold">
+        <p className="text-label text-gold">
           How we work
         </p>
         <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
@@ -158,7 +158,7 @@ export function Process() {
           <br />
           one uncompromising path.
         </h2>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-sage md:text-lg">
+        <p className="mt-6 max-w-2xl text-body leading-relaxed text-sage">
           From farm gate to your warehouse door. Here is exactly how we
           operate.
         </p>
@@ -168,7 +168,7 @@ export function Process() {
             {PROCESS_STEPS.map((step) => (
               <li key={step.number} className="relative">
                 <span
-                  className="absolute -left-[2.125rem] top-0 flex h-7 w-7 items-center justify-center rounded-sm border border-gold font-mono text-[10px] text-gold"
+                  className="absolute -left-[2.125rem] top-0 flex h-7 w-7 items-center justify-center rounded-sm border border-gold text-label-sm text-gold"
                   aria-hidden="true"
                 >
                   {step.number}
@@ -230,7 +230,7 @@ export function Process() {
                   <div className="col-start-2 flex justify-center">
                     <span
                       data-process-node
-                      className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm border border-gold bg-bg font-mono text-[11px] text-gold"
+                      className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm border border-gold bg-bg text-label text-gold"
                     >
                       {step.number}
                     </span>

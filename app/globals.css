@@ -126,6 +126,9 @@ body {
   background-color: var(--color-bg);
   color: var(--color-ivory);
   font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition:
@@ -143,9 +146,152 @@ button:not(:disabled),
   color: var(--color-footer-muted);
 }
 
+/* Footer — always dark palette (independent of page theme) */
+.site-footer {
+  background-color: #050d07;
+  border-top: 1px solid rgba(237, 232, 223, 0.08);
+  color: #ede8df;
+}
+
+.site-footer__heading {
+  color: #ede8df;
+}
+
+.site-footer__body {
+  color: #9aad9c;
+}
+
+.site-footer__link {
+  color: #ede8df;
+  transition: color 0.2s ease;
+}
+
+.site-footer__link:hover {
+  color: #d4a24a;
+}
+
+.site-footer__label {
+  color: #9aad9c;
+}
+
+.site-footer__muted {
+  color: rgba(237, 232, 223, 0.72);
+}
+
+.site-footer__gold {
+  color: #d4a24a;
+  transition: color 0.2s ease;
+}
+
+.site-footer__gold:hover {
+  color: #ede8df;
+}
+
+.site-footer__divider {
+  border-color: rgba(237, 232, 223, 0.08);
+}
+
 .font-mono {
   font-weight: 400;
   font-style: normal;
+}
+
+/* Readable label scale */
+.text-label {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.text-label-sm {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.text-caption {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.text-body {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.text-body-sm {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+@utility text-body {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+@utility text-body-sm {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .text-body {
+    font-size: 1.1875rem;
+  }
+
+  .text-body-sm {
+    font-size: 1.0625rem;
+  }
+}
+
+.text-body-responsive {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .text-body-responsive {
+    font-size: 1.1875rem;
+    line-height: 1.65;
+  }
+}
+
+/* Editorial photo treatment — real assets, less stock/AI flatness */
+.editorial-photo {
+  position: relative;
+  isolation: isolate;
+}
+
+.editorial-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 45%,
+    color-mix(in srgb, var(--color-bg) 42%, transparent) 100%
+  );
+}
+
+.editorial-photo img {
+  filter: contrast(1.04) saturate(0.9);
+}
+
+[data-theme="light"] .editorial-photo img {
+  filter: contrast(1.02) saturate(0.88);
 }
 
 .text-gold {
@@ -326,6 +472,176 @@ button:not(:disabled),
 
 .home-interactive-card:active {
   transform: translateY(-2px) scale(0.99);
+}
+
+/* Inner page heroes — full-bleed image with text overlay */
+.page-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  height: clamp(5rem, 14vh, 9rem);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--color-bg) 55%, transparent) 45%,
+    var(--color-bg) 100%
+  );
+  pointer-events: none;
+}
+
+.page-section-after-hero {
+  position: relative;
+  z-index: 10;
+  margin-top: calc(-1 * clamp(3rem, 8vh, 5rem));
+  padding-top: clamp(3rem, 8vh, 5rem);
+  background-color: var(--color-bg) bg-transparent ;
+}
+
+[data-theme="light"] .page-hero::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(237, 232, 223, 0.55) 45%,
+    #ede8df 100%
+  );
+}
+
+[data-theme="dark"] .page-hero::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(5, 13, 7, 0.55) 45%,
+    #050d07 100%
+  );
+}
+
+.page-hero__image {
+  filter: brightness(0.92) saturate(1.02);
+}
+
+[data-theme="light"] .page-hero__image {
+  filter: brightness(0.88) saturate(1.04) contrast(1.02);
+}
+
+[data-theme="dark"] .page-hero__image {
+  filter: brightness(0.82) saturate(1.05);
+}
+
+.page-hero__overlay {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-bg) 96%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 72%, transparent) 38%,
+    color-mix(in srgb, var(--color-bg) 28%, transparent) 72%,
+    transparent 100%
+  );
+}
+
+[data-theme="light"] .page-hero__overlay {
+  background: linear-gradient(
+    to top,
+    rgba(237, 232, 223, 0.96) 0%,
+    rgba(237, 232, 223, 0.78) 40%,
+    rgba(237, 232, 223, 0.35) 72%,
+    transparent 100%
+  );
+}
+
+[data-theme="dark"] .page-hero__overlay {
+  background: linear-gradient(
+    to top,
+    rgba(5, 13, 7, 0.96) 0%,
+    rgba(5, 13, 7, 0.78) 40%,
+    rgba(5, 13, 7, 0.32) 72%,
+    transparent 100%
+  );
+}
+
+/* Hero background photography — full image; overlays handle text contrast */
+.hero-bg-image {
+  opacity: 1;
+  filter: brightness(1.06) saturate(1.04);
+}
+
+[data-theme="light"] .hero-bg-image {
+  filter: brightness(1.14) saturate(1.08) contrast(1.02);
+}
+
+[data-theme="dark"] .hero-bg-image {
+  filter: brightness(1.1) saturate(1.05);
+}
+
+.hero-vignette-gradient {
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-bg) 25%, transparent) 25%,
+    color-mix(in srgb, var(--color-bg) 60%, transparent) 60%,
+    color-mix(in srgb, var(--color-bg) 100%, transparent) 100%
+  );
+}
+
+[data-theme="light"] .hero-vignette-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(237, 232, 223, 0.25) 1%,
+    rgba(237, 232, 223, 0.5) 10%,
+    rgba(237, 232, 223, 0.8) 100%
+  );
+}
+
+[data-theme="dark"] .hero-vignette-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(5, 13, 7, 0.25) 0%,
+    rgba(5, 13, 7, 0.5) 50%,
+    rgba(5, 13, 7, 0.8) 100%
+  );
+}
+
+.hero-world-stage {
+  position: relative;
+  aspect-ratio: 1;
+  width: min(92vw, 26rem);
+  margin-inline: auto;
+  flex-shrink: 0;
+}
+
+.hero-world-image {
+  filter: drop-shadow(0 20px 40px rgba(5, 13, 7, 0.14))
+    brightness(1.06);
+  transform: scale(1.06);
+}
+
+[data-theme="light"] .hero-world-image {
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 20px 40px rgba(5, 13, 7, 0.1))
+    brightness(1.08) contrast(1.05);
+}
+
+[data-theme="dark"] .hero-world-image {
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.35))
+    brightness(1.05);
+}
+
+@media (min-width: 1024px) {
+  .hero-world-stage {
+    width: 100%;
+    max-width: min(52vw, 42rem);
+    margin-inline: 0;
+    margin-left: auto;
+    margin-right: -1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-world-stage {
+    max-width: min(48vw, 44rem);
+    margin-right: -2.5rem;
+  }
 }
 
 /* ─── Hero ambient orbs ─── */

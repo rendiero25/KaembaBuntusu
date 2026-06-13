@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { lockScroll, unlockScroll } from "@/lib/lenis";
@@ -10,9 +11,12 @@ import { NAV_LINKS, Z_INDEX } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function NavBar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const navRef = useRef<HTMLElement>(null);
-  const [solid, setSolid] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const showSolid = !isHome || scrolled;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -20,7 +24,7 @@ export function NavBar() {
         start: 0,
         end: "max",
         onUpdate: (self) => {
-          setSolid(self.scroll() > 48);
+          setScrolled(self.scroll() > 48);
         },
       });
     }, navRef);
@@ -62,8 +66,8 @@ export function NavBar() {
         style={{ zIndex: Z_INDEX.nav }}
         className={cn(
           "fixed inset-x-0 top-0 transition-[background-color,border-color,backdrop-filter] duration-300",
-          solid
-            ? "border-b border-border bg-bg/95 backdrop-blur-md"
+          showSolid
+            ? "border-b border-border bg-bg/90 backdrop-blur-md"
             : "border-b border-transparent bg-transparent",
         )}
       >
@@ -73,7 +77,7 @@ export function NavBar() {
             className="font-display text-lg font-bold text-ivory transition-colors hover:text-gold md:text-xl"
             onClick={closeMenu}
           >
-            KAEMBA
+            kaembabuntusu.
           </Link>
 
           <div className="hidden items-center gap-6 lg:flex">
@@ -82,7 +86,7 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="font-body text-sm font-medium text-ivory transition-colors hover:text-gold"
+                  className="font-body text-base font-semibold text-ivory transition-colors hover:text-gold"
                 >
                   {link.label}
                 </Link>

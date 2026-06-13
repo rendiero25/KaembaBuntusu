@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Us | CV. Kaemba Buntusu Indonesia",
     description:
-      "Direct agricultural commodity export from South Sulawesi. Founded in Makassar, January 2026.",
+      "Direct agricultural commodity export from Sulawesi. Founded in Makassar, January 2026.",
     images: [OG_IMAGE],
   },
 };

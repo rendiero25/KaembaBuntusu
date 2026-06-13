@@ -8,13 +8,13 @@ export type PageImage = {
 export const ABOUT_IMAGES = {
   hero: {
     src: "/images/about/hero.jpg",
-    alt: "South Sulawesi agricultural landscape — export origin of Kaemba Buntusu Indonesia",
+    alt: "Sulawesi agricultural landscape — export origin of Kaemba Buntusu Indonesia",
     width: 1600,
     height: 1200,
   },
   origin: {
     src: "/images/about/origin.jpg",
-    alt: "Direct sourcing from South Sulawesi farmer networks and agricultural land",
+    alt: "Direct sourcing from Sulawesi farmer networks and agricultural land",
     width: 1600,
     height: 1200,
   },
@@ -28,10 +28,10 @@ export const ABOUT_IMAGES = {
 
 export const PROCESS_IMAGES = {
   hero: {
-    src: "/images/process/hero.jpg",
-    alt: "Export operations facility — quality control and shipment preparation in Makassar",
-    width: 1600,
-    height: 1200,
+    src: "/images/process-image-hero.png",
+    alt: "Export operations — grading, quality control, and shipment preparation in Makassar",
+    width: 1920,
+    height: 1080,
   },
   overview: {
     src: "/images/process/overview.jpg",
@@ -41,7 +41,7 @@ export const PROCESS_IMAGES = {
   },
   procurement: {
     src: "/images/process/procurement.jpg",
-    alt: "Direct procurement from vetted farmer networks across South Sulawesi",
+    alt: "Direct procurement from vetted farmer networks across Sulawesi",
     width: 1200,
     height: 900,
   },
@@ -50,5 +50,14 @@ export const PROCESS_IMAGES = {
     alt: "Quality control — moisture, grading, and contamination checks before export",
     width: 1200,
     height: 900,
+  },
+} as const satisfies Record<string, PageImage>;
+
+export const PRODUCTS_IMAGES = {
+  hero: {
+    src: "/images/product-image-hero.jpg",
+    alt: "Export-grade coconut, copra, cloves, and pepper from Sulawesi",
+    width: 1920,
+    height: 1080,
   },
 } as const satisfies Record<string, PageImage>;

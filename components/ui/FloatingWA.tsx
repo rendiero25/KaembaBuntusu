@@ -53,7 +53,7 @@ export function FloatingWA() {
       style={{ zIndex: Z_INDEX.floatingWa }}
       className={cn(
         "floating-wa-btn fixed right-6 bottom-6 inline-flex items-center gap-2 rounded-sm px-4 py-3",
-        "text-sm font-semibold transition-[filter,transform] duration-300",
+        "text-base font-semibold transition-[filter,transform] duration-300",
         "active:scale-[0.98]",
         "md:right-8 md:bottom-8",
       )}

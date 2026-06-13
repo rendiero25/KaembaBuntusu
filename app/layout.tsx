@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: SITE_NAME,
     description:
-      "Agricultural commodity exports from South Sulawesi. Direct sourcing, export-grade quality.",
+      "Agricultural commodity exports from Sulawesi. Direct sourcing, export-grade quality.",
     url: SITE_URL,
     siteName: SITE_NAME,
     images: [OG_IMAGE],
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description:
-      "Agricultural commodity exports from South Sulawesi. Direct sourcing, export-grade quality.",
+      "Agricultural commodity exports from Sulawesi. Direct sourcing, export-grade quality.",
     images: [OG_IMAGE.url],
   },
 };

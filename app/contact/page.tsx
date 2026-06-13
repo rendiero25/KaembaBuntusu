@@ -6,7 +6,7 @@ import { OG_IMAGE } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact CV. Kaemba Buntusu Indonesia for coconut, copra, cloves, and pepper export inquiries. Response within 24 hours. Based in Makassar, South Sulawesi.",
+    "Contact CV. Kaemba Buntusu Indonesia for coconut, copra, cloves, and pepper export inquiries. Response within 24 hours. Based in Makassar, Sulawesi.",
   openGraph: {
     title: "Contact | CV. Kaemba Buntusu Indonesia",
     description:

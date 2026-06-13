@@ -26,7 +26,7 @@ export function ContactTeaser() {
             <h2 className="font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05] text-ivory">
               Ready to source from Sulawesi?
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-sage">
+            <p className="mt-4 text-body leading-relaxed text-sage">
               {HOME_TEASERS.contact}
             </p>
           </div>
@@ -36,7 +36,7 @@ export function ContactTeaser() {
               href="/contact"
               className={cn(
                 "inline-flex h-11 items-center justify-center rounded-sm bg-gold px-6",
-                "text-sm font-medium text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]",
+                "text-base font-semibold text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]",
               )}
             >
               Send Inquiry
@@ -47,7 +47,7 @@ export function ContactTeaser() {
               rel="noopener noreferrer"
               className={cn(
                 "inline-flex h-11 items-center justify-center rounded-sm border border-border px-6",
-                "text-sm font-medium text-ivory transition-colors hover:border-gold/40 hover:text-gold active:scale-[0.98]",
+                "text-base font-semibold text-ivory transition-colors hover:border-gold/40 hover:text-gold active:scale-[0.98]",
               )}
             >
               WhatsApp Us

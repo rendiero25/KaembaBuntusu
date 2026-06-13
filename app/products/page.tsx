@@ -5,7 +5,7 @@ import { OG_IMAGE } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Export-grade coconut, copra, cloves, and pepper from South Sulawesi. Direct sourcing, international specifications, and complete export documentation.",
+    "Export-grade coconut, copra, cloves, and pepper from Sulawesi. Direct sourcing, international specifications, and complete export documentation.",
   openGraph: {
     title: "Products | CV. Kaemba Buntusu Indonesia",
     description:

@@ -12,7 +12,7 @@ function TickerStrip() {
           <span className="text-gold" aria-hidden="true">
             ·
           </span>
-          <span className="whitespace-nowrap font-bold text-sm uppercase text-ivory md:text-base">
+          <span className="whitespace-nowrap text-label uppercase text-ivory">
             {item}
           </span>
         </span>

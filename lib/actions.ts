@@ -23,11 +23,13 @@ function formatProducts(products: InquiryFormData["products"]): string {
 
 function buildInquiryEmailHtml(data: InquiryFormData): string {
   const company = data.company?.trim() ? data.company : "Not provided";
+  const phone = data.phone?.trim() ? data.phone : "Not provided";
 
   return `
     <h2>New inquiry from ${data.name}</h2>
     <p><strong>Company:</strong> ${company}</p>
     <p><strong>Country:</strong> ${data.country}</p>
+    <p><strong>WhatsApp / Phone:</strong> ${phone}</p>
     <p><strong>Products:</strong> ${formatProducts(data.products)}</p>
     <p><strong>Message:</strong></p>
     <p>${data.message.replace(/\n/g, "<br />")}</p>
@@ -62,7 +64,7 @@ export async function sendInquiryAction(
 
   const from =
     process.env.CONTACT_EMAIL_FROM ??
-    "CV. Kaemba Buntusu Indonesia <onboarding@resend.dev>";
+    "CV. Kaemba Buntusu Indonesia <marketing@kaembabuntusu.com>";
 
   try {
     const resend = new Resend(apiKey);

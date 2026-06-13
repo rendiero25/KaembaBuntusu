@@ -22,6 +22,10 @@ export const Z_INDEX = {
 
 export const HERO_IMAGE = "/images/hero.jpg";
 
+export const HERO_WORLD_IMAGE = "/images/world.webp";
+
+export const HERO_WORLD_IMAGE_DARK = "/images/world2.webp";
+
 export const WA_NUMBER =
   process.env.NEXT_PUBLIC_WA_NUMBER ?? "6282292250444";
 
@@ -30,6 +34,12 @@ export const WA_DISPLAY = "+62 822 9225 0444";
 export const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
   "Hello, I'm interested in your products.",
 )}`;
+
+export const LINKEDIN_URL =
+  "https://www.linkedin.com/in/kaemba-buntusu-365248416";
+
+export const INSTAGRAM_URL =
+  "https://www.instagram.com/cvkaembabuntusu?igsh=NWlkeHJyMjhiN2Fw";
 
 export function getProductSampleLink(productName: string): string {
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
@@ -54,7 +64,7 @@ export const TICKER_ITEMS = [
   "CLOVES",
   "PEPPER",
   "MAKASSAR PORT",
-  "SOUTH SULAWESI",
+  "SULAWESI",
   "EXPORT GRADE A",
   "DIRECT FROM FARM",
   "FULLY LICENSED",
@@ -71,7 +81,7 @@ export const ABOUT_STATS = [
 
 export const ABOUT_BODY_PARAGRAPHS = [
   "Founded in Makassar in January 2026, Kaemba Buntusu Indonesia was built on a single conviction: the agricultural wealth of Sulawesi deserves a direct, trusted pathway to international markets.",
-  "South Sulawesi has been feeding the world for centuries through its coconut groves, clove-covered hillsides, and peppercorn fields. Yet too often, the value chain between farmer and global buyer is long, opaque, and inefficient.",
+  "Sulawesi has been feeding the world for centuries through its coconut groves, clove-covered hillsides, and peppercorn fields. Yet too often, the value chain between farmer and global buyer is long, opaque, and inefficient.",
   "We exist to change that.",
   "By building direct relationships with vetted local farmers, maintaining strict quality standards at every step, and handling the full export documentation process in-house, we ensure that what reaches your warehouse is exactly what we promised. No middlemen. No surprises. Just clean product, clean paperwork, and a supplier that picks up the phone.",
 ] as const;
@@ -110,15 +120,15 @@ export const PRODUCT_IMAGES: Record<
 > = {
   coconut: {
     src: "/images/products/coconut.jpg",
-    alt: "Export-grade fresh coconuts from South Sulawesi",
+    alt: "Fresh coconuts from Sulawesi coastal farms, prepared for export",
     width: 1200,
-    height: 800,
+    height: 900,
   },
   copra: {
-    src: "/images/products/copra.jpg",
-    alt: "Sun-dried copra ready for international export",
+    src: "/images/products/copra1.jpeg",
+    alt: "Sun-dried copra from Sulawesi, ready for international export",
     width: 1200,
-    height: 800,
+    height: 900,
   },
   cloves: {
     src: "/images/products/cloves.jpg",
@@ -133,6 +143,56 @@ export const PRODUCT_IMAGES: Record<
     height: 800,
   },
 };
+
+export const PRODUCT_CAROUSEL: Partial<
+  Record<ProductSlug, readonly ProductCarouselImage[]>
+> = {
+  coconut: [
+    {
+      src: "/images/products/coconut1.jpeg",
+      alt: "Coconut harvest at a Sulawesi coastal grove",
+    },
+    {
+      src: "/images/products/coconut2.jpeg",
+      alt: "Fresh coconuts sorted at farm-gate collection",
+    },
+    {
+      src: "/images/products/coconut3.jpeg",
+      alt: "Sorted export-grade coconuts before packing",
+    },
+    {
+      src: "/images/products/coconut4.jpeg",
+      alt: "Coconut lot prepared for international shipment",
+    },
+  ],
+  copra: [
+    {
+      src: "/images/products/copra1.jpeg",
+      alt: "Sun-dried copra from Sulawesi, ready for international export",
+    },
+    {
+      src: "/images/products/copra2.jpeg",
+      alt: "Sun-dried copra sorted and prepared for export packing",
+    },
+  ],
+};
+
+export type ProductCarouselImage = {
+  src: string;
+  alt: string;
+};
+
+export function getProductCarouselImages(
+  slug: ProductSlug,
+): readonly ProductCarouselImage[] {
+  const carousel = PRODUCT_CAROUSEL[slug];
+  if (carousel && carousel.length > 0) {
+    return carousel;
+  }
+
+  const main = PRODUCT_IMAGES[slug];
+  return [{ src: main.src, alt: main.alt }];
+}
 
 export const PRODUCT_SLUGS: ProductSlug[] = [
   "coconut",
@@ -166,9 +226,9 @@ export const PRODUCTS: Product[] = [
     ],
     grade: "Export Grade A",
     originStory:
-      "South Sulawesi's coastal belt has farmed coconuts for generations. Our supply comes from vetted groves around Makassar, where harvest timing and sorting follow export buyer specifications from the first cut.",
+      "Sulawesi's coastal belt has farmed coconuts for generations. Our supply comes from vetted groves around Makassar, where harvest timing and sorting follow export buyer specifications from the first cut.",
     metaDescription:
-      "Export-grade coconut from South Sulawesi. Sorted by size and moisture, packed to international food safety standards. MOQ: 1 x 20ft container.",
+      "Export-grade coconut from Sulawesi. Sorted by size and moisture, packed to international food safety standards. MOQ: 1 x 20ft container.",
   },
   {
     slug: "copra",
@@ -176,7 +236,7 @@ export const PRODUCTS: Product[] = [
     name: "Copra",
     tagline: "High oil yield. Low moisture. No compromise.",
     description:
-      "Sun-dried copra from South Sulawesi with consistent oil yield and controlled moisture. Suitable for industrial oil processing and food-grade extraction.",
+      "Sun-dried copra from Sulawesi with consistent oil yield and controlled moisture. Suitable for industrial oil processing and food-grade extraction.",
     specs: [
       { label: "Moisture", value: "≤6%" },
       { label: "Oil yield", value: "65–68%" },
@@ -186,9 +246,9 @@ export const PRODUCTS: Product[] = [
     ],
     grade: "Export Grade A",
     originStory:
-      "Copra production in South Sulawesi relies on sun-drying traditions refined over decades. We work with farmers who control moisture at the source, reducing variability before copra reaches our grading facility in Makassar.",
+      "Copra production in Sulawesi relies on sun-drying traditions refined over decades. We work with farmers who control moisture at the source, reducing variability before copra reaches our grading facility in Makassar.",
     metaDescription:
-      "Sun-dried copra from South Sulawesi with 65-68% oil yield and controlled moisture. Suitable for industrial oil processing and food-grade extraction.",
+      "Sun-dried copra from Sulawesi with 65-68% oil yield and controlled moisture. Suitable for industrial oil processing and food-grade extraction.",
   },
   {
     slug: "cloves",
@@ -196,18 +256,18 @@ export const PRODUCTS: Product[] = [
     name: "Cloves",
     tagline: "Sulawesi's signature spice. Pure, aromatic, traceable.",
     description:
-      "Hand-picked cloves from South Sulawesi's highland farms. Known globally for their high essential oil content and deep, complex aroma. Sourced with farm-level traceability.",
+      "Hand-picked cloves from Sulawesi's highland farms. Known globally for their high essential oil content and deep, complex aroma. Sourced with farm-level traceability.",
     specs: [
       { label: "Moisture", value: "10–14%" },
       { label: "Essential oil", value: "≥15%" },
       { label: "Foreign matter", value: "Max 1%" },
-      { label: "Origin", value: "South Sulawesi, Indonesia" },
+      { label: "Origin", value: "Sulawesi, Indonesia" },
       { label: "Packaging", value: "PP woven bags / cartons" },
       { label: "MOQ", value: "100kg", highlight: true },
     ],
     grade: "Export Grade A",
     originStory:
-      "The highland slopes of South Sulawesi produce cloves prized for essential oil content. We trace each lot to farm clusters in the region's spice belt, where hand-picking preserves bud integrity through drying and storage.",
+      "The highland slopes of Sulawesi produce cloves prized for essential oil content. We trace each lot to farm clusters in the region's spice belt, where hand-picking preserves bud integrity through drying and storage.",
     metaDescription:
       "Hand-picked Sulawesi cloves with high essential oil content and farm-level traceability. Export Grade A, MOQ from 100kg.",
   },
@@ -246,7 +306,7 @@ export const WHY_US_REASONS: WhyUsReason[] = [
   {
     number: "01",
     title: "No middlemen. Just farmers.",
-    copy: "We source directly from vetted farmer networks across South Sulawesi. This means better pricing, genuine traceability, and a supply chain you can actually verify, not just trust.",
+    copy: "We source directly from vetted farmer networks across Sulawesi. This means better pricing, genuine traceability, and a supply chain you can actually verify, not just trust.",
     icon: "farm",
   },
   {
@@ -364,7 +424,7 @@ export const COMPLIANCE_DISCLAIMER =
 
 export const COMPANY_ADDRESS = {
   line1: "Buntusu, Tamalanrea",
-  line2: "Makassar City, South Sulawesi",
+  line2: "Makassar City, Sulawesi",
   line3: "Indonesia",
 } as const;
 

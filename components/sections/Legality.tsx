@@ -107,7 +107,7 @@ export function Legality() {
       className="border-t border-border py-24 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <p className="font-mono text-[11px] uppercase text-gold">
+        <p className="text-label text-gold">
           Legal standing
         </p>
         <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
@@ -115,7 +115,7 @@ export function Legality() {
           <br />
           Export-ready.
         </h2>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-sage md:text-lg">
+        <p className="mt-6 max-w-2xl text-body leading-relaxed text-sage">
           For an international buyer, a supplier&apos;s legal standing is not a
           box to tick. It is the foundation of trust.
         </p>
@@ -152,7 +152,7 @@ export function Legality() {
                 </svg>
                 <span
                   className={cn(
-                    "rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase",
+                    "rounded-sm border px-2 py-0.5 text-label-sm",
                     statusTagClass(badge.status),
                   )}
                 >
@@ -160,20 +160,20 @@ export function Legality() {
                 </span>
               </div>
 
-              <h3 className="font-heading text-lg font-semibold text-ivory">
+              <h3 className="font-heading text-2xl font-semibold text-ivory">
                 {badge.title}
               </h3>
-              <p className="mt-1 font-mono text-[11px] uppercase text-sage">
+              <p className="mt-1 text-label text-sage">
                 {badge.subtitle}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-sage">
+              <p className="mt-4 text-body-responsive leading-relaxed text-sage">
                 {badge.description}
               </p>
             </article>
           ))}
         </div>
 
-        <p className="mt-12 max-w-3xl font-mono text-xs leading-relaxed text-sage">
+        <p className="mt-12 max-w-3xl text-caption font-medium text-sage">
           {COMPLIANCE_DISCLAIMER}
         </p>
       </div>

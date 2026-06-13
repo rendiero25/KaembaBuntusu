@@ -93,7 +93,7 @@ export function WhyUs() {
     >
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div data-section-item>
-          <p className="font-mono text-[11px] uppercase text-gold">
+          <p className="text-label text-gold">
             Why Kaemba
           </p>
           <h2 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4.5vw,4rem)] font-bold leading-[1.05] text-ivory">
@@ -125,16 +125,16 @@ export function WhyUs() {
                   >
                     <ReasonIcon icon={reason.icon} strokeColor={accent.stroke} />
                   </div>
-                  <span className="font-mono text-[11px] uppercase text-gold">
+                  <span className="text-label text-gold">
                     {reason.number}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-xl font-semibold text-ivory md:text-2xl">
+                <h3 className="font-heading text-2xl font-semibold text-ivory md:text-2xl">
                   {reason.title}
                 </h3>
 
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-sage md:text-base">
+                <p className="mt-4 flex-1 text-body leading-relaxed text-sage">
                   {reason.copy}
                 </p>
               </article>
