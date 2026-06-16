@@ -23,7 +23,7 @@ const NAV_HREFS = [
   "/#contact",
 ];
 
-const PRODUCT_SLUGS = ["coconut", "copra", "cloves", "pepper"];
+const PRODUCT_SLUGS = ["coconut", "copra", "cloves", "pepper", "cacao-bean"];
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");

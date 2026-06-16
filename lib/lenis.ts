@@ -68,6 +68,11 @@ export function refreshScroll(): void {
   ScrollTrigger.refresh();
 }
 
+/** Ensure Lenis + ScrollTrigger scroller proxy exist before creating triggers. */
+export function ensureScrollAnimation(): Lenis | null {
+  return initLenis();
+}
+
 export function initLenis(): Lenis | null {
   if (typeof window === "undefined") return null;
   if (lenisInstance) return lenisInstance;

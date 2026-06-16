@@ -63,6 +63,7 @@ export const TICKER_ITEMS = [
   "COPRA",
   "CLOVES",
   "PEPPER",
+  "CACAO BEAN",
   "MAKASSAR PORT",
   "SULAWESI",
   "EXPORT GRADE A",
@@ -74,7 +75,7 @@ export const TICKER_ITEMS = [
 export const TICKER_LOOP_DURATION = 40;
 
 export const ABOUT_STATS = [
-  { value: 4, suffix: "", label: "Core", sublabel: "Commodities" },
+  { value: 5, suffix: "", label: "Core", sublabel: "Commodities" },
   { value: 1, suffix: "", label: "Strategic", sublabel: "Hub" },
   { value: 100, suffix: "%", label: "Direct", sublabel: "Sourcing" },
 ] as const;
@@ -86,7 +87,12 @@ export const ABOUT_BODY_PARAGRAPHS = [
   "By building direct relationships with vetted local farmers, maintaining strict quality standards at every step, and handling the full export documentation process in-house, we ensure that what reaches your warehouse is exactly what we promised. No middlemen. No surprises. Just clean product, clean paperwork, and a supplier that picks up the phone.",
 ] as const;
 
-export type ProductSlug = "coconut" | "copra" | "cloves" | "pepper";
+export type ProductSlug =
+  | "coconut"
+  | "copra"
+  | "cloves"
+  | "pepper"
+  | "cacao-bean";
 
 export type ProductSpec = {
   label: string;
@@ -112,6 +118,8 @@ export const PRODUCT_GRADIENTS: Record<ProductSlug, string> = {
   copra: "bg-[linear-gradient(135deg,#2a2418_0%,#0d1b0f_45%,#3d3020_100%)]",
   cloves: "bg-[linear-gradient(135deg,#2a1818_0%,#0d1b0f_45%,#3d2520_100%)]",
   pepper: "bg-[linear-gradient(135deg,#1f2a1a_0%,#0d1b0f_45%,#2e3520_100%)]",
+  "cacao-bean":
+    "bg-[linear-gradient(135deg,#2a1f18_0%,#0d1b0f_45%,#3d2a20_100%)]",
 };
 
 export const PRODUCT_IMAGES: Record<
@@ -119,8 +127,8 @@ export const PRODUCT_IMAGES: Record<
   { src: string; alt: string; width: number; height: number }
 > = {
   coconut: {
-    src: "/images/products/coconut.jpg",
-    alt: "Fresh coconuts from Sulawesi coastal farms, prepared for export",
+    src: "/images/products/coconut4.jpeg",
+    alt: "Coconut lot prepared for international shipment",
     width: 1200,
     height: 900,
   },
@@ -142,12 +150,22 @@ export const PRODUCT_IMAGES: Record<
     width: 1200,
     height: 800,
   },
+  "cacao-bean": {
+    src: "/images/products/cacao-bean.jpg",
+    alt: "Export-grade fermented cacao beans from Sulawesi",
+    width: 1200,
+    height: 900,
+  },
 };
 
 export const PRODUCT_CAROUSEL: Partial<
   Record<ProductSlug, readonly ProductCarouselImage[]>
 > = {
   coconut: [
+    {
+      src: "/images/products/coconut4.jpeg",
+      alt: "Coconut lot prepared for international shipment",
+    },
     {
       src: "/images/products/coconut1.jpeg",
       alt: "Coconut harvest at a Sulawesi coastal grove",
@@ -161,8 +179,20 @@ export const PRODUCT_CAROUSEL: Partial<
       alt: "Sorted export-grade coconuts before packing",
     },
     {
-      src: "/images/products/coconut4.jpeg",
-      alt: "Coconut lot prepared for international shipment",
+      src: "/images/products/coconut5.jpeg",
+      alt: "Export-grade coconuts graded for international buyers",
+    },
+    {
+      src: "/images/products/coconut6.jpeg",
+      alt: "Coconut batch inspected at farm-gate collection point",
+    },
+    {
+      src: "/images/products/coconut7.jpeg",
+      alt: "Fresh coconuts from Sulawesi coastal farms",
+    },
+    {
+      src: "/images/products/coconut8.jpeg",
+      alt: "Coconut shipment prepared for export from Makassar",
     },
   ],
   copra: [
@@ -173,6 +203,20 @@ export const PRODUCT_CAROUSEL: Partial<
     {
       src: "/images/products/copra2.jpeg",
       alt: "Sun-dried copra sorted and prepared for export packing",
+    },
+  ],
+  "cacao-bean": [
+    {
+      src: "/images/products/cacao-bean.jpg",
+      alt: "Export-grade fermented cacao beans from Sulawesi",
+    },
+    {
+      src: "/images/products/cocoabean1.jpeg",
+      alt: "Fermented cacao beans drying at a Sulawesi farm",
+    },
+    {
+      src: "/images/products/cocoabean2.jpeg",
+      alt: "Sorted cacao beans prepared for export shipment",
     },
   ],
 };
@@ -199,6 +243,7 @@ export const PRODUCT_SLUGS: ProductSlug[] = [
   "copra",
   "cloves",
   "pepper",
+  "cacao-bean",
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {
@@ -290,6 +335,26 @@ export const PRODUCTS: Product[] = [
       "Black and white pepper from Sulawesi's growing regions is sorted to separate grades at source. Our supply chain connects directly with farmer groups who clean and dry pepper to export specifications before consolidated shipment through Makassar.",
     metaDescription:
       "Black and white pepper sorted to international specifications. Consistent pungency, minimal impurities, ready for industrial or retail repackaging.",
+  },
+  {
+    slug: "cacao-bean",
+    number: "05",
+    name: "Cacao Bean",
+    tagline: "Fermented, dried, and graded for chocolate makers worldwide.",
+    description:
+      "Selected cacao beans from Sulawesi's growing regions. Fermented and sun-dried to develop flavour, sorted by size and moisture, and packed to international food safety standards for chocolate and cocoa processing.",
+    specs: [
+      { label: "Moisture", value: "≤7%" },
+      { label: "Fermentation", value: "Well fermented" },
+      { label: "Bean count", value: "Per buyer specification" },
+      { label: "Packaging", value: "Jute bags / PP sacks" },
+      { label: "MOQ", value: "100kg", highlight: true },
+    ],
+    grade: "Export Grade A",
+    originStory:
+      "Sulawesi's cacao belt supplies beans prized for depth and fermentation character. We source from vetted farmer groups who control drying and sorting at farm level, then consolidate through our Makassar grading facility before export dispatch.",
+    metaDescription:
+      "Export-grade fermented cacao beans from Sulawesi. Sorted by size and moisture, packed for chocolate makers and cocoa processors. MOQ from 100kg.",
   },
 ];
 
@@ -433,6 +498,7 @@ export const INQUIRY_PRODUCT_OPTIONS = [
   { value: "copra" as const, label: "Copra" },
   { value: "cloves" as const, label: "Cloves" },
   { value: "pepper" as const, label: "Pepper" },
+  { value: "cacao-bean" as const, label: "Cacao Bean" },
 ] as const;
 
 export const BUYER_COUNTRIES = [

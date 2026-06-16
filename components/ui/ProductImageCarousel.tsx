@@ -97,7 +97,7 @@ export function ProductImageCarousel({
             <ChevronRight className="size-5" aria-hidden />
           </button>
 
-          <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between gap-4 bg-gradient-to-t from-bg/90 to-transparent px-4 pt-10 pb-4">
+          <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between gap-4 px-4 pb-4">
             <div
               className="flex items-center gap-2"
               role="tablist"

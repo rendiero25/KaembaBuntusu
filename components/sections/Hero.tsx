@@ -183,6 +183,20 @@ export function Hero({ ready = false }: HeroProps) {
 
     return () => {
       split?.revert();
+      if (!prefersReduced) {
+        const eyebrow = eyebrowRef.current;
+        const headline = headlineRef.current;
+        const sub = subRef.current;
+        const cta = ctaRef.current;
+        const badges = badgesRef.current;
+        if (eyebrow && headline && sub && cta && badges) {
+          gsap.set([eyebrow, headline, sub, cta, badges], {
+            clearProps: "opacity,transform",
+          });
+          gsap.set(cta.children, { clearProps: "opacity,transform" });
+          gsap.set(badges.children, { clearProps: "opacity,transform" });
+        }
+      }
       ctx.revert();
     };
   }, [ready]);
@@ -242,7 +256,8 @@ export function Hero({ ready = false }: HeroProps) {
             ref={subRef}
             className="mx-auto mt-6 max-w-2xl text-body leading-relaxed text-ivory lg:mx-0"
           >
-            We export coconut, copra, cloves, and pepper from Sulawesi to buyers
+            We export coconut, copra, cloves, pepper, and cacao bean from
+            Sulawesi to buyers
             in Asia, the Middle East, and Europe. Direct farmer sourcing, export
             documents prepared in-house, lots graded before dispatch.
           </p>
@@ -294,7 +309,7 @@ export function Hero({ ready = false }: HeroProps) {
 
         <div
           ref={worldWrapRef}
-          className="hero-world-stage opacity-0 lg:justify-self-end"
+          className="hero-world-stage lg:justify-self-end"
         >
           {ready ? (
             <div className="relative h-full w-full">

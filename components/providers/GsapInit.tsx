@@ -2,10 +2,11 @@
 
 import { useEffect } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
-import { destroyLenis, initLenis, refreshScroll } from "@/lib/lenis";
+import { destroyLenis, ensureScrollAnimation, initLenis, refreshScroll } from "@/lib/lenis";
 
 export function GsapInit() {
   useEffect(() => {
+    ensureScrollAnimation();
     const lenis = initLenis();
 
     const refreshScrollTriggers = () => {

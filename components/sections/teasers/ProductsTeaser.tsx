@@ -15,7 +15,7 @@ export function ProductsTeaser() {
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div data-section-item>
           <h2 className="max-w-3xl font-display text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] text-ivory">
-            Coconut, copra, cloves, and pepper from Sulawesi.
+            Coconut, copra, cloves, pepper, and cacao bean from Sulawesi.
           </h2>
           <p className="mt-4 max-w-xl text-body leading-relaxed text-sage">
             Graded to buyer specification. Moisture and purity checked before
@@ -23,7 +23,7 @@ export function ProductsTeaser() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {PRODUCTS.map((product) => (
             <Link
               key={product.slug}

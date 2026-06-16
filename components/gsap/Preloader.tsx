@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 import { lockScroll, refreshScroll, unlockScroll } from "@/lib/lenis";
+import { MotionReadyProvider } from "@/components/providers/MotionReadyContext";
 import { EASE, Z_INDEX } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 type PreloaderProps = {
   children: React.ReactNode;
@@ -12,6 +12,7 @@ type PreloaderProps = {
 };
 
 const BRAND_TEXT = "KAEMBA BUNTUSU";
+const PRELOADER_MAX_MS = 3500;
 
 function shouldSkipPreloader(): boolean {
   if (typeof window === "undefined") return false;
@@ -24,25 +25,41 @@ function shouldSkipPreloader(): boolean {
   return localStorage.getItem("kaemba-preloader-complete") === "1";
 }
 
+function markPreloaderComplete(): void {
+  try {
+    localStorage.setItem("kaemba-preloader-complete", "1");
+  } catch {
+    // sessionStorage may be unavailable in private mode
+  }
+}
+
 export function Preloader({ children, onComplete }: PreloaderProps) {
   const [ready, setReady] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const brandWrapRef = useRef<HTMLDivElement>(null);
   const brandRef = useRef<HTMLHeadingElement>(null);
+  const completedRef = useRef(false);
+  const splitRef = useRef<SplitText | null>(null);
 
-  useEffect(() => {
-    if (shouldSkipPreloader()) {
-      const frame = requestAnimationFrame(() => setReady(true));
-      return () => cancelAnimationFrame(frame);
-    }
+  const finishPreloader = () => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    markPreloaderComplete();
+    unlockScroll();
+    setReady(true);
+  };
 
-    lockScroll();
+  useGSAP(
+    () => {
+      if (shouldSkipPreloader()) {
+        finishPreloader();
+        return;
+      }
 
-    let split: SplitText | null = null;
+      lockScroll();
 
-    const ctx = gsap.context(() => {
-      const counter = { value: 0 };
+      const timeoutId = window.setTimeout(finishPreloader, PRELOADER_MAX_MS);
 
       if (counterRef.current) {
         gsap.set(counterRef.current, { autoAlpha: 0 });
@@ -50,22 +67,20 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
       }
 
       if (brandRef.current && brandWrapRef.current) {
-        split = SplitText.create(brandRef.current, { type: "chars" });
+        splitRef.current = SplitText.create(brandRef.current, { type: "chars" });
         gsap.set(brandWrapRef.current, {
           autoAlpha: 0,
           height: 0,
           overflow: "hidden",
         });
-        gsap.set(split.chars, { y: 100, opacity: 0 });
+        gsap.set(splitRef.current.chars, { y: 100, opacity: 0 });
       }
 
+      const counter = { value: 0 };
+      const split = splitRef.current;
+
       const tl = gsap.timeline({
-        onComplete: () => {
-          localStorage.setItem("kaemba-preloader-complete", "1");
-          unlockScroll();
-          refreshScroll();
-          setReady(true);
-        },
+        onComplete: finishPreloader,
       });
 
       if (counterRef.current) {
@@ -74,7 +89,7 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
 
       tl.to(counter, {
         value: 100,
-        duration: 1.1,
+        duration: 0.75,
         ease: EASE.out,
         onUpdate: () => {
           if (!counterRef.current) return;
@@ -91,11 +106,11 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
-            stagger: 0.04,
+            duration: 0.7,
+            stagger: 0.03,
             ease: EASE.expo,
           },
-          "+=0.12",
+          "+=0.08",
         );
       }
 
@@ -103,23 +118,33 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
         overlayRef.current,
         {
           yPercent: -100,
-          duration: 0.8,
+          duration: 0.65,
           ease: "expo.inOut",
         },
-        "+=0.15",
+        "+=0.1",
       );
-    }, overlayRef);
 
-    return () => {
-      split?.revert();
-      ctx.revert();
-      unlockScroll();
-    };
-  }, []);
+      return () => {
+        window.clearTimeout(timeoutId);
+        if (!completedRef.current) {
+          splitRef.current?.revert();
+          splitRef.current = null;
+          unlockScroll();
+        }
+      };
+    },
+    { scope: overlayRef },
+  );
 
   useEffect(() => {
     if (!ready) return;
     onComplete?.();
+
+    const frame = requestAnimationFrame(() => {
+      refreshScroll();
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [ready, onComplete]);
 
   return (
@@ -155,9 +180,9 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
           </div>
         </div>
       )}
-      <div className={cn(!ready && "invisible")} aria-hidden={!ready}>
+      <MotionReadyProvider ready={ready}>
         {children}
-      </div>
+      </MotionReadyProvider>
     </>
   );
 }

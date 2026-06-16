@@ -11,7 +11,7 @@ export const SITE_TITLE =
   "CV. Kaemba Buntusu Indonesia | Agricultural Commodity Exporter";
 
 export const SITE_DESCRIPTION =
-  "Premium agricultural commodity exports from Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper. Fully licensed, export-grade, direct sourcing.";
+  "Premium agricultural commodity exports from Sulawesi, Indonesia. Coconut, Copra, Cloves, Pepper, Cacao Bean. Fully licensed, export-grade, direct sourcing.";
 
 export const SITE_KEYWORDS = [
   "indonesian commodity exporter",
@@ -19,6 +19,7 @@ export const SITE_KEYWORDS = [
   "cloves exporter",
   "coconut exporter",
   "pepper exporter",
+  "cacao exporter",
   "makassar export",
   "sulawesi agriculture",
 ] as const;

@@ -27,25 +27,24 @@ export function ProductsIndexContent() {
             <article
               key={product.slug}
               data-reveal
-              className="home-interactive-card group flex flex-col rounded-sm"
+              className="home-interactive-card group relative flex flex-col rounded-sm"
             >
+              <Link
+                href={`/products/${product.slug}`}
+                className="absolute inset-0 z-[1] rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                aria-label={`View ${product.name} — full specifications`}
+              />
+
               <ProductImage
                 slug={product.slug}
-                className="h-48 w-full rounded-t-sm"
+                className="relative z-0 h-48 w-full rounded-t-sm"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
 
-              <div className="flex flex-1 flex-col p-6 md:p-8">
-                <p className="text-label text-gold">
-                  {product.number}
-                </p>
-                <h2 className="mt-3 font-heading text-2xl font-semibold text-ivory md:text-3xl">
-                  <Link
-                    href={`/products/${product.slug}`}
-                    className="transition-colors hover:text-gold"
-                  >
-                    {product.name}
-                  </Link>
+              <div className="relative z-0 flex flex-1 flex-col p-6 md:p-8">
+                <p className="text-label text-gold">{product.number}</p>
+                <h2 className="mt-3 font-heading text-2xl font-semibold text-ivory transition-colors group-hover:text-gold md:text-3xl">
+                  {product.name}
                 </h2>
                 <p className="mt-2 font-heading text-body-responsive text-ivory">
                   {product.tagline}
@@ -70,13 +69,13 @@ export function ProductsIndexContent() {
                   ))}
                 </dl>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href={`/products/${product.slug}`}
-                    className="inline-flex h-10 items-center justify-center rounded-sm bg-gold px-4 text-base font-semibold text-on-gold transition-transform hover:bg-gold/90 active:scale-[0.98]"
+                <div className="relative z-[2] mt-6 flex flex-wrap gap-3">
+                  <span
+                    className="inline-flex h-10 items-center justify-center rounded-sm bg-gold px-4 text-base font-semibold text-on-gold transition-transform group-hover:bg-gold/90 group-active:scale-[0.98]"
+                    aria-hidden="true"
                   >
                     Full specs
-                  </Link>
+                  </span>
                   <a
                     href={getProductSampleLink(product.name)}
                     target="_blank"

@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { ScrollTrigger } from "@/lib/gsap";
-import { getLenis } from "@/lib/lenis";
+import { getLenis, refreshScroll } from "@/lib/lenis";
 
 export function ScrollReset() {
   const pathname = usePathname();
@@ -15,8 +14,11 @@ export function ScrollReset() {
     } else {
       window.scrollTo(0, 0);
     }
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-    ScrollTrigger.refresh();
+
+    // Do not kill all ScrollTriggers here — useGSAP runs in useLayoutEffect
+    // before this effect, so a global kill leaves reveal targets stuck at opacity: 0.
+    // Each animated component cleans up its own triggers on unmount.
+    refreshScroll();
   }, [pathname]);
 
   return null;

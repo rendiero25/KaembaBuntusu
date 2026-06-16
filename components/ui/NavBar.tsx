@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { lockScroll, unlockScroll } from "@/lib/lenis";
+import { ensureScrollAnimation, lockScroll, unlockScroll } from "@/lib/lenis";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { NAV_LINKS, Z_INDEX } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,8 @@ export function NavBar() {
   const showSolid = !isHome || scrolled;
 
   useEffect(() => {
+    ensureScrollAnimation();
+
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         start: 0,

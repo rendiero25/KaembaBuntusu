@@ -2,9 +2,11 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { useMotionReady } from "@/components/providers/MotionReadyContext";
 import { DURATION } from "@/lib/constants";
+import { ensureScrollAnimation, refreshScroll } from "@/lib/lenis";
 import { getPrefersReducedMotion } from "@/lib/motion";
-import { animateRevealBatch } from "@/lib/revealTimeline";
+import { animateRevealBatch, scheduleViewportReveal } from "@/lib/revealTimeline";
 
 type UseSectionRevealOptions = {
   itemSelector?: string;
@@ -21,11 +23,14 @@ export function useSectionReveal<T extends HTMLElement = HTMLElement>(
     stagger = 0.08,
   } = options;
 
+  const motionReady = useMotionReady();
   const sectionRef = useRef<T>(null);
 
   useGSAP(
     () => {
-      if (getPrefersReducedMotion()) return;
+      if (!motionReady || getPrefersReducedMotion()) return;
+
+      ensureScrollAnimation();
 
       const section = sectionRef.current;
       if (!section) return;
@@ -49,17 +54,16 @@ export function useSectionReveal<T extends HTMLElement = HTMLElement>(
         },
       });
 
-      ScrollTrigger.refresh();
+      refreshScroll();
 
-      const revealThreshold = window.innerHeight * 0.78;
-      items.forEach((item) => {
-        const { top, bottom } = item.getBoundingClientRect();
-        if (top < revealThreshold && bottom > 0) {
-          gsap.set(item, { y: 0, opacity: 1 });
-        }
-      });
+      const thresholdMatch = triggerStart.match(/top\s+(\d+)%/);
+      const revealRatio = thresholdMatch
+        ? Number(thresholdMatch[1]) / 100
+        : 0.78;
+
+      return scheduleViewportReveal(items, revealRatio);
     },
-    { scope: sectionRef },
+    { dependencies: [motionReady], scope: sectionRef, revertOnUpdate: true },
   );
 
   return sectionRef;
