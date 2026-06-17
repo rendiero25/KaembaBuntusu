@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const inquirySchema = z.object({
   name: z.string().min(2, "Name is required"),
+  email: z.string().min(1, "Email is required").email("Enter a valid email"),
   company: z.string().optional(),
   country: z.string().min(1, "Country is required"),
   phone: z.string().optional(),

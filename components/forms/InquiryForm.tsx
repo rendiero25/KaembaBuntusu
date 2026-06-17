@@ -32,6 +32,7 @@ import { cn } from "@/lib/utils";
 
 const defaultValues: InquiryFormData = {
   name: "",
+  email: "",
   company: "",
   country: "",
   phone: "",
@@ -96,6 +97,27 @@ export function InquiryForm() {
                 <Input
                   {...field}
                   autoComplete="name"
+                  className="h-10 w-full rounded-sm border-border bg-bg text-ivory"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-body text-lg font-semibold text-ivory">
+                Email <span className="text-gold">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="email"
+                  autoComplete="email"
                   className="h-10 w-full rounded-sm border-border bg-bg text-ivory"
                 />
               </FormControl>

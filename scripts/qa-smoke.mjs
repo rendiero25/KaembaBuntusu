@@ -73,6 +73,20 @@ assert(hero.includes("WA_LINK"), "Hero uses WA_LINK constant");
 const products = read("components/sections/Products.tsx");
 assert(products.includes("getProductSampleLink"), "Products sample links use helper");
 
+const inquirySchema = read("lib/inquirySchema.ts");
+assert(
+  inquirySchema.includes(`email: z.string()`) &&
+    inquirySchema.includes(`.email(`),
+  "inquirySchema requires and validates an email field",
+);
+
+const inquiryForm = read("components/forms/InquiryForm.tsx");
+assert(inquiryForm.includes(`email: ""`), "InquiryForm defaultValues includes email");
+assert(
+  inquiryForm.includes(`name="email"`) && inquiryForm.includes(`type="email"`),
+  "InquiryForm renders a required email input",
+);
+
 if (failures.length > 0) {
   console.error("QA smoke checks failed:\n");
   for (const failure of failures) {
