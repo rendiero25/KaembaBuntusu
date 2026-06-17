@@ -1,4 +1,4 @@
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { DURATION, EASE } from "@/lib/constants";
 
 type RevealBatchOptions = {
@@ -24,6 +24,37 @@ export function animateRevealBatch(
     });
 }
 
+type ScrollRevealTriggerOptions = {
+  start: string;
+  y?: number;
+  once?: boolean;
+};
+
+/**
+ * Canonical GSAP ScrollTrigger reveal — gsap.from() on each target.
+ * @see https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+ */
+export function createScrollRevealTriggers(
+  targets: HTMLElement[],
+  options: ScrollRevealTriggerOptions,
+): void {
+  const { start, y = 36, once = true } = options;
+
+  targets.forEach((target) => {
+    gsap.from(target, {
+      y,
+      opacity: 0,
+      duration: DURATION.base,
+      ease: EASE.out,
+      scrollTrigger: {
+        trigger: target,
+        start,
+        toggleActions: once ? "play none none none" : "play reverse play reverse",
+      },
+    });
+  });
+}
+
 /** Immediately show targets already inside the viewport (no scroll trigger needed). */
 export function revealTargetsInViewport(
   targets: HTMLElement[],
@@ -41,19 +72,36 @@ export function revealTargetsInViewport(
   });
 }
 
-/** Re-check viewport visibility after layout and scroll setup settle. */
+/** Re-check viewport visibility after layout and ScrollTrigger refresh settle. */
 export function scheduleViewportReveal(
   targets: HTMLElement[],
   revealRatio = 0.85,
 ): () => void {
   const reveal = () => revealTargetsInViewport(targets, revealRatio);
+  const frameIds: number[] = [];
 
-  reveal();
-
-  const frameA = requestAnimationFrame(() => {
+  const scheduleFrames = () => {
     reveal();
-    requestAnimationFrame(reveal);
-  });
+    frameIds.push(
+      requestAnimationFrame(() => {
+        reveal();
+        frameIds.push(requestAnimationFrame(reveal));
+      }),
+    );
+  };
 
-  return () => cancelAnimationFrame(frameA);
+  scheduleFrames();
+
+  const onRefresh = () => reveal();
+  ScrollTrigger.addEventListener("refresh", onRefresh);
+
+  const timeoutId = window.setTimeout(reveal, 120);
+  const lateTimeoutId = window.setTimeout(reveal, 400);
+
+  return () => {
+    frameIds.forEach((id) => cancelAnimationFrame(id));
+    window.clearTimeout(timeoutId);
+    window.clearTimeout(lateTimeoutId);
+    ScrollTrigger.removeEventListener("refresh", onRefresh);
+  };
 }

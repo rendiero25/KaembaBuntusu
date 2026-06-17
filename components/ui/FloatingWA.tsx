@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { WA_LINK, Z_INDEX } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -21,17 +21,16 @@ function WhatsAppIcon({ className }: { className?: string }) {
 export function FloatingWA() {
   const buttonRef = useRef<HTMLAnchorElement>(null);
 
-  useEffect(() => {
-    const button = buttonRef.current;
-    if (!button) return;
+  useGSAP(
+    () => {
+      const button = buttonRef.current;
+      if (!button) return;
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (prefersReduced) return;
 
-    if (prefersReduced) return;
-
-    const ctx = gsap.context(() => {
       gsap.to(button, {
         scale: 1.06,
         duration: 1,
@@ -39,10 +38,9 @@ export function FloatingWA() {
         yoyo: true,
         repeat: -1,
       });
-    }, button);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    { scope: buttonRef },
+  );
 
   return (
     <a

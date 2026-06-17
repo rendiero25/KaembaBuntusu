@@ -35,6 +35,7 @@ function markPreloaderComplete(): void {
 
 export function Preloader({ children, onComplete }: PreloaderProps) {
   const [ready, setReady] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const brandWrapRef = useRef<HTMLDivElement>(null);
@@ -67,13 +68,19 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
       }
 
       if (brandRef.current && brandWrapRef.current) {
-        splitRef.current = SplitText.create(brandRef.current, { type: "chars" });
-        gsap.set(brandWrapRef.current, {
-          autoAlpha: 0,
-          height: 0,
-          overflow: "hidden",
-        });
-        gsap.set(splitRef.current.chars, { y: 100, opacity: 0 });
+        try {
+          splitRef.current = SplitText.create(brandRef.current, {
+            type: "chars",
+          });
+          gsap.set(brandWrapRef.current, {
+            autoAlpha: 0,
+            height: 0,
+            overflow: "hidden",
+          });
+          gsap.set(splitRef.current.chars, { y: 100, opacity: 0 });
+        } catch {
+          gsap.set(brandWrapRef.current, { autoAlpha: 1, height: "auto" });
+        }
       }
 
       const counter = { value: 0 };
@@ -133,22 +140,27 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
         }
       };
     },
-    { scope: overlayRef },
+    { scope: rootRef },
   );
 
   useEffect(() => {
     if (!ready) return;
     onComplete?.();
 
-    const frame = requestAnimationFrame(() => {
-      refreshScroll();
-    });
+    refreshScroll();
+    const frameId = requestAnimationFrame(() => refreshScroll());
+    const timeoutId = window.setTimeout(refreshScroll, 120);
+    const lateTimeoutId = window.setTimeout(refreshScroll, 400);
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.clearTimeout(timeoutId);
+      window.clearTimeout(lateTimeoutId);
+    };
   }, [ready, onComplete]);
 
   return (
-    <>
+    <div ref={rootRef}>
       {!ready && (
         <div
           ref={overlayRef}
@@ -183,6 +195,6 @@ export function Preloader({ children, onComplete }: PreloaderProps) {
       <MotionReadyProvider ready={ready}>
         {children}
       </MotionReadyProvider>
-    </>
+    </div>
   );
 }

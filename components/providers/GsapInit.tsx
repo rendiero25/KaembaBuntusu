@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { ScrollTrigger } from "@/lib/gsap";
-import { destroyLenis, ensureScrollAnimation, initLenis, refreshScroll } from "@/lib/lenis";
+import { ensureScrollAnimation, initLenis, refreshScroll } from "@/lib/lenis";
 
 export function GsapInit() {
   useEffect(() => {
     ensureScrollAnimation();
-    const lenis = initLenis();
+    initLenis();
 
     const refreshScrollTriggers = () => {
       refreshScroll();
@@ -33,8 +32,8 @@ export function GsapInit() {
       window.removeEventListener("load", refreshScrollTriggers);
       window.removeEventListener("resize", refreshScrollTriggers);
       resizeObserver?.disconnect();
-      destroyLenis(lenis);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      // Lenis is a singleton for the app lifetime — do not destroy here.
+      // destroyLenis() breaks ScrollTriggers in React Strict Mode remounts.
     };
   }, []);
 

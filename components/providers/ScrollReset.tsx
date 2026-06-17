@@ -15,10 +15,25 @@ export function ScrollReset() {
       window.scrollTo(0, 0);
     }
 
-    // Do not kill all ScrollTriggers here — useGSAP runs in useLayoutEffect
-    // before this effect, so a global kill leaves reveal targets stuck at opacity: 0.
-    // Each animated component cleans up its own triggers on unmount.
-    refreshScroll();
+    const frameIds: number[] = [];
+    const timeouts: number[] = [];
+
+    const refresh = () => refreshScroll();
+
+    refresh();
+    frameIds.push(
+      requestAnimationFrame(() => {
+        refresh();
+        frameIds.push(requestAnimationFrame(refresh));
+      }),
+    );
+    timeouts.push(window.setTimeout(refresh, 100));
+    timeouts.push(window.setTimeout(refresh, 350));
+
+    return () => {
+      frameIds.forEach((id) => cancelAnimationFrame(id));
+      timeouts.forEach((id) => window.clearTimeout(id));
+    };
   }, [pathname]);
 
   return null;

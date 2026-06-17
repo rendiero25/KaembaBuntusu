@@ -80,6 +80,23 @@ export const metadata: Metadata = {
       "Agricultural commodity exports from Sulawesi. Direct sourcing, export-grade quality.",
     images: [OG_IMAGE.url],
   },
+  manifest: "/images/favicon/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/images/favicon/favicon.ico", sizes: "any" },
+      {
+        url: "/images/favicon/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        url: "/images/favicon/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+    ],
+    apple: "/images/favicon/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -103,7 +120,10 @@ export default function RootLayout({
           type="image/jpeg"
         />
       </head>
-      <body className="flex min-h-dvh flex-col bg-bg text-ivory font-body">
+      <body
+        className="flex min-h-dvh flex-col bg-bg text-ivory font-body"
+        suppressHydrationWarning
+      >
         <JsonLd data={getOrganizationJsonLd()} />
         <SiteProviders>{children}</SiteProviders>
         <Analytics />

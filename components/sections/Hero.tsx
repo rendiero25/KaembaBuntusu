@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { gsap, ScrollTrigger, SplitText } from "@/lib/gsap";
+import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 import { EASE, HERO_IMAGE, HERO_WORLD_IMAGE, HERO_WORLD_IMAGE_DARK, WA_LINK } from "@/lib/constants";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -34,19 +34,19 @@ export function Hero({ ready = false }: HeroProps) {
   const badgesRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!ready || !worldWrapRef.current) return;
+  useGSAP(
+    () => {
+      if (!ready || !worldWrapRef.current) return;
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-    if (prefersReduced) {
-      gsap.set(worldWrapRef.current, { opacity: 1, scale: 1, y: 0 });
-      return;
-    }
+      if (prefersReduced) {
+        gsap.set(worldWrapRef.current, { opacity: 1, scale: 1, y: 0 });
+        return;
+      }
 
-    const ctx = gsap.context(() => {
       gsap.fromTo(
         worldWrapRef.current,
         { opacity: 0, scale: 0.94, y: 24 },
@@ -68,21 +68,18 @@ export function Hero({ ready = false }: HeroProps) {
         repeat: -1,
         delay: 1.6,
       });
-    }, sectionRef);
+    },
+    { dependencies: [ready], scope: sectionRef },
+  );
 
-    return () => ctx.revert();
-  }, [ready]);
+  useGSAP(
+    () => {
+      if (!ready) return;
 
-  useEffect(() => {
-    if (!ready || !sectionRef.current) return;
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    let split: SplitText | null = null;
-
-    const ctx = gsap.context(() => {
       const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const sub = subRef.current;
@@ -98,7 +95,25 @@ export function Hero({ ready = false }: HeroProps) {
         return;
       }
 
-      split = SplitText.create(headline, { type: "lines,words" });
+      let split: SplitText | null = null;
+
+      try {
+        split = SplitText.create(headline, { type: "lines,words" });
+      } catch {
+        gsap.fromTo(
+          [eyebrow, headline, sub, cta.children, badges.children],
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: EASE.out,
+            delay: 0.1,
+          },
+        );
+        return;
+      }
 
       gsap.set(eyebrow, { y: 24, opacity: 0 });
       gsap.set(split.words, { y: 80, opacity: 0 });
@@ -179,27 +194,13 @@ export function Hero({ ready = false }: HeroProps) {
           },
         });
       }
-    }, sectionRef);
 
-    return () => {
-      split?.revert();
-      if (!prefersReduced) {
-        const eyebrow = eyebrowRef.current;
-        const headline = headlineRef.current;
-        const sub = subRef.current;
-        const cta = ctaRef.current;
-        const badges = badgesRef.current;
-        if (eyebrow && headline && sub && cta && badges) {
-          gsap.set([eyebrow, headline, sub, cta, badges], {
-            clearProps: "opacity,transform",
-          });
-          gsap.set(cta.children, { clearProps: "opacity,transform" });
-          gsap.set(badges.children, { clearProps: "opacity,transform" });
-        }
-      }
-      ctx.revert();
-    };
-  }, [ready]);
+      return () => {
+        split?.revert();
+      };
+    },
+    { dependencies: [ready], scope: sectionRef, revertOnUpdate: true },
+  );
 
   return (
     <section

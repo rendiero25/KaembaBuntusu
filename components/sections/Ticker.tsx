@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { TICKER_ITEMS, TICKER_LOOP_DURATION } from "@/lib/constants";
 
 function TickerStrip() {
@@ -29,46 +29,42 @@ export function Ticker() {
   const trackRef = useRef<HTMLDivElement>(null);
   const loopRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const track = trackRef.current;
-    const loop = loopRef.current;
-    if (!section || !track || !loop) return;
+  useGSAP(
+    () => {
+      const track = trackRef.current;
+      const loop = loopRef.current;
+      if (!track || !loop) return;
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReduced) return;
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (prefersReduced) return;
 
-    let tween: gsap.core.Tween | null = null;
+      let tween: gsap.core.Tween | null = null;
 
-    const startTween = () => {
-      tween?.kill();
-      gsap.set(track, { x: 0 });
-      tween = gsap.to(track, {
-        x: -loop.offsetWidth,
-        duration: TICKER_LOOP_DURATION,
-        ease: "none",
-        repeat: -1,
-      });
-    };
+      const startTween = () => {
+        tween?.kill();
+        gsap.set(track, { x: 0 });
+        tween = gsap.to(track, {
+          x: -loop.offsetWidth,
+          duration: TICKER_LOOP_DURATION,
+          ease: "none",
+          repeat: -1,
+        });
+      };
 
-    const handleResize = () => {
       startTween();
-    };
 
-    const ctx = gsap.context(() => {
-      startTween();
-    }, sectionRef);
+      const handleResize = () => startTween();
+      window.addEventListener("resize", handleResize);
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      tween?.kill();
-      ctx.revert();
-    };
-  }, []);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        tween?.kill();
+      };
+    },
+    { scope: sectionRef },
+  );
 
   return (
     <section

@@ -204,6 +204,14 @@ export const PRODUCT_CAROUSEL: Partial<
       src: "/images/products/copra2.jpeg",
       alt: "Sun-dried copra sorted and prepared for export packing",
     },
+    {
+      src: "/images/products/copra3.jpeg",
+      alt: "Export-grade copra halves displayed on mesh sacks at packing facility",
+    },
+    {
+      src: "/images/products/copra4.jpeg",
+      alt: "Processed copra pieces graded for industrial oil extraction",
+    },
   ],
   "cacao-bean": [
     {

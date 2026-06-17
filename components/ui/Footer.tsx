@@ -16,7 +16,6 @@ export function Footer() {
     selector: "[data-footer-reveal]",
     start: "top 92%",
     y: 28,
-    stagger: 0.08,
   });
 
   return (

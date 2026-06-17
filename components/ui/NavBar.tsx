@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { ensureScrollAnimation, lockScroll, unlockScroll } from "@/lib/lenis";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { NAV_LINKS, Z_INDEX } from "@/lib/constants";
@@ -18,10 +18,10 @@ export function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const showSolid = !isHome || scrolled;
 
-  useEffect(() => {
-    ensureScrollAnimation();
+  useGSAP(
+    () => {
+      ensureScrollAnimation();
 
-    const ctx = gsap.context(() => {
       ScrollTrigger.create({
         start: 0,
         end: "max",
@@ -29,10 +29,9 @@ export function NavBar() {
           setScrolled(self.scroll() > 48);
         },
       });
-    }, navRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    { scope: navRef },
+  );
 
   useEffect(() => {
     if (menuOpen) {

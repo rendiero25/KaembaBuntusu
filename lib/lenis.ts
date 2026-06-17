@@ -7,57 +7,6 @@ const NAV_SCROLL_OFFSET = 72;
 
 let lenisInstance: Lenis | null = null;
 let rafCallback: ((time: number) => void) | null = null;
-let scrollerElement: HTMLElement | null = null;
-let refreshHandler: (() => void) | null = null;
-
-function getScrollerElement(): HTMLElement {
-  return document.documentElement;
-}
-
-function setupScrollerProxy(lenis: Lenis): void {
-  const scroller = getScrollerElement();
-  scrollerElement = scroller;
-
-  ScrollTrigger.scrollerProxy(scroller, {
-    scrollTop(value) {
-      if (arguments.length && typeof value === "number") {
-        lenis.scrollTo(value, { immediate: true });
-      }
-      return lenis.scroll;
-    },
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    },
-    pinType:
-      document.body.style.transform !== "" ? "transform" : "fixed",
-  });
-
-  ScrollTrigger.defaults({ scroller });
-
-  lenis.on("scroll", ScrollTrigger.update);
-
-  refreshHandler = () => {
-    lenis.resize();
-  };
-  ScrollTrigger.addEventListener("refresh", refreshHandler);
-}
-
-function teardownScrollerProxy(): void {
-  if (refreshHandler) {
-    ScrollTrigger.removeEventListener("refresh", refreshHandler);
-    refreshHandler = null;
-  }
-
-  if (scrollerElement) {
-    ScrollTrigger.scrollerProxy(scrollerElement, {});
-    scrollerElement = null;
-  }
-}
 
 export function getLenis(): Lenis | null {
   return lenisInstance;
@@ -68,7 +17,7 @@ export function refreshScroll(): void {
   ScrollTrigger.refresh();
 }
 
-/** Ensure Lenis + ScrollTrigger scroller proxy exist before creating triggers. */
+/** Ensure Lenis + ScrollTrigger bridge exist before creating triggers. */
 export function ensureScrollAnimation(): Lenis | null {
   return initLenis();
 }
@@ -80,9 +29,8 @@ export function initLenis(): Lenis | null {
   const prefersReduced = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
-  if (prefersReduced || isCoarsePointer) return null;
+  if (prefersReduced) return null;
 
   const lenis = new Lenis({
     lerp: 0.085,
@@ -99,7 +47,8 @@ export function initLenis(): Lenis | null {
       ),
   });
 
-  setupScrollerProxy(lenis);
+  // Lenis 1.3 + GSAP: no scrollerProxy — update ScrollTrigger on Lenis scroll.
+  lenis.on("scroll", ScrollTrigger.update);
 
   rafCallback = (time: number) => {
     lenis.raf(time * 1000);
@@ -109,7 +58,11 @@ export function initLenis(): Lenis | null {
   gsap.ticker.lagSmoothing(0);
 
   lenisInstance = lenis;
-  document.documentElement.classList.add("lenis");
+  document.documentElement.classList.add("lenis", "lenis-smooth");
+
+  requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+  });
 
   return lenis;
 }
@@ -122,10 +75,9 @@ export function destroyLenis(lenis: Lenis | null): void {
     rafCallback = null;
   }
 
-  teardownScrollerProxy();
   lenis.destroy();
   lenisInstance = null;
-  document.documentElement.classList.remove("lenis");
+  document.documentElement.classList.remove("lenis", "lenis-smooth");
 }
 
 export function lockScroll(): void {
