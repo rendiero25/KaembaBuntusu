@@ -27,6 +27,7 @@ function buildInquiryEmailHtml(data: InquiryFormData): string {
 
   return `
     <h2>New inquiry from ${data.name}</h2>
+    <p><strong>Email:</strong> ${data.email}</p>
     <p><strong>Company:</strong> ${company}</p>
     <p><strong>Country:</strong> ${data.country}</p>
     <p><strong>WhatsApp / Phone:</strong> ${phone}</p>

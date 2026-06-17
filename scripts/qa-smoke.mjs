@@ -87,6 +87,12 @@ assert(
   "InquiryForm renders a required email input",
 );
 
+const actions = read("lib/actions.ts");
+assert(
+  actions.includes("data.email"),
+  "Inquiry notification email includes the buyer's email address",
+);
+
 if (failures.length > 0) {
   console.error("QA smoke checks failed:\n");
   for (const failure of failures) {
