@@ -50,9 +50,11 @@ export async function sendInquiryAction(
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_EMAIL_TO;
+  const to = process.env.CONTACT_EMAIL_TO?.split(",")
+    .map((email) => email.trim())
+    .filter(Boolean);
 
-  if (!apiKey || !to) {
+  if (!apiKey || !to || to.length === 0) {
     if (process.env.NODE_ENV === "development") {
       return { success: true };
     }
@@ -72,7 +74,7 @@ export async function sendInquiryAction(
 
     const { error } = await resend.emails.send({
       from,
-      to: [to],
+      to,
       subject: `Inquiry from ${parsed.data.name} (${parsed.data.country})`,
       html: buildInquiryEmailHtml(parsed.data),
     });
