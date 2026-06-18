@@ -6,9 +6,6 @@ export const inquirySchema = z.object({
   company: z.string().optional(),
   country: z.string().min(1, "Country is required"),
   phone: z.string().optional(),
-  products: z
-    .array(z.enum(["coconut", "copra", "cloves", "pepper", "cacao-bean"]))
-    .min(1, "Select at least one product"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 

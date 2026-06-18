@@ -6,6 +6,8 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { CONTACT_FAQ } from "@/lib/content";
 import {
   COMPANY_ADDRESS,
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_LINK,
   INSTAGRAM_URL,
   LINKEDIN_URL,
   WA_DISPLAY,
@@ -47,6 +49,17 @@ export function ContactPageContent() {
                     className="font-heading text-xl text-ivory transition-colors hover:text-gold"
                   >
                     {WA_DISPLAY}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-label text-sage">Email</dt>
+                <dd className="mt-2">
+                  <a
+                    href={CONTACT_EMAIL_LINK}
+                    className="font-heading text-xl text-ivory transition-colors hover:text-gold"
+                  >
+                    {CONTACT_EMAIL}
                   </a>
                 </dd>
               </div>

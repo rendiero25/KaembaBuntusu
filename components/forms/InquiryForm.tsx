@@ -21,14 +21,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  BUYER_COUNTRIES,
-  INQUIRY_PRODUCT_OPTIONS,
-  WA_LINK,
-} from "@/lib/constants";
+import { BUYER_COUNTRIES, WA_LINK } from "@/lib/constants";
 import { sendInquiryAction } from "@/lib/actions";
 import { inquirySchema, type InquiryFormData } from "@/lib/inquirySchema";
-import { cn } from "@/lib/utils";
 
 const defaultValues: InquiryFormData = {
   name: "",
@@ -36,7 +31,6 @@ const defaultValues: InquiryFormData = {
   company: "",
   country: "",
   phone: "",
-  products: [],
   message: "",
 };
 
@@ -193,48 +187,6 @@ export function InquiryForm() {
                   ))}
                 </SelectContent>
               </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="products"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-body text-lg font-semibold text-ivory">
-                Product <span className="text-gold">*</span>
-              </FormLabel>
-              <FormControl>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  {INQUIRY_PRODUCT_OPTIONS.map((option) => {
-                    const selected = field.value.includes(option.value);
-
-                    return (
-                      <button
-                        key={option.value}
-                        type="button"
-                        aria-pressed={selected}
-                        onClick={() => {
-                          const next = selected
-                            ? field.value.filter((v) => v !== option.value)
-                            : [...field.value, option.value];
-                          field.onChange(next);
-                        }}
-                        className={cn(
-                          "rounded-sm border px-3 py-2.5 font-body text-base font-medium transition-colors",
-                          selected
-                            ? "border-gold bg-gold/10 text-gold"
-                            : "border-border bg-bg text-sage hover:border-gold/30",
-                        )}
-                      >
-                        {option.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </FormControl>
               <FormMessage />
             </FormItem>
           )}

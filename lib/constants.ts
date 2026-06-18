@@ -35,6 +35,10 @@ export const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
   "Hello, I'm interested in your products.",
 )}`;
 
+export const CONTACT_EMAIL = "marketing@kaembabuntusu.com";
+
+export const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`;
+
 export const LINKEDIN_URL =
   "https://www.linkedin.com/in/kaemba-buntusu-365248416";
 
@@ -500,14 +504,6 @@ export const COMPANY_ADDRESS = {
   line2: "Makassar City, Sulawesi",
   line3: "Indonesia",
 } as const;
-
-export const INQUIRY_PRODUCT_OPTIONS = [
-  { value: "coconut" as const, label: "Coconut" },
-  { value: "copra" as const, label: "Copra" },
-  { value: "cloves" as const, label: "Cloves" },
-  { value: "pepper" as const, label: "Pepper" },
-  { value: "cacao-bean" as const, label: "Cacao Bean" },
-] as const;
 
 export const BUYER_COUNTRIES = [
   "China",

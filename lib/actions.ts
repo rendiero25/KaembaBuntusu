@@ -1,7 +1,6 @@
 "use server";
 
 import { Resend } from "resend";
-import { INQUIRY_PRODUCT_OPTIONS } from "@/lib/constants";
 import {
   inquirySchema,
   type InquiryFormData,
@@ -13,14 +12,6 @@ export type InquiryActionResult =
   | { success: true }
   | { success: false; error: string };
 
-function formatProducts(products: InquiryFormData["products"]): string {
-  const labels = new Map(
-    INQUIRY_PRODUCT_OPTIONS.map((option) => [option.value, option.label]),
-  );
-
-  return products.map((slug) => labels.get(slug) ?? slug).join(", ");
-}
-
 function buildInquiryEmailHtml(data: InquiryFormData): string {
   const company = data.company?.trim() ? data.company : "Not provided";
   const phone = data.phone?.trim() ? data.phone : "Not provided";
@@ -31,10 +22,25 @@ function buildInquiryEmailHtml(data: InquiryFormData): string {
     <p><strong>Company:</strong> ${company}</p>
     <p><strong>Country:</strong> ${data.country}</p>
     <p><strong>WhatsApp / Phone:</strong> ${phone}</p>
-    <p><strong>Products:</strong> ${formatProducts(data.products)}</p>
     <p><strong>Message:</strong></p>
     <p>${data.message.replace(/\n/g, "<br />")}</p>
   `;
+}
+
+function buildInquiryEmailText(data: InquiryFormData): string {
+  const company = data.company?.trim() ? data.company : "Not provided";
+  const phone = data.phone?.trim() ? data.phone : "Not provided";
+
+  return [
+    `New inquiry from ${data.name}`,
+    `Email: ${data.email}`,
+    `Company: ${company}`,
+    `Country: ${data.country}`,
+    `WhatsApp / Phone: ${phone}`,
+    ``,
+    `Message:`,
+    data.message,
+  ].join("\n");
 }
 
 export async function sendInquiryAction(
@@ -77,6 +83,7 @@ export async function sendInquiryAction(
       to,
       subject: `Inquiry from ${parsed.data.name} (${parsed.data.country})`,
       html: buildInquiryEmailHtml(parsed.data),
+      text: buildInquiryEmailText(parsed.data),
     });
 
     if (error) {
